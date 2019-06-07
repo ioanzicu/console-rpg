@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Character.h"
 #include "functions.h"
 #include <iostream>
-#include <cstring>
 #include <iomanip>
 #include <ctime>
 

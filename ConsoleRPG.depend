@@ -9,13 +9,16 @@
 
 1559891989 /home/iro/Public/c++/game/ConsoleRPG/functions.h
 
-1559891889 /home/iro/Public/c++/game/ConsoleRPG/Game.h
+1559893470 /home/iro/Public/c++/game/ConsoleRPG/Game.h
+	"Character.h"
 	"functions.h"
 	<iostream>
-	<cstring>
 	<iomanip>
 	<ctime>
 
-1559891962 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1559892057 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
+
+1559894341 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+	<string>
 
