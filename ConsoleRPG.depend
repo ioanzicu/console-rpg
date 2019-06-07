@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1559891906 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
+	<iostream>
+	<cstring>
+	<iomanip>
+	<ctime>
+	"functions.h"
+	"Game.h"
+
+1559891989 /home/iro/Public/c++/game/ConsoleRPG/functions.h
+
+1559891889 /home/iro/Public/c++/game/ConsoleRPG/Game.h
+	"functions.h"
+	<iostream>
+	<cstring>
+	<iomanip>
+	<ctime>
+
+1559891962 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+	"Game.h"
+
