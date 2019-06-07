@@ -1,7 +1,10 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <iostream>
+#include <iomanip>
 #include <string>
+#include <math.h>
 
 class Character
 {
@@ -10,7 +13,9 @@ class Character
         virtual ~Character();
 
     // Functions
-    void initialize(int level, std::string name);
+    void initialize(const std::string name);
+    void displayCharacter() const;
+    void levelUp();
 
     // Accessors
     inline const double& getxPos() const { return this->xPos; }
@@ -39,12 +44,23 @@ class Character
         int level;
         int exp;
         int expNext;
+
+        int strength;
+        int vitality;
+        int dexterity;
+        int intelligence;
+
         int hp;
         int hpMax;
         int stamina;
+        int staminaMax;
         int damageMin;
         int damageMax;
         int defence;
+        int luck;
+
+        int statPoints;
+        int skillPoints;
 };
 
 #endif // CHARACTER_H

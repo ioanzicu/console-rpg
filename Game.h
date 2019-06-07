@@ -1,13 +1,6 @@
-#pragma once
-
 #include "Character.h"
 #include "functions.h"
-#include <iostream>
-#include <iomanip>
 #include <ctime>
-
-
-
 
 #ifndef GAME_H
 #define GAME_H
@@ -21,6 +14,7 @@ class Game
     // Operators
 
     // Functions
+    void initGame();
     void mainMenu();
 
     // Accessors
@@ -33,6 +27,9 @@ class Game
     private:
         int choice;
         bool playing;
+
+        // Character
+        Character character;
 
 };
 
