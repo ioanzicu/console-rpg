@@ -16,17 +16,18 @@
 	<vector>
 	<fstream>
 
-1559990047 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1560010873 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1560008099 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1560010241 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"Inventory.h"
+	"Enemy.h"
 	<iostream>
 	<iomanip>
 	<string>
 	<math.h>
 
-1559988798 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1560009712 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
 1560008134 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
@@ -58,4 +59,11 @@
 
 1559991291 source:/home/iro/Public/c++/game/ConsoleRPG/Weapon.cpp
 	"Weapon.h"
+
+1560010774 /home/iro/Public/c++/game/ConsoleRPG/Enemy.h
+	<stdlib.h>
+	<string>
+
+1560010839 source:/home/iro/Public/c++/game/ConsoleRPG/Enemy.cpp
+	"Enemy.h"
 

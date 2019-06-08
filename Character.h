@@ -2,6 +2,7 @@
 #define CHARACTER_H
 
 #include "Inventory.h"
+#include "Enemy.h"
 
 #include <iostream>
 #include <iomanip>
@@ -33,6 +34,7 @@ class Character
         inline const int& getDamageMin() const { return this->damageMin; }
         inline const int& getDamageMax() const { return this->damageMax; }
         inline const int& getDefence() const { return this->defence; }
+        inline const int& getAccuracy() const { return this->accuracy; }
 
         // Modifier
 
@@ -67,6 +69,7 @@ class Character
         int damageMin;
         int damageMax;
         int defence;
+        int accuracy;
         int luck;
 
         int statPoints;

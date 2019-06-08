@@ -18,20 +18,6 @@ Game::~Game()
 // Functions
 void Game::initGame()
 {
-    Inventory inv;
-
-    inv.addItem(Weapon(0,0,"wep1"));
-    inv.addItem(Weapon(0,0,"wep2"));
-    inv.addItem(Weapon(0,0,"wep3"));
-    inv.addItem(Armor(0,0,"arm1"));
-    inv.addItem(Armor(0,0,"arm2"));
-    inv.addItem(Armor(0,0,"arm3"));
-
-    for (size_t i = 0; i < inv.size(); i++)
-    {
-        std::cout << inv[i].debugPrint() << std::endl;
-    }
-
     createCharacter();
 }
 
@@ -97,11 +83,6 @@ void Game::createCharacter()
     characters[activeCharacter].initialize(name);
 }
 
-void Game::loadCharacters()
-{
-
-}
-
 void Game::saveCharacters()
 {
     std::ofstream outFile(this->fileName);
@@ -117,4 +98,14 @@ void Game::saveCharacters()
     }
 
     outFile.close();
+}
+
+void Game::loadCharacters()
+{
+
+}
+
+void Game::Travel()
+{
+
 }

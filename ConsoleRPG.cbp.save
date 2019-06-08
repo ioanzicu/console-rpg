@@ -38,6 +38,8 @@
 		<Unit filename="Armor.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Enemy.h" />
 		<Unit filename="Functions.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
