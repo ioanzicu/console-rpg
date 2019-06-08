@@ -100,7 +100,7 @@ void Character::displayCharacter() const
 
 void Character::levelUp()
 {
-    while (exp >= this->expNext)
+    if (exp >= this->expNext)
     {
         this->exp -= this->expNext;
         this->level++;
@@ -112,6 +112,11 @@ void Character::levelUp()
         this->statPoints++;
         this->skillPoints++;
 
+        std::cout << "YOU ARE NOW LEVEL " << this->level << " !!!" << std::endl << std::endl;
+    }
+    else
+    {
+        std::cout << "NOT ENOUGH EXP!" << std::endl << std::endl;
     }
 }
 

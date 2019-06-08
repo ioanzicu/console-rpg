@@ -23,7 +23,15 @@ void Game::initGame()
 
 void Game::mainMenu()
 {
-    std::cout << "* MAIN MENU *" << std::endl << std::endl;
+    if (this->characters[activeCharacter].getExp() >=
+        this->characters[activeCharacter].getExpNext())
+    {
+        std::cout << std::endl << "+++++++++++++++++++++++++++" << std::endl;
+        std::cout << "+++ LEVEL UP AVAILABLE! +++" << std::endl;
+        std::cout << "+++++++++++++++++++++++++++" << std::endl << std::endl;
+    }
+
+    std::cout << "*** MAIN MENU ***" << std::endl << std::endl;
 
     std::cout << "0: Quit" << std::endl;
     std::cout << "1: Travel" << std::endl;
@@ -52,7 +60,10 @@ void Game::mainMenu()
 
             break;
 
+        case 3: // LEVEL UP
+            this->characters[activeCharacter].levelUp();
 
+            break;
 
         case 5: // DISPLYA CHARACTER SHEET
             characters[activeCharacter].displayCharacter();

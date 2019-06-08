@@ -43,6 +43,8 @@ void Event::puzzleEncounter(Character &character)
     bool completed = false;
     int userAns = 0;
     int chances = 3;
+    // EXPE BETWEEN 1 and 10
+    int gainExp = (chances * character.getLevel() * (rand() % 10 + 1));
 
     std::cout << "Travel " << std::endl;
 
@@ -50,8 +52,10 @@ void Event::puzzleEncounter(Character &character)
 
     while (!completed && chances > 0)
     {
+        std::cout << "Chances: " << chances << std::endl;
         // Decrement the chance
         chances--;
+
         // Display Question
         std::cout << puzzle.getAsString() << std::endl;
 
@@ -62,16 +66,18 @@ void Event::puzzleEncounter(Character &character)
         if (puzzle.getCorrectAns() == userAns)
         {
             completed = true;
-            // GIVE USER EXP ETC AND CONTINUE
+            // Get addiction la exp for correct answer
+            character.gainExp(gainExp);
+            std::cout << "YOU GAINED " << gainExp << " EXP!" << std::endl << std::endl;
         }
     }
 
     if (completed)
     {
-        std::cout << "Congratulations, You are Right!!!" << std::endl;
+        std::cout << "Congratulations, You are Right!!!\n\b";
     }
     else
     {
-        std::cout << "You LOST :(" << std::endl;
+        std::cout << "You LOST :(\n\n";
     }
 }
