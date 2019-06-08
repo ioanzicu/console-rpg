@@ -9,38 +9,53 @@
 
 1559891989 /home/iro/Public/c++/game/ConsoleRPG/functions.h
 
-1559986108 /home/iro/Public/c++/game/ConsoleRPG/Game.h
+1559989866 /home/iro/Public/c++/game/ConsoleRPG/Game.h
 	"Character.h"
-	"functions.h"
+	"Functions.h"
 	<ctime>
 	<vector>
 	<fstream>
 
-1559985860 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1559990047 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1559983856 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1559991537 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"Inventory.h"
 	<iostream>
 	<iomanip>
 	<string>
 	<math.h>
 
-1559984376 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1559988798 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
-1559982541 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
-	"Item.h"
+1559989807 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
+	"Weapon.h"
+	"Armor.h"
 
-1559982603 /home/iro/Public/c++/game/ConsoleRPG/Item.h
+1559990999 /home/iro/Public/c++/game/ConsoleRPG/Item.h
 	<iostream>
 	<iomanip>
 	<string>
 	<math.h>
 
-1559981967 source:/home/iro/Public/c++/game/ConsoleRPG/Item.cpp
+1559990399 source:/home/iro/Public/c++/game/ConsoleRPG/Item.cpp
 	"Item.h"
 
-1559982325 source:/home/iro/Public/c++/game/ConsoleRPG/Inventory.cpp
+1559991277 source:/home/iro/Public/c++/game/ConsoleRPG/Inventory.cpp
 	"Inventory.h"
+
+1559991098 /home/iro/Public/c++/game/ConsoleRPG/Weapon.h
+	"Item.h"
+
+1559991358 /home/iro/Public/c++/game/ConsoleRPG/Armor.h
+	"Item.h"
+
+1559893333 /home/iro/Public/c++/game/ConsoleRPG/Functions.h
+
+1559990779 source:/home/iro/Public/c++/game/ConsoleRPG/Armor.cpp
+	"Armor.h"
+
+1559991291 source:/home/iro/Public/c++/game/ConsoleRPG/Weapon.cpp
+	"Weapon.h"
 

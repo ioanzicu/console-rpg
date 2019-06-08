@@ -1,5 +1,5 @@
 #include "Character.h"
-#include "functions.h"
+#include "Functions.h"
 #include <ctime>
 #include <vector>
 #include <fstream>

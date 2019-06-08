@@ -29,14 +29,9 @@ void Inventory::expend()
     for (size_t i = 0; i < this->nrOfItems; i++)
     {
         // Copy elements from itemArr to tempArr
-        tempArr[i] =  new Item(*this->itemArr[i]);
+         tempArr[i] = this->itemArr[i];
     }
 
-    for (size_t i = 0; i < this->nrOfItems; i++)
-    {
-        // delete pointer in itemArr after copy
-        delete this->itemArr[i]; // save memory
-    }
     // delete pointer itemArr - old version
     delete[] this->itemArr;
     // assign itemArr to new inventory (tempArr)
@@ -66,7 +61,7 @@ void Inventory::addItem(const Item& item)
         expend();
     }
     // Add new item -> hang it to the (next) pointe
-    this->itemArr[this->nrOfItems++] = new Item(item); // use copy constructor
+    this->itemArr[this->nrOfItems++] = item.clone(); //copy
 }
 
 // Remove item, find by index and remove

@@ -19,6 +19,8 @@ Game::~Game()
 void Game::initGame()
 {
     createCharacter();
+    Weapon w1(2, 5, "ddc", 1, 100, 100, 1);
+    std::cout << w1.toString() << std::endl;
 }
 
 void Game::mainMenu()
@@ -95,7 +97,8 @@ void Game::saveCharacters()
     if (outFile.is_open())
     {
         // loop throught characet vector and append to file
-       for (size_t i = 0; i < characters.size(); i++)
+       for (size_t i = 0; i < characters.size();
+        i++)
        {
            outFile << characters[i].getAsString() << "\n"; // new line
        }
