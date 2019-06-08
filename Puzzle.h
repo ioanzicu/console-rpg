@@ -13,6 +13,8 @@ class Puzzle
         virtual ~Puzzle();
         std::string getAsString();
 
+        const int& getCorrectAns() const { return this->correctAnswer; };
+
     protected:
 
     private:

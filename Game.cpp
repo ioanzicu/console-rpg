@@ -19,8 +19,6 @@ Game::~Game()
 void Game::initGame()
 {
     createCharacter();
-    Puzzle p("lel.txt");
-    std::cout << p.getAsString() << std::endl;
 }
 
 void Game::mainMenu()
@@ -44,25 +42,33 @@ void Game::mainMenu()
 
     switch (choice)
     {
-        case 0:
+        case 0: // QUIT
             playing = false;
             break;
 
-        case 5:
+        case 1: // TRAVEL
+
+            Travel();
+
+            break;
+
+
+
+        case 5: // DISPLYA CHARACTER SHEET
             characters[activeCharacter].displayCharacter();
             break;
 
-        case 6:
+        case 6: // CREATE CHARACTER
             std::cin.ignore();
             createCharacter();
             saveCharacters();
             break;
 
-        case 7:
+        case 7: // SAVE
             saveCharacters();
             break;
 
-        case 8:
+        case 8: // LOAD
             loadCharacters();
             break;
 
