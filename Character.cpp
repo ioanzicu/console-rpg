@@ -43,9 +43,9 @@ void Character::initialize(const std::string name)
     this->level = 1;
     this->exp = 0;
     // Level formula
-    this->expNext = (50/3)*(pow(level,3) -
-                        6*pow(level,3) +
-                        (17*level) - 11);
+    this->expNext = static_cast<int>((50 / 3)*(pow(level, 3) -
+                        6 * pow(level, 2) +
+                        (17 * level) - 12) + 100);
 
     this->strength = 0;
     this->vitality = 0;
@@ -95,10 +95,10 @@ void Character::levelUp()
     {
         this->exp -= this->expNext;
         this->level++;
-        this->expNext =
-        (50 / 3) * (pow(this->level, 3) -
-            6 * pow(this->level, 3) +
-            (17 * this->level) - 11);
+        this->expNext = static_cast<int>((50 / 3)*(pow(level, 3) -
+                        6 * pow(level, 2) +
+                        (17 * level) - 12));
+
 
         this->statPoints++;
         this->skillPoints++;
