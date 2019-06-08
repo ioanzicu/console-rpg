@@ -4,6 +4,10 @@ Game::Game()
 {
     choice = 0;
     playing = true;
+    activeCharacter = 0;
+    // .txt - ensure the file will be open by
+    // default with text editor
+    fileName = "characters.txt";
 }
 
 Game::~Game()
@@ -14,11 +18,7 @@ Game::~Game()
 // Functions
 void Game::initGame()
 {
-    std::string name;
-    std::cout << "Enter name for character: " << std::endl;
-    getline(std::cin, name);
-
-    character.initialize(name);
+    createCharacter();
 }
 
 void Game::mainMenu()
@@ -31,10 +31,14 @@ void Game::mainMenu()
     std::cout << "3: Level Up" << std::endl;
     std::cout << "4: Rest" << std::endl;
     std::cout << "5: Character sheet" << std::endl;
+    std::cout << "6: Create new character" << std::endl;
+    std::cout << "7: Save Character" << std::endl;
+    std::cout << "8: Load Character" << std::endl;
     std::cout << std::endl;
 
     std::cout << std::endl << "Choice: ";
     std::cin >> choice;
+    std::cout << std::endl;
 
     switch (choice)
     {
@@ -43,9 +47,59 @@ void Game::mainMenu()
             break;
 
         case 5:
-            character.displayCharacter();
+            characters[activeCharacter].displayCharacter();
             break;
+
+        case 6:
+            std::cin.ignore();
+            createCharacter();
+            saveCharacters();
+            break;
+
+        case 7:
+            saveCharacters();
+            break;
+
+        case 8:
+            loadCharacters();
+            break;
+
+
         default:
             break;
     }
+}
+
+void Game::createCharacter()
+{
+    std::string name = "";
+    std::cout << "Character name: ";
+    // clear new line form the previous cin
+    std::getline(std::cin, name);
+
+    // activeCharacter is the last element in the vector
+    characters.push_back(Character());
+    activeCharacter = characters.size() - 1;
+    characters[activeCharacter].initialize(name);
+}
+
+void Game::loadCharacters()
+{
+
+}
+
+void Game::saveCharacters()
+{
+    std::ofstream outFile(this->fileName);
+    // if file doesn't exist, it will be created
+    if (outFile.is_open())
+    {
+        // loop throught characet vector and append to file
+       for (size_t i = 0; i < characters.size(); i++)
+       {
+           outFile << characters[i].getAsString() << "\n"; // new line
+       }
+    }
+
+    outFile.close();
 }

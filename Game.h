@@ -1,10 +1,11 @@
 #include "Character.h"
 #include "functions.h"
 #include <ctime>
+#include <vector>
+#include <fstream>
 
 #ifndef GAME_H
 #define GAME_H
-
 
 class Game
 {
@@ -16,6 +17,9 @@ class Game
     // Functions
     void initGame();
     void mainMenu();
+    void createCharacter();
+    void loadCharacters();
+    void saveCharacters();
 
     // Accessors
     inline bool getPlaying() const { return this->playing; }
@@ -28,9 +32,10 @@ class Game
         int choice;
         bool playing;
 
-        // Character
-        Character character;
-
+        // Character related
+        int activeCharacter;
+        std::vector<Character> characters;
+        std::string fileName;
 };
 
 #endif // GAME_H

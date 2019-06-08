@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1559982017 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
+1559985188 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
 	<iostream>
 	<cstring>
 	<iomanip>
@@ -9,22 +9,24 @@
 
 1559891989 /home/iro/Public/c++/game/ConsoleRPG/functions.h
 
-1559897003 /home/iro/Public/c++/game/ConsoleRPG/Game.h
+1559986108 /home/iro/Public/c++/game/ConsoleRPG/Game.h
 	"Character.h"
 	"functions.h"
 	<ctime>
+	<vector>
+	<fstream>
 
-1559897464 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1559985860 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1559979158 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1559983856 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"Inventory.h"
 	<iostream>
 	<iomanip>
 	<string>
 	<math.h>
 
-1559978939 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1559984376 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
 1559982541 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h

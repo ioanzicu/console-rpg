@@ -17,6 +17,7 @@ class Character
     void initialize(const std::string name);
     void displayCharacter() const;
     void levelUp();
+    std::string getAsString() const;
 
     // Accessors
     inline const double& getxPos() const { return this->xPos; }

@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include <cstring>
 #include <iomanip>
 #include <ctime>
@@ -11,28 +12,6 @@ int main()
 
     Game game;
     game.initGame();
-
-    Inventory inv;
-/*
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-    inv.addItem(Item());
-*/
-
-    inv.debugPrint();
 
     while(game.getPlaying())
     {
