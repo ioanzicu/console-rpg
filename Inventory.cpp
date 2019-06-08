@@ -2,10 +2,13 @@
 
 Inventory::Inventory()
 {
-    this->capacity = 10;
+    this->capacity = 5;
     this->nrOfItems = 0;
     // Initialiaze Pointer to Pointer Array with new Pointer Array
     this->itemArr = new Item*[this->capacity];
+    // initialize all pointer to nullptr - to not
+    // get errors on deleting uninitialized pointer
+    this->initialize();
 }
 
 Inventory::~Inventory()
@@ -16,12 +19,40 @@ Inventory::~Inventory()
         delete this->itemArr[i];
     }
     // delete the pointer (to) array
-    delete[] itemArr;
+    delete[] this->itemArr;
 }
 
+// copy object with it's particular fields
+Inventory::Inventory(const Inventory &obj)
+{
+    this->capacity = obj.capacity;
+    this->nrOfItems = obj.nrOfItems;
+    this->itemArr = new Item*[this->capacity]; // create new Item Pointer Array
+
+    // Copy each element itemArr in new Item Array
+    for (size_t i = 0; i < this->nrOfItems; i++)
+    {
+        this->itemArr[i] = obj.itemArr[i]->clone();
+    }
+    // initialize to nullptr the pointer inside the array
+    initialize(this->nrOfItems);
+}
+
+// Overloaded index operator
+// Make sure that the index is in the bound of the array
+Item& Inventory::operator[](const int index)
+{
+    if (index < 0 || index >= this->nrOfItems)
+        throw("BAD INDEX!");
+
+    // return an object
+    return *this->itemArr[index];
+}
+
+// Double size of the inventory
 void Inventory::expend()
 {
-    // Duble the capacity
+    // Double the capacity
     this->capacity *= 2;
     //Create new Temp Pointer to pointer arr -> hold double capacity
     Item **tempArr = new Item*[this->capacity];
@@ -55,7 +86,7 @@ void Inventory::initialize(const int from)
 // Add new Item to the itemArr, item passed by reference
 void Inventory::addItem(const Item& item)
 {
-
+    // if nr of item is bigger than capacity, expand (*2)
     if (this->nrOfItems >= this->capacity)
     {
         expend();

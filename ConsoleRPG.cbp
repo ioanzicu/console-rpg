@@ -34,6 +34,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Armor.cpp" />
+		<Unit filename="Armor.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="Functions.h" />
@@ -43,7 +45,8 @@
 		<Unit filename="Inventory.h" />
 		<Unit filename="Item.cpp" />
 		<Unit filename="Item.h" />
-		<Unit filename="functions.h" />
+		<Unit filename="Weapon.cpp" />
+		<Unit filename="Weapon.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<envvars />

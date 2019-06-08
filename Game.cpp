@@ -18,9 +18,21 @@ Game::~Game()
 // Functions
 void Game::initGame()
 {
+    Inventory inv;
+
+    inv.addItem(Weapon(0,0,"wep1"));
+    inv.addItem(Weapon(0,0,"wep2"));
+    inv.addItem(Weapon(0,0,"wep3"));
+    inv.addItem(Armor(0,0,"arm1"));
+    inv.addItem(Armor(0,0,"arm2"));
+    inv.addItem(Armor(0,0,"arm3"));
+
+    for (size_t i = 0; i < inv.size(); i++)
+    {
+        std::cout << inv[i].debugPrint() << std::endl;
+    }
+
     createCharacter();
-    Weapon w1(2, 5, "ddc", 1, 100, 100, 1);
-    std::cout << w1.toString() << std::endl;
 }
 
 void Game::mainMenu()
