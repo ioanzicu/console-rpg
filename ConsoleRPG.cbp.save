@@ -40,6 +40,8 @@
 		<Unit filename="Character.h" />
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
+		<Unit filename="Event.cpp" />
+		<Unit filename="Event.h" />
 		<Unit filename="Functions.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
@@ -47,6 +49,8 @@
 		<Unit filename="Inventory.h" />
 		<Unit filename="Item.cpp" />
 		<Unit filename="Item.h" />
+		<Unit filename="Puzzle.cpp" />
+		<Unit filename="Puzzle.h" />
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.h" />
 		<Unit filename="main.cpp" />

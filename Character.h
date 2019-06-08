@@ -22,8 +22,9 @@ class Character
         std::string getAsString() const;
 
         // Accessors
-        inline const double& getxPos() const { return this->xPos; }
-        inline const double& getyPos() const { return this->yPos; }
+        inline const double& getX() const { return this->xPos; }
+        inline const double& getY() const { return this->yPos; }
+        inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
         inline const std::string& getName() const { return this->name; }
         inline const int getLevel() const { return this->level; }
         inline const int& getExp() const { return this->exp; }
@@ -37,12 +38,17 @@ class Character
         inline const int& getAccuracy() const { return this->accuracy; }
 
         // Modifier
+        inline void setDistanceTraveled(const int& distance) { this->distanceTraveled = distance; }
+        inline void travel() { this->distanceTraveled++; }
+
 
     protected:
 
     private:
         double xPos;
         double yPos;
+
+        int distanceTraveled;
 
         Inventory inventory;
         Weapon weapon;
@@ -51,6 +57,7 @@ class Character
         Armor armor_chest;
         Armor armor_arms;
         Armor armor_legs;
+        int gold;
 
         std::string name;
         int level;
