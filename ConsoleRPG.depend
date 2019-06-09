@@ -9,17 +9,18 @@
 
 1559891989 /home/iro/Public/c++/game/ConsoleRPG/functions.h
 
-1560014715 /home/iro/Public/c++/game/ConsoleRPG/Game.h
+1560065747 /home/iro/Public/c++/game/ConsoleRPG/Game.h
 	"Functions.h"
 	"Event.h"
 	<ctime>
 	<vector>
 	<fstream>
+	<sstream>
 
-1560030111 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1560067072 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1560029443 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1560065737 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"Inventory.h"
 	"Enemy.h"
 	<iostream>
@@ -27,7 +28,7 @@
 	<string>
 	<math.h>
 
-1560030231 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1560065364 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
 1560008134 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
@@ -78,7 +79,7 @@
 	<fstream>
 	<iostream>
 
-1560029289 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
+1560030728 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
 	"Event.h"
 
 1560026014 source:/home/iro/Public/c++/game/ConsoleRPG/Puzzle.cpp

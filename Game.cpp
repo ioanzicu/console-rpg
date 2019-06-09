@@ -104,15 +104,14 @@ void Game::createCharacter()
 
 void Game::saveCharacters()
 {
-    std::ofstream outFile(this->fileName);
+    std::ofstream outFile(fileName);
     // if file doesn't exist, it will be created
     if (outFile.is_open())
     {
         // loop throught characet vector and append to file
-       for (size_t i = 0; i < characters.size();
-        i++)
+       for (size_t i = 0; i < characters.size(); i++)
        {
-           outFile << characters[i].getAsString() << "\n"; // new line
+           outFile << characters[i].getAsString() << std::endl; // new line
        }
     }
 
@@ -121,7 +120,69 @@ void Game::saveCharacters()
 
 void Game::loadCharacters()
 {
+    std::ifstream inFile(fileName);
 
+    // clean/delete old character
+    this->characters.clear();
+
+    std::string name = "";
+    int distanceTraveled = 0;
+    int gold = 0;
+    int level = 0;
+    int exp = 0;
+    int strength = 0;
+    int vitality = 0;
+    int dexterity = 0;
+    int intelligence = 0;
+    int hp = 0;
+    int stamina = 0;
+    int statPoints = 0;
+    int skillPoints = 0;
+
+    std::string line = "";
+    std::stringstream str;
+
+    // if file exist, open
+    if (inFile.is_open())
+    {
+        while (getline(inFile, line))
+        {
+            str.str(line);
+
+            str >> name;
+            str >> distanceTraveled;
+            str >> gold;
+            str >> level;
+            str >> exp;
+            str >> strength;
+            str >> vitality;
+            str >> dexterity;
+            str >> intelligence;
+            str >> hp;
+            str >> stamina;
+            str >> statPoints;
+            str >> skillPoints;
+
+            // Create a character with data loaded from the file
+            Character temp(name, distanceTraveled, gold,
+                      level, exp, strength, vitality,
+                      dexterity, intelligence, hp,
+                      stamina, statPoints, skillPoints);
+
+            this->characters.push_back(Character(temp));
+
+            std::cout << "Character " << name << " Loaded!" << std::endl;
+            // Creal string input for the next stream
+            str.clear();
+        }
+    }
+
+    inFile.close();
+
+    if (this->characters.size() <= 0)
+    {
+        throw "ERROR! NO CHARACTERS LOADED OR EMPTY FILE!";
+    }
 }
 
 void Game::Travel()

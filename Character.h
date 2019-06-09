@@ -13,6 +13,10 @@ class Character
 {
     public:
         Character();
+        Character(std::string name, int distanceTraveled,
+                     int gold, int level, int exp, int strength, int vitality, int dexterity,
+                     int intelligence, int stamina, int hp,
+                     int statPoints, int skillPoints);
         virtual ~Character();
 
         // Functions
@@ -20,10 +24,9 @@ class Character
         void displayCharacter() const;
         void levelUp();
         std::string getAsString() const;
+        void updateStats();
 
         // Accessors
-        inline const double& getX() const { return this->xPos; }
-        inline const double& getY() const { return this->yPos; }
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
         inline const std::string& getName() const { return this->name; }
         inline const int getLevel() const { return this->level; }
@@ -45,9 +48,6 @@ class Character
     protected:
 
     private:
-        double xPos;
-        double yPos;
-
         int distanceTraveled;
 
         Inventory inventory;

@@ -4,6 +4,7 @@
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 #ifndef GAME_H
 #define GAME_H
