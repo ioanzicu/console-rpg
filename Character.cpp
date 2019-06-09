@@ -144,6 +144,51 @@ void Character::updateStats() // after save or loading
     this->luck = this->intelligence;
 }
 
+void Character::addToStat(int stat, int value)
+{
+    // Check if there are statPoints
+    if(this->statPoints < value)
+        std::cout << "ERROR! NOT ENOUGH STATPOINTS!" << std::endl;
+    else
+    {
+        std::cout << "#######################################" << std::endl;
+        switch (stat)
+        {
+            case 0:
+                std::cout << "Strnength was upgraded from: " << this->strength;
+                this->strength += value;
+                std:: cout << " to -> " << this->strength << std::endl;
+                break;
+
+            case 1:
+                std::cout << "Vitality was upgraded from: " << this->vitality;
+                this->vitality +=value;
+                std:: cout << " to -> " << this->vitality << std::endl;
+                break;
+
+            case 2:
+                std::cout << "Dexterity was upgraded from: " << this->dexterity;
+                this->dexterity += value;
+                std:: cout << " to -> " << this->dexterity << std::endl;
+                break;
+
+            case 3:
+                std::cout << "Intelligence was upgraded from: " << this->intelligence;
+                this->intelligence += value;
+                std:: cout << " to -> " << this->intelligence << std::endl;
+                break;
+
+            default:
+                std::cout << "UNDEFINED STAT" << std::endl;
+                break;
+        }
+        std::cout << "#######################################" << std::endl << std::endl;
+
+        // update stat points
+        this->statPoints -= value;
+    }
+}
+
 void Character::levelUp()
 {
     if (exp >= this->expNext)
@@ -158,7 +203,10 @@ void Character::levelUp()
         this->statPoints++;
         this->skillPoints++;
 
+        this->updateStats();
+
         std::cout << "YOU ARE NOW LEVEL " << this->level << " !!!" << std::endl << std::endl;
+
     }
     else
     {

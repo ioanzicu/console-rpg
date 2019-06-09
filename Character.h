@@ -22,9 +22,10 @@ class Character
         // Functions
         void initialize(const std::string name);
         void displayCharacter() const;
-        void levelUp();
         std::string getAsString() const;
+        void levelUp();
         void updateStats();
+        void addToStat(int stat, int value);
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
@@ -32,6 +33,7 @@ class Character
         inline const int getLevel() const { return this->level; }
         inline const int& getExp() const { return this->exp; }
         inline const int& getExpNext() const { return this->expNext; }
+        inline const int& getStatPoints() const { return this->statPoints; };
         inline const int& getHp() const { return this->hp; }
         inline const int& getHpMax() const { return this->hpMax; }
         inline const int& getStamin() const { return this->stamina; }

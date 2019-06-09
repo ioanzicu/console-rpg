@@ -23,6 +23,15 @@ void Game::initGame()
 
 void Game::mainMenu()
 {
+    std::cout << "ENTER to continue..." << "\n";
+    // Wait for a character
+    std::cin.get();
+    // CLEAR THE SCREEN
+    //system("CLS");
+    // Force to clear the iostream before it will be filled
+    std::cout << std::flush;
+
+
     if (this->characters[activeCharacter].getExp() >=
         this->characters[activeCharacter].getExpNext())
     {
@@ -45,10 +54,27 @@ void Game::mainMenu()
     std::cout << std::endl;
 
     std::cout << std::endl << "Choice: ";
-    std::cin >> choice;
+    std::cin >> this->choice;
+
+    // Error checking for input
+    // loop until the input is valid/correct
+    // numerical value, NOT string or char
+    while (std::cin.fail())
+    {
+        std::cout << "Faulty input!" << "\n";
+        // clear the stream
+        std::cin.clear();
+        // ignore 100 chars
+        std::cin.ignore(100, '\n');
+        // enter chice again
+        std::cout << std::endl << "Choice: ";
+        std::cin >> this->choice;
+    }
+
+    std::cin.ignore(100, '\n');
     std::cout << std::endl;
 
-    switch (choice)
+    switch (this->choice)
     {
         case 0: // QUIT
             playing = false;
@@ -61,15 +87,16 @@ void Game::mainMenu()
             break;
 
         case 3: // LEVEL UP
-            this->characters[activeCharacter].levelUp();
-
+            this->levelUpCharacter();
             break;
 
         case 5: // DISPLYA CHARACTER SHEET
+            // std::cout << std::flush;
             characters[activeCharacter].displayCharacter();
             break;
 
         case 6: // CREATE CHARACTER
+            // std::cout << std::flush;
             std::cin.ignore();
             createCharacter();
             saveCharacters();
@@ -100,6 +127,66 @@ void Game::createCharacter()
     characters.push_back(Character());
     activeCharacter = characters.size() - 1;
     characters[activeCharacter].initialize(name);
+}
+
+void Game::levelUpCharacter()
+{
+    this->characters[activeCharacter].levelUp();
+
+    if (this->characters[activeCharacter].getStatPoints() > 0)
+    {
+        std::cout << "You have statpoints to allocate!" << std::endl << std::endl;
+
+        std::cout << "Stat to upgrade: " << std::endl;
+        std::cout << "0: Stength " << std::endl;
+        std::cout << "1: Vitality" << std::endl;
+        std::cout << "2: Dexterity " << std::endl;
+        std::cout << "3: Intelligence " << std::endl;
+
+        std::cout << std::endl << "Stat to upgrade: ";
+        std::cin >> this->choice;
+
+        // Error checking for input
+        // loop until the input is valid/correct
+        // numerical value, NOT string or char
+        while (std::cin.fail() || this->choice > 3)
+        {
+            std::cout << "Faulty input!" << std::endl;
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << "Stat to upgrade: " << std::endl;
+            std::cin >> this->choice;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << std::endl;
+
+        switch (this->choice)
+        {
+            case 0: // STRENGTH
+                this->characters[activeCharacter].addToStat(0, 1);
+                break;
+
+            case 1: // VITALITY
+                this->characters[activeCharacter].addToStat(1, 1);
+                break;
+
+            case 2: // DEXTERITY
+                this->characters[activeCharacter].addToStat(2, 1);
+                break;
+
+            case 3: // INTELLIGENCE
+                this->characters[activeCharacter].addToStat(3, 1);
+                break;
+
+            default:
+                std::cout << "UNDEFINED STAT" << std::endl;
+                break;
+        }
+    }
 }
 
 void Game::saveCharacters()

@@ -20,6 +20,7 @@ class Game
     void initGame();
     void mainMenu();
     void createCharacter();
+    void levelUpCharacter();
     void saveCharacters();
     void loadCharacters();
     void Travel();

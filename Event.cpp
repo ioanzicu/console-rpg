@@ -63,6 +63,24 @@ void Event::puzzleEncounter(Character &character)
         std::cin >> userAns;
         std::cout << "\n";
 
+        // Error checking for input
+        // loop until the input is valid/correct
+        // numerical value, NOT string or char
+        while (std::cin.fail())
+        {
+            std::cout << "Faulty input!" << "\n";
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << "\nYour ANSWER: ";
+            std::cin >> userAns;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << "\n";
+
         if (puzzle.getCorrectAns() == userAns)
         {
             completed = true;
