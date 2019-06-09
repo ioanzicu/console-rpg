@@ -1,6 +1,5 @@
 #include "Functions.h"
 #include "Event.h"
-#include "dArr.h"
 
 #include <ctime>
 #include <vector>
@@ -24,6 +23,7 @@ class Game
     void levelUpCharacter();
     void saveCharacters();
     void loadCharacters();
+    void selectCharacters();
     void Travel();
 
     // Accessors
@@ -41,6 +41,9 @@ class Game
         int activeCharacter;
         std::vector<Character> characters;
         std::string fileName;
+
+        // Enemies
+        dArr<Enemy> enemies;
 };
 
 #endif // GAME_H

@@ -36,6 +36,7 @@ class Character
         inline const int& getStatPoints() const { return this->statPoints; };
         inline const int& getHp() const { return this->hp; }
         inline const int& getHpMax() const { return this->hpMax; }
+        inline const bool isAlive() { return this->hp > 0; }
         inline const int& getStamin() const { return this->stamina; }
         inline const int& getDamageMin() const { return this->damageMin; }
         inline const int& getDamageMax() const { return this->damageMax; }
@@ -46,6 +47,7 @@ class Character
         inline void setDistanceTraveled(const int& distance) { this->distanceTraveled = distance; }
         inline void travel() { this->distanceTraveled++; }
         inline void gainExp(const int exp) { this->exp += exp; };
+        void takeDamage(const int damage);
 
     protected:
 

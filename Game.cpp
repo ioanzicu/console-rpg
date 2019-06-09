@@ -42,6 +42,11 @@ void Game::mainMenu()
 
     std::cout << "*** MAIN MENU ***" << std::endl << std::endl;
 
+    std::cout << "* Active Character: " <<
+        this->characters[activeCharacter].getName() << " Nr: " <<
+        this->activeCharacter+1 << " / " << this->characters.size() << " *" <<
+        std::endl << std::endl;
+
     std::cout << "0: Quit" << std::endl;
     std::cout << "1: Travel" << std::endl;
     std::cout << "2: Shop" << std::endl;
@@ -49,9 +54,9 @@ void Game::mainMenu()
     std::cout << "4: Rest" << std::endl;
     std::cout << "5: Character sheet" << std::endl;
     std::cout << "6: Create new character" << std::endl;
-    std::cout << "7: Save Character" << std::endl;
-    std::cout << "8: Load Character" << std::endl;
-    std::cout << std::endl;
+    std::cout << "7: Select Characterw" << std::endl;
+    std::cout << "8: Save Character" << std::endl;
+    std::cout << "9: Load Character" << std::endl << std::endl;
 
     std::cout << std::endl << "Choice: ";
     std::cin >> this->choice;
@@ -91,22 +96,23 @@ void Game::mainMenu()
             break;
 
         case 5: // DISPLYA CHARACTER SHEET
-            // std::cout << std::flush;
             characters[activeCharacter].displayCharacter();
             break;
 
-        case 6: // CREATE CHARACTER
-            // std::cout << std::flush;
-            std::cin.ignore();
+        case 6: // CREATE NEW CHARACTER
             createCharacter();
             saveCharacters();
             break;
 
-        case 7: // SAVE
+        case 7:
+            selectCharacters();
+            break;
+
+        case 8: // SAVE
             saveCharacters();
             break;
 
-        case 8: // LOAD
+        case 9: // LOAD
             loadCharacters();
             break;
 
@@ -122,6 +128,18 @@ void Game::createCharacter()
     std::cout << "Character name: ";
     // clear new line form the previous cin
     std::getline(std::cin, name);
+
+    for (size_t i = 0; i < this->characters.size(); i++)
+    {
+        while (name == this->characters[i].getName())
+        {
+            std::cout << "CANNOT CREATE CHARACTER!" <<
+            std::endl << "The Name Already Exists!!!" << std::endl;
+
+            std::cout << "Character name: ";
+            std::getline(std::cin, name);
+        }
+    }
 
     // activeCharacter is the last element in the vector
     characters.push_back(Character());
@@ -151,7 +169,7 @@ void Game::levelUpCharacter()
         // numerical value, NOT string or char
         while (std::cin.fail() || this->choice > 3)
         {
-            std::cout << "Faulty input!" << std::endl;
+            std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
             // clear the stream
             std::cin.clear();
             // ignore 100 chars
@@ -272,11 +290,44 @@ void Game::loadCharacters()
     }
 }
 
+void Game::selectCharacters()
+{
+    std::cout << "Select character: " << std::endl << std::endl;
+
+    for (size_t i = 0; i < this->characters.size(); i++)
+    {
+        std::cout << "Index: " << i << " = " << this->characters[i].getName() << " Level: " << this->characters[i].getLevel() << std::endl;
+    }
+
+    std::cout << std::endl;
+    std::cout << "Choice: " << std::endl;
+    std::cin >> this->choice;
+
+    while (std::cin.fail() || this->choice >= this->characters.size() || this->choice < 0)
+    {
+        std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
+        // clear the stream
+        std::cin.clear();
+        // ignore 100 chars
+        std::cin.ignore(100, '\n');
+        // enter chice again
+        std::cout << "Select character " << std::endl;
+        std::cin >> this->choice;
+    }
+
+    std::cin.ignore(100, '\n');
+    std::cout << std::endl;
+
+    this->activeCharacter = this->choice;
+
+    std::cout << this->characters[this->activeCharacter] .getName() << " is SELECTED" << std::endl << std::endl;
+}
+
 void Game::Travel()
 {
     this->characters[activeCharacter].travel();
 
     Event ev;
 
-    ev.generateEvent(this->characters[activeCharacter]);
+    ev.generateEvent(this->characters[activeCharacter], this->enemies);
 }

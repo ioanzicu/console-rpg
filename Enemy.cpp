@@ -27,3 +27,14 @@ std::string Enemy::getAsString() const
         "Accuracy: " + std::to_string(this->accuracy) + "\n" +
         "Drop Chance: " + std::to_string(this->dropChance) + "\n";
 }
+
+void Enemy::takeDamage(int damage)
+{
+    this->hp -= damage;
+
+    //  if hp == 0, ,make him dead
+    if (this->hp <= 0)
+    {
+        this->hp = 0;
+    }
+}

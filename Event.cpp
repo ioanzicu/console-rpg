@@ -10,7 +10,7 @@ Event::~Event()
     //dtor
 }
 
-void Event::generateEvent(Character &character)
+void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
 {
     // Generate an event from 0 to 1
     int i = rand() % this->nrOfEvents;
@@ -19,7 +19,7 @@ void Event::generateEvent(Character &character)
     {
         case 0:
             // Enemy encounter
-            enemyEncounter(character);
+            enemyEncounter(character, enemies);
             break;
 
         case 1:
@@ -32,10 +32,123 @@ void Event::generateEvent(Character &character)
 }
 
 // Different events
-void Event::enemyEncounter(Character &character)
-{
-    // while()
 
+// BATTLE
+void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
+{
+    bool playerTurn = false;
+    int choice = 0;
+
+    // Coin toss for turn
+    int coinToss = rand() % 100 + 1;
+    // Check who's turn is
+    if (coinToss == 1)
+        playerTurn = true;
+    else
+        playerTurn = false;
+
+    bool escape = false;
+    bool playerDefeated = false;
+    bool enemieDefeated = false;
+
+    int nrOfEnemies = rand() % 5;
+
+    for (size_t i = 0; i < nrOfEnemies; i++)
+    {
+        // Create enemies
+        enemies.push( Enemy(character.getLevel()));
+    }
+
+    while (!escape & !playerDefeated && !enemieDefeated)
+    {
+        if (playerTurn && !playerDefeated)
+        {
+            // MENU
+            // force to clear stream
+            std::cout << std::flush;
+            std::cout << "* BATTLE MENU *" << std::endl << std::endl;
+
+            std::cout << "0: Escape" << std::endl;
+            std::cout << "1: Attack" << std::endl;
+            std::cout << "2: Defend" << std::endl;
+            std::cout << "3: Use Item" << std::endl << std::endl;
+
+            std::cout << "Choice: " << std::endl;
+            std::cin >> choice;
+
+            while (std::cin.fail() || choice > 3 || choice < 0)
+            {
+                // force to clear stream
+                std::cout << std::flush;
+
+                std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
+                // clear the stream
+                std::cin.clear();
+                // ignore 100 chars
+                std::cin.ignore(100, '\n');
+                // enter choice again
+                std::cout << "0: Escape" << std::endl;
+                std::cout << "1: Attack" << std::endl;
+                std::cout << "2: Defend" << std::endl;
+                std::cout << "3: Use Item" << std::endl << std::endl;
+
+                std::cout << "Choice: " << std::endl;
+                std::cin >> choice;
+            }
+
+            std::cin.ignore(100, '\n');
+            std::cout << std::endl;
+
+            // Move
+            switch (choice)
+            {
+                case 0:
+                    escape = true;
+                    break;
+
+                case 1:
+
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+            // Leave turn
+            playerTurn = false;
+        }
+        else if (!playerTurn && !escape && !enemieDefeated) // ENEMIES TURN
+        {
+            // Enemy attack
+            for (size_t i = 0; i < enemies.size(); i++)
+            {
+
+            }
+
+            // End turn
+            playerTurn = true;
+        }
+
+        // Conditions
+
+        if (!character.isAlive())
+        {
+            playerDefeated = true;
+        }
+        else if (enemies.size() <= 0)
+        {
+            enemieDefeated = true;
+        }
+    }
 }
 
 void Event::puzzleEncounter(Character &character)
