@@ -47,11 +47,13 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     else
         playerTurn = false;
 
+    // End Conditions
     bool escape = false;
     bool playerDefeated = false;
     bool enemieDefeated = false;
 
-    int nrOfEnemies = rand() % 5;
+    // Enemies
+    int nrOfEnemies = rand() % 5 + 1; // prevent 0 enemies
 
     for (size_t i = 0; i < nrOfEnemies; i++)
     {
@@ -59,13 +61,19 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
         enemies.push( Enemy(character.getLevel()));
     }
 
+    // Batte variables
+    int attackRoll = 0;
+    int defendRoll = 0;
+    int damage = 0;
+    int gainExp = 0;
+
     while (!escape & !playerDefeated && !enemieDefeated)
     {
         if (playerTurn && !playerDefeated)
         {
             // MENU
             // force to clear stream
-            std::cout << std::flush;
+            // std::cout << std::flush;
             std::cout << "* BATTLE MENU *" << std::endl << std::endl;
 
             std::cout << "0: Escape" << std::endl;
@@ -102,19 +110,75 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
             // Move
             switch (choice)
             {
-                case 0:
+                case 0: // ESCAPE
                     escape = true;
                     break;
 
-                case 1:
+                case 1: // ATTACK
+
+                    // Select enemy MENU
+                    // force to clear stream
+                    // std::cout << std::flush;
+                    std::cout << "* SELECT ENEMY: *" << std::endl << std::endl;
+
+                    for (size_t i = 0; i < enemies.size(); i++)
+                    {
+                        std::cout << i << ": "
+                            << "Level: " << enemies[i].getLevel() << std::endl
+                            << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << std::endl;
+                    }
+
+                    std::cout << std::endl << "Choice: " << std::endl;
+                    std::cin >> choice;
+
+                    while (std::cin.fail() || choice >= enemies.size() || choice < 0)
+                    {
+                        std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
+                        // clear the stream
+                        std::cin.clear();
+                        // ignore 100 chars
+                        std::cin.ignore(100, '\n');
+
+                        // enter choice again
+                        std::cout << "* SELECT ENEMY: *" << std::endl << std::endl;
+                        std::cout << "Choice: " << std::endl;
+                        std::cin >> choice;
+                    }
+
+                    std::cin.ignore(100, '\n');
+                    std::cout << std::endl;
+
+                    attackRoll = rand() % 100 + 1;
+
+                    if (attackRoll > 50) // HIT
+                    {
+                        std::cout << "HIT! " << std::endl << std::endl;
+
+                        damage = character.getDamage();
+                        enemies[choice].takeDamage(character.getDamage());
+                        if (!enemies[choice].isAlive())
+                        {
+                            std::cout << "ENEMY DEFEATED!" << std::endl << std::endl;
+                            gainExp = enemies[choice].getExp();
+                            character.gainExp(gainExp);
+                            std::cout << "EXP GAINED: " << gainExp << std::endl << std::endl;
+                            enemies.remove(choice);
+                        }
+
+                        std::cout << "Damage: " << damage << "!" << std::endl;
+                    }
+                    else // MISS
+                    {
+                        std::cout << "MISSED!" << std::endl << std::endl;
+                    }
 
                     break;
 
-                case 2:
+                case 2: // DEFEND
 
                     break;
 
-                case 3:
+                case 3: //
 
                     break;
 
