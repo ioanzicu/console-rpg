@@ -58,14 +58,19 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     for (size_t i = 0; i < nrOfEnemies; i++)
     {
         // Create enemies
-        enemies.push( Enemy(character.getLevel()));
+        enemies.push( Enemy(character.getLevel() + rand() % 3));
     }
 
     // Batte variables
-    int attackRoll = 0;
-    int defendRoll = 0;
     int damage = 0;
     int gainExp = 0;
+
+    int playerTotal = 0;
+
+    int enemyTotal = 0;
+    int combatTotal = 0;
+    int combatRollPlayer = 0;
+    int combatRollEnemy = 0;
 
     while (!escape & !playerDefeated && !enemieDefeated)
     {
@@ -124,8 +129,10 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                     for (size_t i = 0; i < enemies.size(); i++)
                     {
                         std::cout << i << ": "
-                            << "Level: " << enemies[i].getLevel() << std::endl
-                            << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << std::endl;
+                            << "Level: " << enemies[i].getLevel() << " - "
+                            << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << " - "
+                            << "Defence: " << enemies[i].getDefence() << " - "
+                            << "Accuracy: " << enemies[i].getAccuracy() << std::endl << std::endl;
                     }
 
                     std::cout << std::endl << "Choice: " << std::endl;
@@ -148,9 +155,27 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                     std::cin.ignore(100, '\n');
                     std::cout << std::endl;
 
-                    attackRoll = rand() % 100 + 1;
+                    // Attack Roll
 
-                    if (attackRoll > 50) // HIT
+                    combatTotal = enemies[choice].getDefence() + character.getAccuracy();
+                    // calculate procentage
+                    enemyTotal = enemies[choice].getDefence() / static_cast<double>(combatTotal) * 100;
+                    playerTotal = character.getAccuracy() / static_cast<double>(combatTotal) * 100;
+                    combatRollPlayer = rand() % playerTotal + 1;
+                    combatRollEnemy = rand() % enemyTotal + 1;
+
+                    /*
+                    std::cout << combatTotal << std::endl;
+                    std::cout << enemyTotal << std::endl;
+                    std::cout << playerTotal << std::endl;
+                    std::cout << combatRollPlayer << std::endl;
+                    std::cout << combatRollEnemy << std::endl;
+                    */
+
+                    std::cout << "Player roll: " << combatRollPlayer << std::endl;
+                    std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;
+
+                    if (combatRollPlayer > combatRollEnemy) // HIT
                     {
                         std::cout << "HIT! " << std::endl << std::endl;
 
