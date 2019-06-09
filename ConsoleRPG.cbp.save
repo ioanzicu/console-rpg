@@ -53,6 +53,7 @@
 		<Unit filename="Puzzle.h" />
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.h" />
+		<Unit filename="dArr.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<envvars />

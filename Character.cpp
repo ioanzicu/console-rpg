@@ -155,25 +155,25 @@ void Character::addToStat(int stat, int value)
         switch (stat)
         {
             case 0:
-                std::cout << "Strnength was upgraded from: " << this->strength;
+                std::cout << "Strnength was UPGRADED from: " << this->strength;
                 this->strength += value;
                 std:: cout << " to -> " << this->strength << std::endl;
                 break;
 
             case 1:
-                std::cout << "Vitality was upgraded from: " << this->vitality;
+                std::cout << "Vitality was UPGRADED from: " << this->vitality;
                 this->vitality +=value;
                 std:: cout << " to -> " << this->vitality << std::endl;
                 break;
 
             case 2:
-                std::cout << "Dexterity was upgraded from: " << this->dexterity;
+                std::cout << "Dexterity was UPGRADED from: " << this->dexterity;
                 this->dexterity += value;
                 std:: cout << " to -> " << this->dexterity << std::endl;
                 break;
 
             case 3:
-                std::cout << "Intelligence was upgraded from: " << this->intelligence;
+                std::cout << "Intelligence was UPGRADED from: " << this->intelligence;
                 this->intelligence += value;
                 std:: cout << " to -> " << this->intelligence << std::endl;
                 break;

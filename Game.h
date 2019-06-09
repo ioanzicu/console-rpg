@@ -1,5 +1,6 @@
 #include "Functions.h"
 #include "Event.h"
+#include "dArr.h"
 
 #include <ctime>
 #include <vector>
