@@ -21,6 +21,7 @@ class Item
         // we can make pointers, but not direct instances
         // BECAUSE = 0 -> child classes HAVE TO define that function
         virtual Item* clone() const = 0;
+        virtual std::string toString() const = 0;
 
         // Accessors
         inline const std::string& getName() const { return this->name; };

@@ -24,7 +24,7 @@ class Armor : public Item
         virtual Armor* clone() const;
 
         //Functions
-        std::string toString();
+        virtual std::string toString() const;
 
         // Accessors
         inline int getDefence() const { return this->defence; };

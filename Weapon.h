@@ -22,7 +22,7 @@ class Weapon : public Item
         virtual Weapon* clone() const;
 
         //Functions
-        std::string toString();
+        virtual std::string toString() const;
 
         // Accessors
         inline int getDamageMin() const { return this->damageMin; };

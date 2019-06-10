@@ -21,6 +21,9 @@ void Game::initGame()
     std::ifstream in;
     in.open("characters.txt");
 
+    Weapon::initNames();
+    Armor::initNames();
+
     if (in.is_open())
         this->loadCharacters();
     else
@@ -28,14 +31,6 @@ void Game::initGame()
         createCharacter();
         this->saveCharacters();
     }
-
-    Weapon w1(1, rand() % 5);
-    Weapon w2(2, rand() % 5);
-    Weapon w3(3, rand() % 5);
-
-    std::cout << w1.getName() << " " << w1.getDamageMax() << std::endl;
-    std::cout << w2.getName() << " " << w2.getDamageMax() << std::endl;
-    std::cout << w3.getName() << " " << w3.getDamageMax() << std::endl;
 
     in.close();
 }
@@ -72,10 +67,11 @@ void Game::mainMenu()
         std::cout << "3: Level Up" << std::endl;
         std::cout << "4: Rest" << std::endl;
         std::cout << "5: Character sheet" << std::endl;
-        std::cout << "6: Create new character" << std::endl;
-        std::cout << "7: Select Characterw" << std::endl;
-        std::cout << "8: Save Character" << std::endl;
-        std::cout << "9: Load Character" << std::endl << std::endl;
+        std::cout << "6: Show Inventory" << std::endl;
+        std::cout << "7: Create new character" << std::endl;
+        std::cout << "8: Select Characterw" << std::endl;
+        std::cout << "9: Save Character" << std::endl;
+        std::cout << "10: Load Character" << std::endl << std::endl;
 
         std::cout << std::endl << "Choice: ";
         std::cin >> this->choice;
@@ -116,27 +112,30 @@ void Game::mainMenu()
 
             case 4: // REST
                 rest();
-
                 break;
 
             case 5: // DISPLYA CHARACTER SHEET
                 characters[activeCharacter].displayCharacter();
                 break;
 
-            case 6: // CREATE NEW CHARACTER
+            case 6: // SHOW INVENTORY
+                std::cout << this->characters[this->activeCharacter].getInvAsString() << std::endl;
+                break;
+
+            case 7: // CREATE NEW CHARACTER
                 createCharacter();
                 saveCharacters();
                 break;
 
-            case 7:
+            case 8:
                 selectCharacters();
                 break;
 
-            case 8: // SAVE
+            case 9: // SAVE
                 saveCharacters();
                 break;
 
-            case 9: // LOAD
+            case 10: // LOAD
                 loadCharacters();
                 break;
 

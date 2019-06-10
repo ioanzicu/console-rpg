@@ -22,8 +22,16 @@ Armor::Armor()
 Armor::Armor(int level, int rarity)
     : Item(level, rarity)
 {
-    this->defence = rand() % (level * rarity); // +1 to prvent zero
-    this->defence += rarity * 2;
+    this->defence = rand() % (level * (rarity + 1)); // +1 to prvent zero
+    this->defence += (rarity + 1) * 5;
+    this->type = rand() % 4;
+    this->setName(Armor::names[rand() % Armor::names.size()]);
+
+    if (rarity == 3) // LEGENDARY
+        this->defence += level * 5; // extra damage
+    // If level 10, get 100 extra defence
+    else if (rarity == 4) // EPIC
+        this->defence += level * 10;
 }
 
 Armor::Armor(int type, int defence, std::string name, int level, int buyValue, int sellValue, int rarity)
@@ -38,9 +46,20 @@ Armor::~Armor()
     //dtor
 }
 
-std::string Armor::toString()
+std::string Armor::toString() const
 {
-    std::string str = std:: to_string(this->type) + " " + std::to_string(this->defence);
+    std::string str =
+        this->getName()
+        + " " +
+        std::to_string(this->getLevel())
+        + " " +
+        std::to_string(this->defence)
+        + " " +
+        std::to_string(this->type);
+        + " " +
+        std::to_string(this->getRarity())
+        + " " +
+        std::to_string(this->getSellValue());
 
     return str;
 }

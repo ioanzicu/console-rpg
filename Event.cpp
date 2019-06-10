@@ -200,6 +200,56 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                             std::cout << "EXP GAINED: " << gainExp << std::endl << std::endl;
                             std::cout << "GOLD GAINED: " << gainGold << std::endl << std::endl;
 
+                            // Item roll
+                            int roll = rand() % 100 + 1; // 1 tp 100
+                            int rarity = -1;
+
+                            if (roll > 20)
+                            {
+                                rarity = 0; // Common item
+                                // roll again
+                                roll = rand() % 100 + 1; // 1 tp 100
+                                if (roll > 30)
+                                {
+                                    rarity = 1; // Uncommon item
+
+                                    roll = rand() % 100 + 1; // 1 tp 100
+                                    if (roll > 50)
+                                    {
+                                        rarity = 2; // Rare
+
+                                        roll = rand() % 100 + 1; // 1 tp 100
+                                        if (roll > 70)
+                                        {
+                                            rarity = 3; // Legendary
+
+                                            roll = rand() % 100 + 1; // 1 tp 100
+                                            if (roll > 80)
+                                            {
+                                                rarity = 4; // EPIC
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if (roll >= 0)
+                            {
+                                roll = rand() % 100 + 1;
+                                if (roll > 50)
+                                {
+                                    Weapon tempW(character.getLevel(), rand() % 5);
+                                    character.addItem(tempW);
+                                    std::cout << "WEAPON DROP!" << std::endl;
+                                }
+                                else
+                                {
+                                    Armor tempA(character.getLevel(), rand() % 5);
+                                    character.addItem(tempA);
+                                    std::cout << "ARMOR DROP!" << std::endl;
+                                }
+                            }
                             enemies.remove(choice);
                         }
                     }

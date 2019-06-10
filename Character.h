@@ -18,10 +18,12 @@ class Character
         void initialize(const std::string name);
         void displayCharacter() const;
         std::string getAsString() const;
+        std::string getInvAsString();
         void levelUp();
         void updateStats();
         void addToStat(int stat, int value);
         inline void resetHp() { this->hp = this->hpMax; };
+        void addItem(const Item &item) { this->inventory.addItem(item); }
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }

@@ -23,8 +23,16 @@ Weapon::Weapon()
 Weapon::Weapon(int level, int rarity)
      : Item(level, rarity)
 {
-    this->damageMax = rand() % level * rarity;
-    this->damageMax += rarity * 2;
+    this->damageMax = rand() % level * (rarity + 1);
+    this->damageMax += (rarity + 1) * 5;
+    this->setName(Weapon::names[rand() % Weapon::names.size()]);
+
+    if (rarity == 3) // LEGENDARY
+        this->damageMax += level * 5; // extra damage
+    // If level 10, get 100 extra defence
+    else if (rarity == 4) // EPIC
+        this->damageMax += level * 10;
+
     this->damageMin = this->damageMax / 2;
 }
 
@@ -47,9 +55,20 @@ Weapon* Weapon::clone() const
 }
 
 
-std::string Weapon::toString()
+std::string Weapon::toString() const
 {
-    std::string str = std:: to_string(this->damageMin) + " " + std::to_string(this->damageMax);
+    std::string str =
+        this->getName()
+        + " " +
+        std::to_string(this->getLevel())
+        + " " +
+        std::to_string(this->damageMin)
+        + " " +
+        std::to_string(this->damageMax);
+        + " " +
+        std::to_string(this->getRarity())
+        + " " +
+        std::to_string(this->getSellValue());
 
     return str;
 }
