@@ -60,17 +60,6 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
         // Create enemies
         enemies.push( Enemy(character.getLevel() + rand() % 3));
     }
-/*
-    for (size_t i = 0; i < enemies.size(); i++)
-    {
-        std::cout << i << ": "
-            << "Level: " << enemies[i].getLevel() << " - "
-            << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << " - "
-            << "Defence: " << enemies[i].getDefence() << " - "
-            << "Accuracy: " << enemies[i].getAccuracy() << " - "
-            << "Damage: " << enemies[i].getDamageMin() << " - " << enemies[i].getDamageMax() << std::endl;
-    }
-*/
 
     // Batte variables
     int damage = 0;

@@ -1,8 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include <stdlib.h>
-#include <string>
+#include "STLINCLUDE.h"
 
 class Enemy
 {

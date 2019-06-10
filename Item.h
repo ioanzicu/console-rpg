@@ -1,22 +1,25 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <math.h>
+#include "STLINCLUDE.h"
 
 class Item
 {
     public:
-        Item(std::string name = "NONE", int level = 0,
-             int buyValue = 0,
-             int sellValue = 0,
-             int rarity = 0);
+        Item();
+        Item(int level, int rarity);
+        Item(std::string name,
+             int level,
+             int buyValue,
+             int sellValue,
+             int rarity);
         virtual ~Item();
 
         inline std::string debugPrint() const { return this->name; }
-        // Make Item PUR VIRTUAL, prevent instanciating of Item (just Armor or Weapon)
+        // Make Item PUR VIRTUAL - ITEM IS ABSTRACT CLASS,
+        // prevent instanciating of Item (just Armor or Weapon)
+        // we can make pointers, but not direct instances
+        // BECAUSE = 0 -> child classes HAVE TO define that function
         virtual Item* clone() const = 0;
 
         // Accessors
@@ -27,9 +30,7 @@ class Item
         inline const int& getRarity() const { return this->rarity; };
 
         // Modifiers
-
-
-    protected:
+        inline void setName(std::string name) { this->name = name; }
 
     private:
         std::string name;
@@ -38,5 +39,12 @@ class Item
         int sellValue;
         int rarity;
 };
+
+enum rarity { COMMON = 0,
+              UNCOMMON,
+              RARE,
+              LEGENDARY,
+              EPIC };
+
 
 #endif // ITEM_H

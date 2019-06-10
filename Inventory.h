@@ -1,6 +1,7 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
+#include "STLINCLUDE.h"
 #include "Weapon.h"
 #include "Armor.h"
 

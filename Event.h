@@ -1,10 +1,11 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include "STLINCLUDE.h"
+
 #include "Character.h"
-#include <dArr.h>
-#include <Puzzle.h>
-#include <stdlib.h>
+#include "Enemy.h"
+#include "Puzzle.h"
 
 class Event
 {

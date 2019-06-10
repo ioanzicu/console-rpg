@@ -1,18 +1,21 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
+#include "STLINCLUDE.h"
 #include "Item.h"
 
 class Weapon : public Item
 {
     public:
-        Weapon(int damageMin = 0,
-               int damageMax = 0,
-               std::string name = "NONE",
-               int level = 0,
-               int buyValue = 0,
-               int sellValue = 0,
-               int rarity = 0);
+        Weapon();
+        Weapon(int level, int rarity);
+        Weapon(int damageMin,
+               int damageMax,
+               std::string name,
+               int level,
+               int buyValue,
+               int sellValue,
+               int rarity);
         virtual ~Weapon();
 
         // PURE VIRTUAL
@@ -27,9 +30,9 @@ class Weapon : public Item
 
         // Modifiers
 
-
-
-    protected:
+        // Static
+        static dArr<std::string> names;
+        static void initNames();
 
     private:
         int damageMin;

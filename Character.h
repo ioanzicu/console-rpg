@@ -1,13 +1,8 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include "STLINCLUDE.h"
 #include "Inventory.h"
-#include "Enemy.h"
-
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <math.h>
 
 class Character
 {

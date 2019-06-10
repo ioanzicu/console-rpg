@@ -1,13 +1,8 @@
-#include "Functions.h"
-#include "Event.h"
-
-#include <ctime>
-#include <vector>
-#include <fstream>
-#include <sstream>
-
 #ifndef GAME_H
 #define GAME_H
+
+#include "STLINCLUDE.h"
+#include "Event.h"
 
 class Game
 {

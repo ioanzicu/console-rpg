@@ -1,10 +1,7 @@
 #ifndef PUZZLE_H
 #define PUZZLE_H
 
-#include <string>
-#include <vector>
-#include <fstream>
-#include <iostream>
+#include "STLINCLUDE.h"
 
 class Puzzle
 {

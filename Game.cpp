@@ -29,6 +29,14 @@ void Game::initGame()
         this->saveCharacters();
     }
 
+    Weapon w1(1, rand() % 5);
+    Weapon w2(2, rand() % 5);
+    Weapon w3(3, rand() % 5);
+
+    std::cout << w1.getName() << " " << w1.getDamageMax() << std::endl;
+    std::cout << w2.getName() << " " << w2.getDamageMax() << std::endl;
+    std::cout << w3.getName() << " " << w3.getDamageMax() << std::endl;
+
     in.close();
 }
 
