@@ -43,6 +43,7 @@ class Character
         inline const int& getDefence() const { return this->defence; }
         inline const int& getAccuracy() const { return this->accuracy; }
         inline const int& getGold() const { return this->gold; }
+        inline const int  getInventorySize() const { return this->inventory.size(); }
 
         // Modifier
         inline void setDistanceTraveled(const int& distance) { this->distanceTraveled = distance; }

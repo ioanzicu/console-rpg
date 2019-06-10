@@ -11,6 +11,7 @@ void Armor::initNames()
     Armor::names.push("Ignoring Other");
     Armor::names.push("Alien Blanket");
     Armor::names.push("Iron Sheets");
+    Armor::names.push("Friend ZONE");
 }
 
 Armor::Armor()
@@ -26,6 +27,24 @@ Armor::Armor(int level, int rarity)
     this->defence += (rarity + 1) * 5;
     this->type = rand() % 4;
     this->setName(Armor::names[rand() % Armor::names.size()]);
+
+    switch(this->type)
+    {
+        case armorType::HEAD:
+            this->typeStr = "Head";
+            break;
+        case armorType::CHEST:
+            this->typeStr = "Chest";
+            break;
+        case armorType::ARMS:
+            this->typeStr = "Arms";
+            break;
+        case armorType::LEGS:
+            this->typeStr = "Legs";
+            break;
+        default:
+            break;
+    }
 
     if (rarity == 3) // LEGENDARY
         this->defence += level * 5; // extra damage
@@ -46,6 +65,12 @@ Armor::~Armor()
     //dtor
 }
 
+// RETURN A NEW (ON HEAP) COPY OF ITSELF
+Armor* Armor::clone() const
+{
+    return new Armor(*this);
+}
+
 std::string Armor::toString() const
 {
     std::string str =
@@ -55,17 +80,11 @@ std::string Armor::toString() const
         + " Defence: " +
         std::to_string(this->defence)
         + " Type: " +
-        std::to_string(this->type)
+        this->typeStr
         + " Rarity: " +
         std::to_string(this->getRarity())
         + " $: " +
         std::to_string(this->getSellValue());
 
     return str;
-}
-
-// RETURN A NEW (ON HEAP) COPY OF ITSELF
-Armor* Armor::clone() const
-{
-    return new Armor(*this);
 }

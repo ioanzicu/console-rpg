@@ -98,5 +98,13 @@ void Inventory::addItem(const Item& item)
 // Remove item, find by index and remove
 void Inventory::removeItem(int index)
 {
+    if (index < 0 || index >= this->nrOfItems)
+        throw("OUT OF BOUNDS REMOVE ITEM INVENTORY");
 
+    // delete selected item at given index
+    delete this->itemArr[index];
+    // make the deleted item to point to the last item in the array
+    this->itemArr[index] = this->itemArr[this->nrOfItems - 1];
+    // set the last pointer to item to null (remove from array)_
+    this->itemArr[--this->nrOfItems] = nullptr;
 }

@@ -39,6 +39,7 @@ class Armor : public Item
 
     private:
         int type;
+        std::string typeStr;
         int defence;
 };
 

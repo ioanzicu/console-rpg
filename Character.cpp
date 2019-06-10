@@ -58,6 +58,13 @@ Character::Character(std::string name, int distanceTraveled,
 
     this->statPoints = statPoints;
 
+    this->inventory.addItem(Weapon(1, rand() % 5));
+    this->inventory.addItem(Weapon(1, rand() % 5));
+    this->inventory.addItem(Armor(1, rand() % 5));
+    this->inventory.addItem(Weapon(1, rand() % 5));
+    this->inventory.addItem(Armor(1, rand() % 5));
+    this->inventory.addItem(Armor(1, rand() % 5));
+
     this->updateStats();
 }
 
@@ -280,26 +287,51 @@ void Character::equipItem(unsigned index)
         // Is weapon
         if (w != nullptr)
         {
+            if (this->inventory[index].getName() != "EMPTY")
+            {
+                this->inventory.addItem(this->weapon);
+            }
             this->weapon = *w;
+            this->inventory.removeItem(index);
         }
         else if (a != nullptr)
         {
             switch (a->getType())
             {
                 case armorType::HEAD:
+                    if (this->inventory[index].getName() != "EMPTY")
+                    {
+                        this->inventory.addItem(this->armor_head);
+                    }
                     this->armor_head = *a;
+                    this->inventory.removeItem(index);
                     break;
 
                 case armorType::CHEST:
+                    if (this->inventory[index].getName() != "EMPTY")
+                    {
+                        this->inventory.addItem(this->armor_chest);
+                    }
                     this->armor_chest = *a;
+                    this->inventory.removeItem(index);
                     break;
 
                 case armorType::ARMS:
+                    if (this->inventory[index].getName() != "EMPTY")
+                    {
+                        this->inventory.addItem(this->armor_arms);
+                    }
                     this->armor_arms = *a;
+                    this->inventory.removeItem(index);
                     break;
 
                 case armorType::LEGS:
+                    if (this->inventory[index].getName() != "EMPTY")
+                    {
+                        this->inventory.addItem(this->armor_legs);
+                    }
                     this->armor_legs = *a;
+                    this->inventory.removeItem(index);
                     break;
 
                 default:

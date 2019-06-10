@@ -67,11 +67,10 @@ void Game::mainMenu()
         std::cout << "3: Level Up" << std::endl;
         std::cout << "4: Rest" << std::endl;
         std::cout << "5: Character sheet" << std::endl;
-        std::cout << "6: Show Inventory" << std::endl;
-        std::cout << "7: Create new character" << std::endl;
-        std::cout << "8: Select Characterw" << std::endl;
-        std::cout << "9: Save Character" << std::endl;
-        std::cout << "10: Load Character" << std::endl << std::endl;
+        std::cout << "6: Create new character" << std::endl;
+        std::cout << "7: Select Characterw" << std::endl;
+        std::cout << "8: Save Character" << std::endl;
+        std::cout << "9: Load Character" << std::endl << std::endl;
 
         std::cout << std::endl << "Choice: ";
         std::cin >> this->choice;
@@ -115,27 +114,23 @@ void Game::mainMenu()
                 break;
 
             case 5: // DISPLYA CHARACTER SHEET
-                characters[activeCharacter].displayCharacter();
+                this->characterMenu();
                 break;
 
-            case 6: // SHOW INVENTORY
-                std::cout << this->characters[this->activeCharacter].getInvAsString() << std::endl;
-                break;
-
-            case 7: // CREATE NEW CHARACTER
+            case 6: // CREATE NEW CHARACTER
                 createCharacter();
                 saveCharacters();
                 break;
 
-            case 8:
+            case 7:
                 selectCharacters();
                 break;
 
-            case 9: // SAVE
+            case 8: // SAVE
                 saveCharacters();
                 break;
 
-            case 10: // LOAD
+            case 9: // LOAD
                 loadCharacters();
                 break;
 
@@ -272,6 +267,91 @@ void Game::saveCharacters()
     }
 
     outFile.close();
+}
+
+void Game::characterMenu()
+{
+    do
+    {
+        // Force to clear the iostream before it will be filled
+        std::cout << std::flush;
+
+        std::cout << std::endl
+                  << "+++++++++++++++++++++++++++" << std::endl;
+        std::cout << "+++    CHARACTER MENU   +++" << std::endl;
+        std::cout << "+++++++++++++++++++++++++++" << std::endl << std::endl;
+
+        characters[activeCharacter].displayCharacter();
+
+        std::cout << "* MENU *" << std::endl << std::endl;;
+        std::cout << "0: Back to Main Menu" << std::endl;
+        std::cout << "1: Display Inventory" << std::endl;
+        std::cout << "2: Equip Item" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> this->choice;
+
+        while (std::cin.fail() || this->choice < 0 || this->choice > 2)
+        {
+            std::cout << "Faulty input!" << "\n";
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << "* MENU *" << std::endl << std::endl;;
+            std::cout << "0: Back to Main Menu" << std::endl;
+            std::cout << "1: Display Inventory" << std::endl;
+            std::cout << "2: Equip Item" << std::endl << std::endl ;
+            std::cout << "Choice: ";
+            std::cin >> this->choice;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << std::endl;
+
+        switch (this->choice)
+        {
+            case 1:
+                std::cout << this->characters[this->activeCharacter].getInvAsString();
+
+                break;
+
+            case 2:
+                std::cout << this->characters[this->activeCharacter].getInvAsString();
+
+                std::cout << "Item index: ";
+                std::cin >> this->choice;
+
+                while (std::cin.fail() || this->choice < 0 ||
+                       this->choice >= this->characters[this->activeCharacter].getInventorySize())
+                {
+                    std::cout << "Faulty input!" << "\n";
+                    // clear the stream
+                    std::cin.clear();
+                    // ignore 100 chars
+                    std::cin.ignore(100, '\n');
+                    // enter chice again
+                    std::cout << "Item index: ";
+                    std::cin >> this->choice;
+                }
+
+                std::cin.ignore(100, '\n');
+                std::cout << std::endl;
+
+                this->characters[activeCharacter].equipItem(this->choice);
+                break;
+
+            default:
+                break;
+        }
+
+        if (this->choice > 0)
+        {
+            std::cout << "ENTER to continue..." << "\n";
+            // Wait for a character
+            std::cin.get();
+        }
+    } while (this->choice > 0);
 }
 
 void Game::loadCharacters()

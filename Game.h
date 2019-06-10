@@ -16,6 +16,7 @@ class Game
     void mainMenu();
     void createCharacter();
     void levelUpCharacter();
+    void characterMenu();
     void saveCharacters();
     void loadCharacters();
     void selectCharacters();
