@@ -16,6 +16,9 @@ class Enemy
 
         inline int getLevel() const { return this->level; }
         inline int getDamage() const { return rand() % this->damageMax + this->damageMin; };
+        inline int getDamageMin() const { return this->damageMin; };
+        inline int getDamageMax() const { return this->damageMax; };
+
         inline int getExp() const { return this->level * 100; };
         inline int getHp() const { return this->hp; }
         inline int getHpMax() const { return this->hpMax; }

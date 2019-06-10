@@ -16,7 +16,7 @@ class Character
         Character(std::string name, int distanceTraveled,
                      int gold, int level, int exp, int strength, int vitality, int dexterity,
                      int intelligence, int stamina, int hp,
-                     int statPoints, int skillPoints);
+                     int statPoints);
         virtual ~Character();
 
         // Functions
@@ -48,6 +48,7 @@ class Character
         inline void setDistanceTraveled(const int& distance) { this->distanceTraveled = distance; }
         inline void travel() { this->distanceTraveled++; }
         inline void gainExp(const int exp) { this->exp += exp; };
+        inline void gainGold(const int gold) { this->gold += gold; };
         void takeDamage(const int damage);
 
     protected:
@@ -85,7 +86,6 @@ class Character
         int luck;
 
         int statPoints;
-        int skillPoints;
 };
 
 #endif // CHARACTER_H

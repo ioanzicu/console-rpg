@@ -3,6 +3,8 @@
 
 #include "Item.h"
 
+enum armorType { HEAD = 0, CHEST, ARMS, LEGS };
+
 class Armor : public Item
 {
     public:
@@ -19,6 +21,10 @@ class Armor : public Item
 
         //Functions
         std::string toString();
+
+        // Accessors
+        inline int getDefence() const { return this->defence; };
+        inline int getType() const { return this->type; };
 
     protected:
 

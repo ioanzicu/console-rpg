@@ -18,7 +18,18 @@ Game::~Game()
 // Functions
 void Game::initGame()
 {
-    createCharacter();
+    std::ifstream in;
+    in.open("characters.txt");
+
+    if (in.is_open())
+        this->loadCharacters();
+    else
+    {
+        createCharacter();
+        this->saveCharacters();
+    }
+
+    in.close();
 }
 
 void Game::mainMenu()
@@ -26,99 +37,128 @@ void Game::mainMenu()
     std::cout << "ENTER to continue..." << "\n";
     // Wait for a character
     std::cin.get();
-    // CLEAR THE SCREEN
-    //system("CLS");
     // Force to clear the iostream before it will be filled
     std::cout << std::flush;
 
-
-    if (this->characters[activeCharacter].getExp() >=
-        this->characters[activeCharacter].getExpNext())
+    if (this->characters[activeCharacter].isAlive())
     {
-        std::cout << std::endl << "+++++++++++++++++++++++++++" << std::endl;
-        std::cout << "+++ LEVEL UP AVAILABLE! +++" << std::endl;
-        std::cout << "+++++++++++++++++++++++++++" << std::endl << std::endl;
-    }
+        if (this->characters[activeCharacter].getExp() >=
+            this->characters[activeCharacter].getExpNext())
+        {
+            std::cout << std::endl
+                      << "+++++++++++++++++++++++++++" << std::endl;
+            std::cout << "+++ LEVEL UP AVAILABLE! +++" << std::endl;
+            std::cout << "+++++++++++++++++++++++++++" << std::endl << std::endl;
+        }
 
-    std::cout << "*** MAIN MENU ***" << std::endl << std::endl;
+        std::cout << "*** MAIN MENU ***" << std::endl << std::endl;
 
-    std::cout << "* Active Character: " <<
-        this->characters[activeCharacter].getName() << " Nr: " <<
-        this->activeCharacter+1 << " / " << this->characters.size() << " *" <<
-        std::endl << std::endl;
+        std::cout << "* Active Character: " <<
+            this->characters[activeCharacter].getName() << " Nr: " <<
+            this->activeCharacter+1 << " / " << this->characters.size() << " *" <<
+            std::endl << std::endl;
 
-    std::cout << "0: Quit" << std::endl;
-    std::cout << "1: Travel" << std::endl;
-    std::cout << "2: Shop" << std::endl;
-    std::cout << "3: Level Up" << std::endl;
-    std::cout << "4: Rest" << std::endl;
-    std::cout << "5: Character sheet" << std::endl;
-    std::cout << "6: Create new character" << std::endl;
-    std::cout << "7: Select Characterw" << std::endl;
-    std::cout << "8: Save Character" << std::endl;
-    std::cout << "9: Load Character" << std::endl << std::endl;
+        std::cout << "0: Quit" << std::endl;
+        std::cout << "1: Travel" << std::endl;
+        std::cout << "2: Shop" << std::endl;
+        std::cout << "3: Level Up" << std::endl;
+        std::cout << "4: Rest" << std::endl;
+        std::cout << "5: Character sheet" << std::endl;
+        std::cout << "6: Create new character" << std::endl;
+        std::cout << "7: Select Characterw" << std::endl;
+        std::cout << "8: Save Character" << std::endl;
+        std::cout << "9: Load Character" << std::endl << std::endl;
 
-    std::cout << std::endl << "Choice: ";
-    std::cin >> this->choice;
-
-    // Error checking for input
-    // loop until the input is valid/correct
-    // numerical value, NOT string or char
-    while (std::cin.fail())
-    {
-        std::cout << "Faulty input!" << "\n";
-        // clear the stream
-        std::cin.clear();
-        // ignore 100 chars
-        std::cin.ignore(100, '\n');
-        // enter chice again
         std::cout << std::endl << "Choice: ";
         std::cin >> this->choice;
+
+        // Error checking for input
+        // loop until the input is valid/correct
+        // numerical value, NOT string or char
+        while (std::cin.fail())
+        {
+            std::cout << "Faulty input!" << "\n";
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << std::endl << "Choice: ";
+            std::cin >> this->choice;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << std::endl;
+
+        switch (this->choice)
+        {
+            case 0: // QUIT
+                playing = false;
+                this->saveCharacters();
+                break;
+
+            case 1: // TRAVEL
+
+                Travel();
+
+                break;
+
+            case 3: // LEVEL UP
+                this->levelUpCharacter();
+                break;
+
+            case 5: // DISPLYA CHARACTER SHEET
+                characters[activeCharacter].displayCharacter();
+                break;
+
+            case 6: // CREATE NEW CHARACTER
+                createCharacter();
+                saveCharacters();
+                break;
+
+            case 7:
+                selectCharacters();
+                break;
+
+            case 8: // SAVE
+                saveCharacters();
+                break;
+
+            case 9: // LOAD
+                loadCharacters();
+                break;
+
+
+            default:
+                break;
+        }
     }
-
-    std::cin.ignore(100, '\n');
-    std::cout << std::endl;
-
-    switch (this->choice)
+    else
     {
-        case 0: // QUIT
-            playing = false;
-            break;
+        std::cout << "*** YOU ARE DEAD, LOAD? ***" << std::endl << std::endl;
+        std::cout << "(0) YES, (1) NO" << std::endl << std::endl;
+        std::cin >> this->choice;
 
-        case 1: // TRAVEL
+        // Error checking for input
+        while (std::cin.fail() || this->choice < 0 || this->choice > 1)
+        {
+            std::cout << "Faulty input!" << "\n";
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << "(0) YES, (1) NO" << std::endl << std::endl;
+            std::cin >> this->choice;
+        }
 
-            Travel();
+        std::cin.ignore(100, '\n');
+        std::cout << std::endl;
 
-            break;
-
-        case 3: // LEVEL UP
-            this->levelUpCharacter();
-            break;
-
-        case 5: // DISPLYA CHARACTER SHEET
-            characters[activeCharacter].displayCharacter();
-            break;
-
-        case 6: // CREATE NEW CHARACTER
-            createCharacter();
-            saveCharacters();
-            break;
-
-        case 7:
-            selectCharacters();
-            break;
-
-        case 8: // SAVE
-            saveCharacters();
-            break;
-
-        case 9: // LOAD
-            loadCharacters();
-            break;
-
-
-        default:
-            break;
+        if (this->choice == 0)
+            this->loadCharacters();
+        else
+            this->playing = false;
     }
 }
 
@@ -272,7 +312,7 @@ void Game::loadCharacters()
             Character temp(name, distanceTraveled, gold,
                       level, exp, strength, vitality,
                       dexterity, intelligence, hp,
-                      stamina, statPoints, skillPoints);
+                      stamina, statPoints);
 
             this->characters.push_back(Character(temp));
 
