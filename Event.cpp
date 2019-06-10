@@ -206,7 +206,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                             character.gainExp(gainExp);
 
                             gainGold = rand() % enemies[choice].getLevel() * 10 + 1;
-                            character.gainGold(gainGold)
+                            character.gainGold(gainGold);
 
                             std::cout << "EXP GAINED: " << gainExp << std::endl << std::endl;
                             std::cout << "GOLD GAINED: " << gainGold << std::endl << std::endl;
@@ -305,10 +305,12 @@ void Event::puzzleEncounter(Character &character)
     int chances = 3;
     // EXPE BETWEEN 1 and 10
     int gainExp = (chances * character.getLevel() * (rand() % 10 + 1));
+    int gainGold = (chances * character.getLevel() * (rand() % 10 + 1));
 
     std::cout << "Travel " << std::endl;
 
-    Puzzle puzzle("Puzzles/puzzle1.txt");
+
+    Puzzle puzzle("Puzzles/2.txt");
 
     while (!completed && chances > 0)
     {
@@ -346,7 +348,10 @@ void Event::puzzleEncounter(Character &character)
             completed = true;
             // Get addiction la exp for correct answer
             character.gainExp(gainExp);
+            character.gainGold(gainGold);
             std::cout << "YOU GAINED " << gainExp << " EXP!" << std::endl << std::endl;
+            std::cout << "YOU GAINED " << gainGold << " GOLD!" << std::endl << std::endl;
+
         }
     }
 
