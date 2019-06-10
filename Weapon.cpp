@@ -59,15 +59,15 @@ std::string Weapon::toString() const
 {
     std::string str =
         this->getName()
-        + " " +
+        + " Lvl: " +
         std::to_string(this->getLevel())
-        + " " +
+        + " Damage: " +
         std::to_string(this->damageMin)
-        + " " +
-        std::to_string(this->damageMax);
-        + " " +
+        + "/" +
+        std::to_string(this->damageMax)
+        + " Rarity: " +
         std::to_string(this->getRarity())
-        + " " +
+        + " $: " +
         std::to_string(this->getSellValue());
 
     return str;

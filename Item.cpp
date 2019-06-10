@@ -15,6 +15,7 @@ Item::Item(int level, int rarity)
     this->level = rand() % (level + 2) + 1; // item form lvl 1 to current
     this-> buyValue = level * this->rarity * 10;
     this->sellValue = this->buyValue / 2;
+    this->rarity = rarity;
 }
 
 Item::Item(std::string name, int level, int sellValue, int buyValue, int rarity)

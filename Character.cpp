@@ -58,14 +58,6 @@ Character::Character(std::string name, int distanceTraveled,
 
     this->statPoints = statPoints;
 
-    this->inventory.addItem(Weapon(1, rand() % 5));
-    this->inventory.addItem(Armor(1, rand() % 5));
-    this->inventory.addItem(Weapon(1, rand() % 5));
-    this->inventory.addItem(Armor(1, rand() % 5));
-    this->inventory.addItem(Weapon(1, rand() % 5));
-    this->inventory.addItem(Armor(1, rand() % 5));
-    this->inventory.addItem(Weapon(1, rand() % 5));
-
     this->updateStats();
 }
 
@@ -152,6 +144,58 @@ void Character::displayCharacter() const
     std::cout << std::endl;
 }
 
+// For Saving in File
+std::string Character::getAsString() const
+{
+         return name + " "
+            + std::to_string(distanceTraveled) + " "
+            + std::to_string(gold) + " "
+            + std::to_string(level) + " "
+            + std::to_string(exp) + " "
+            + std::to_string(strength) + " "
+            + std::to_string(vitality) + " "
+            + std::to_string(dexterity) + " "
+            + std::to_string(intelligence) + " "
+            + std::to_string(hp) + " "
+            + std::to_string(stamina) + " "
+            + std::to_string(statPoints);
+}
+
+std::string Character::getInvAsString()
+{
+    std::string inv;
+
+    for (size_t i = 0; i < this->inventory.size(); i++)
+    {
+        inv += std::to_string(i) + ": " + this->inventory[i].toString() + "\n";
+    }
+
+    return inv;
+}
+
+void Character::levelUp()
+{
+    if (exp >= this->expNext)
+    {
+        this->exp -= this->expNext;
+        this->level++;
+        this->expNext = static_cast<int>((50 / 3)*(pow(level, 3) -
+                        6 * pow(level, 2) +
+                        (17 * level) - 12));
+
+        this->statPoints++;
+
+        this->updateStats();
+
+        std::cout << "YOU ARE NOW LEVEL " << this->level << " !!!" << std::endl << std::endl;
+
+    }
+    else
+    {
+        std::cout << "NOT ENOUGH EXP!" << std::endl << std::endl;
+    }
+}
+
 void Character::updateStats() // after save or loading
 {
     // Level formula
@@ -219,56 +263,55 @@ void Character::addToStat(int stat, int value)
     }
 }
 
-void Character::levelUp()
+void Character::equipItem(unsigned index)
 {
-    if (exp >= this->expNext)
+    if (index < 0 || index >= this->inventory.size())
     {
-        this->exp -= this->expNext;
-        this->level++;
-        this->expNext = static_cast<int>((50 / 3)*(pow(level, 3) -
-                        6 * pow(level, 2) +
-                        (17 * level) - 12));
-
-        this->statPoints++;
-
-        this->updateStats();
-
-        std::cout << "YOU ARE NOW LEVEL " << this->level << " !!!" << std::endl << std::endl;
-
+        std::cout << "No Valid ITEM SELECTED!" << std::endl << std::endl;
     }
     else
     {
-        std::cout << "NOT ENOUGH EXP!" << std::endl << std::endl;
+        Weapon *w = nullptr;
+        w = dynamic_cast<Weapon*>(&this->inventory[index]);
+
+        Armor *a = nullptr;
+        a = dynamic_cast<Armor*>(&this->inventory[index]);
+
+        // Is weapon
+        if (w != nullptr)
+        {
+            this->weapon = *w;
+        }
+        else if (a != nullptr)
+        {
+            switch (a->getType())
+            {
+                case armorType::HEAD:
+                    this->armor_head = *a;
+                    break;
+
+                case armorType::CHEST:
+                    this->armor_chest = *a;
+                    break;
+
+                case armorType::ARMS:
+                    this->armor_arms = *a;
+                    break;
+
+                case armorType::LEGS:
+                    this->armor_legs = *a;
+                    break;
+
+                default:
+                    std::cout << "ERROR ARMOR TYPE INVALID!" << std::endl;
+                    break;
+            }
+        }
+        else
+        {
+            std::cout << "ERROR EQUIP ITEM S NOT ARMOR OR WEAPON!" << std::endl;
+        }
     }
-}
-
-// For Saving in File
-std::string Character::getAsString() const
-{
-         return name + " "
-            + std::to_string(distanceTraveled) + " "
-            + std::to_string(gold) + " "
-            + std::to_string(level) + " "
-            + std::to_string(exp) + " "
-            + std::to_string(strength) + " "
-            + std::to_string(vitality) + " "
-            + std::to_string(dexterity) + " "
-            + std::to_string(intelligence) + " "
-            + std::to_string(hp) + " "
-            + std::to_string(stamina) + " "
-            + std::to_string(statPoints);
-}
-
-std::string Character::getInvAsString()
-{
-    std::string inv;
-
-    for (size_t i = 0; i < this->inventory.size(); i++)
-    {
-        inv += std::to_string(i) + ": " + this->inventory[i].toString() + "\n";
-    }
-
-    return inv;
 }
 
 void Character::takeDamage(const int damage)

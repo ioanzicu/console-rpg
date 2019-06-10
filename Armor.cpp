@@ -50,15 +50,15 @@ std::string Armor::toString() const
 {
     std::string str =
         this->getName()
-        + " " +
+        + " Lvl: " +
         std::to_string(this->getLevel())
-        + " " +
+        + " Defence: " +
         std::to_string(this->defence)
-        + " " +
-        std::to_string(this->type);
-        + " " +
+        + " Type: " +
+        std::to_string(this->type)
+        + " Rarity: " +
         std::to_string(this->getRarity())
-        + " " +
+        + " $: " +
         std::to_string(this->getSellValue());
 
     return str;

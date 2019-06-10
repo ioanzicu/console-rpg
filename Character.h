@@ -22,6 +22,7 @@ class Character
         void levelUp();
         void updateStats();
         void addToStat(int stat, int value);
+        void equipItem(unsigned index);
         inline void resetHp() { this->hp = this->hpMax; };
         void addItem(const Item &item) { this->inventory.addItem(item); }
 
