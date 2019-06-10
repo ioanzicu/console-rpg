@@ -98,13 +98,17 @@ void Game::mainMenu()
                 break;
 
             case 1: // TRAVEL
-
-                Travel();
+                travel();
 
                 break;
 
             case 3: // LEVEL UP
                 this->levelUpCharacter();
+                break;
+
+            case 4: // REST
+                rest();
+
                 break;
 
             case 5: // DISPLYA CHARACTER SHEET
@@ -363,11 +367,65 @@ void Game::selectCharacters()
     std::cout << this->characters[this->activeCharacter] .getName() << " is SELECTED" << std::endl << std::endl;
 }
 
-void Game::Travel()
+void Game::travel()
 {
     this->characters[activeCharacter].travel();
 
     Event ev;
 
     ev.generateEvent(this->characters[activeCharacter], this->enemies);
+}
+
+void Game::rest()
+{
+    int restCost = this->characters[this->activeCharacter].getHpMax() - this->characters[this->activeCharacter].getHp();
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "***   REST - FILL YOUR HP   ***" << std::endl;
+    std::cout << "-------------------------------" << std::endl << std::endl;
+
+    std::cout << "Resting costs you: " << restCost << std::endl << std::endl;
+    std::cout << "Your gold: " << this->characters[this->activeCharacter].getGold() << std::endl << std::endl;
+    std::cout << "HP: " << this->characters[this->activeCharacter].getHp() << " / " << this->characters[this->activeCharacter].getHpMax() << std::endl << std::endl;
+
+    if (this->characters[this->activeCharacter].getGold() < restCost)
+    {
+        std::cout << "Not Enough Money, Sorry!!!..." << std::endl << std::endl;
+    }
+    else if(this->characters[this->activeCharacter].getHp() >= this->characters[this->activeCharacter].getHpMax())
+    {
+         std::cout << "Your HEALTH is already FULL!!!" << std::endl << std::endl;
+    }
+    else
+    {
+        std::cout << "Rest? (0) Yes, (1) No..." << std::endl << std::endl;
+
+        std::cin >> this->choice;
+
+        // Error checking for input
+        while (std::cin.fail() || this->choice < 0 || this->choice > 1)
+        {
+            std::cout << "Faulty input!" << "\n";
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << "Rest? (1) Yes, (0) No..." << std::endl << std::endl;
+            std::cin >> this->choice;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << std::endl;
+
+        if (this->choice == 0)
+        {
+            this->characters[this->activeCharacter].resetHp();
+            this->characters[this->activeCharacter].payGold(restCost);
+            std::cout << "RESTED!" << std::endl << std::endl;
+        }
+        else
+        {
+             std::cout << "MAYBE NEXT TIME..." << std::endl;
+        }
+    }
 }

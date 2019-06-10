@@ -86,8 +86,6 @@ void Character::initialize(const std::string name)
     this->statPoints = 0;
 
     this->updateStats();
-
-    this->hp = this->hpMax;
 }
 
 void Character::displayCharacter() const
@@ -104,6 +102,9 @@ void Character::displayCharacter() const
     std::cout << "= Statpoints: " << this->expNext << std::endl;
     std::cout << std::endl;
 
+    std::cout << "------------------------------" << std::endl;
+    std::cout << "***     PASSIVE SKILLS     ***" << std::endl;
+    std::cout << "------------------------------" << std::endl << std::endl;
     std::cout << "= Strenght: " << this->strength << std::endl;
     std::cout << "= Vitality: " << this->vitality << std::endl;
     std::cout << "= Dexterity: " << this->dexterity << std::endl;
@@ -159,6 +160,8 @@ void Character::updateStats() // after save or loading
     this->defence = this->dexterity + (this->intelligence/2);
     this->accuracy = (this->dexterity / 2) + intelligence + 1;
     this->luck = this->intelligence;
+
+    this->hp = this->hpMax;
 }
 
 void Character::addToStat(int stat, int value)
@@ -221,8 +224,6 @@ void Character::levelUp()
         this->statPoints++;
 
         this->updateStats();
-
-        this->hp = this->hpMax;
 
         std::cout << "YOU ARE NOW LEVEL " << this->level << " !!!" << std::endl << std::endl;
 

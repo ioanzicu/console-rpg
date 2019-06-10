@@ -24,7 +24,8 @@ class Game
     void saveCharacters();
     void loadCharacters();
     void selectCharacters();
-    void Travel();
+    void travel();
+    void rest();
 
     // Accessors
     inline bool getPlaying() const { return this->playing; }

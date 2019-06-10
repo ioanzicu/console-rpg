@@ -26,6 +26,7 @@ class Character
         void levelUp();
         void updateStats();
         void addToStat(int stat, int value);
+        inline void resetHp() { this->hp = this->hpMax; };
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
@@ -43,12 +44,14 @@ class Character
         inline const int  getDamage() const { return rand() % this->damageMax + this->damageMin; }
         inline const int& getDefence() const { return this->defence; }
         inline const int& getAccuracy() const { return this->accuracy; }
+        inline const int& getGold() const { return this->gold; }
 
         // Modifier
         inline void setDistanceTraveled(const int& distance) { this->distanceTraveled = distance; }
         inline void travel() { this->distanceTraveled++; }
         inline void gainExp(const int exp) { this->exp += exp; };
         inline void gainGold(const int gold) { this->gold += gold; };
+        inline void payGold(const int gold) { this->gold -= gold; };
         void takeDamage(const int damage);
 
     protected:
