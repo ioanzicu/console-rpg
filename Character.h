@@ -18,7 +18,7 @@ class Character
         void initialize(const std::string name);
         void displayCharacter() const;
         std::string getAsString() const;
-        std::string getInvAsString();
+        std::string getInvAsString(bool shop = false);
         std::string getInvAsStringSaveWeapon();
         std::string getInvAsStringSave();
         void levelUp();

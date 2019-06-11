@@ -85,6 +85,9 @@ void Character::initialize(const std::string name)
 
     this->statPoints = 0;
 
+    Inventory inv;
+    inv.addItem(Weapon(1, 3));
+
     this->updateStats();
 }
 
@@ -171,13 +174,21 @@ std::string Character::getAsString() const
             + this->armor_legs.toStringSave();
 }
 
-std::string Character::getInvAsString()
+std::string Character::getInvAsString(bool shop)
 {
     std::string inv;
 
     for (size_t i = 0; i < this->inventory.size(); i++)
     {
-        inv += std::to_string(i) + ": " + this->inventory[i].toString() + "\n";
+        if (shop)
+        {
+            inv += std::to_string(i) + ": " + this->inventory[i].toString() + "\n" +
+                + " | Sell Value: " + std::to_string(this->inventory[i].getSellValue()) + "\n";
+        }
+        else
+        {
+            inv += std::to_string(i) + ": " + this->inventory[i].toString() + "\n";
+        }
     }
 
     return inv;

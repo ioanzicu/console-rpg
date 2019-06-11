@@ -59,12 +59,10 @@ void Event::shopEncounter(Character &character)
         // Add to inventory WEAPON or ARMOR
         if (coinToss > 0)
         {
-            std::cout << " 1 - " << coinToss << std::endl;
             merchantInv.addItem(Weapon(character.getLevel() + rand() % 5, rand() % 5));
         }
         else
         {
-            std::cout << " 0 - " << coinToss << std::endl;
             merchantInv.addItem(Armor(character.getLevel() + rand() % 5, rand() % 5));
         }
     }
@@ -114,17 +112,60 @@ void Event::shopEncounter(Character &character)
                 break;
 
             case 1: // BUY
+                std::cout << "--------------------------" << std::endl;
+                std::cout << "***      BUY MENU      ***" << std::endl;
+                std::cout << "--------------------------" << std::endl << std::endl;
+
+                std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+
                 for (size_t i = 0; i < merchantInv.size(); i++)
                 {
-                    inv += std::to_string(i) + ": " + merchantInv[i].toString() + " " + " | PRICE: " +
+                    inv += std::to_string(i) + ": " + merchantInv[i].toString() + "\n - PRICE: " +
                            std::to_string(merchantInv[i].getBuyValue()) + "\n";
                 }
                 std::cout << inv << std::endl;
+
+                std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+                std::cout << "Choice of item: ";
+                std::cin >> choice;
+
+                while (std::cin.fail() || choice > merchantInv.size() || choice < 0)
+                {
+                    std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
+                    // clear the stream
+                    std::cin.clear();
+                    // ignore 100 chars
+                    std::cin.ignore(100, '\n');
+                    // enter choice again
+
+
+                    std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+                    std::cout << "Choice of item: ";
+                    std::cin >> choice;
+                }
+
+                std::cin.ignore(100, '\n');
+                std::cout << std::endl;
+
+                if (character.getGold() >= merchantInv[choice].getBuyValue())
+                {
+                    character.payGold(merchantInv[choice].getBuyValue());
+                    character.addItem(merchantInv[choice]);
+
+                    std::cout << "Bought item: " << merchantInv[choice].getName() << " -" << merchantInv[choice].getBuyValue() << std::endl;
+
+                    merchantInv.removeItem(choice);
+                }
+                else
+                {
+                    std::cout << "Not enough GOLD!!!" << std::endl;
+                }
+
                 break;
 
             case 2: // SELL
 
-                std::cout << character.getInvAsString() << std::endl;
+                std::cout << character.getInvAsString(true) << std::endl;
 
                 break;
 
@@ -133,11 +174,10 @@ void Event::shopEncounter(Character &character)
         }
     }
 
+    std::cout << "You left the shop..." << std::endl << std::endl;
     std::cout << "ENTER to continue..." << "\n";
     // Wait for a character
     std::cin.get();
-
-    std::cout << "You left the shop..." << std::endl << std::endl;
 }
 
 // BATTLE

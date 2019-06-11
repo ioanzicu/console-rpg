@@ -1,3 +1,6 @@
-Brombdo 2 30 1 0 5 5 5 5 35 8 0 0 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 
+Brombdo 6 16 1 0 5 5 5 5 35 8 0 0 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 
+
+1 Brombdo 1 0 0 0 0 0 1 Marsian-Defender 1 1 12 6 10 1 
+0 30 1 0 5 5 5 5 35 30 8 -1 0 0 0 0 1 0 1 1 1 0 0 0 1 0 1 1 1 0 0 0 1 0 1 1 1 0 0 0 1 0 1 1 1 0 0 0 1 0 1 1 
 
 
