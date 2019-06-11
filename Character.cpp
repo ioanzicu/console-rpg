@@ -384,6 +384,29 @@ void Character::equipItem(unsigned index)
     }
 }
 
+void Character::removeItem(const int index)
+{
+    if (index < 0 || index >= this->inventory.size())
+    {
+        std::cout << "ERROR, NOT POSSIBLE TO REMOVE ITEM, removeItem Character" << std::endl << std::endl;
+    }
+    else
+    {
+        this->inventory.removeItem(index);
+    }
+}
+
+const Item& Character::getItem(const int index)
+{
+    if (index < 0 || index >= this->inventory.size())
+    {
+        std::cout << "ERROR, NOT POSSIBLE TO REMOVE ITEM, getItem Character" << std::endl << std::endl;
+        throw("ERROR, OUT OF BOUNDS, GET ITEM CHARACTERS");
+    }
+
+    return this->inventory[index];
+}
+
 void Character::takeDamage(const int damage)
 {
     this->hp -= damage;

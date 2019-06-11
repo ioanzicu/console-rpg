@@ -17,7 +17,7 @@ void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
 {
     // Generate an event from 0 to 3
     int i = rand() % Event::nrOfEvents;
-    i = 2;
+
     switch (i)
     {
         case 0:
@@ -118,6 +118,8 @@ void Event::shopEncounter(Character &character)
 
                 std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
 
+                inv.clear();
+
                 for (size_t i = 0; i < merchantInv.size(); i++)
                 {
                     inv += std::to_string(i) + ": " + merchantInv[i].toString() + "\n - PRICE: " +
@@ -126,10 +128,10 @@ void Event::shopEncounter(Character &character)
                 std::cout << inv << std::endl;
 
                 std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-                std::cout << "Choice of item: ";
+                std::cout << "Choice of item (-1 to cancel): ";
                 std::cin >> choice;
 
-                while (std::cin.fail() || choice > merchantInv.size() || choice < 0)
+                while (std::cin.fail() || choice > merchantInv.size() || choice < -1)
                 {
                     std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
                     // clear the stream
@@ -138,16 +140,19 @@ void Event::shopEncounter(Character &character)
                     std::cin.ignore(100, '\n');
                     // enter choice again
 
-
                     std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-                    std::cout << "Choice of item: ";
+                    std::cout << "Choice of item (-1 to cancel): ";
                     std::cin >> choice;
                 }
 
                 std::cin.ignore(100, '\n');
                 std::cout << std::endl;
 
-                if (character.getGold() >= merchantInv[choice].getBuyValue())
+                if (choice == -1)
+                {
+                    std::cout << "Cancelled..." << std::endl << std::endl;
+                }
+                else if (character.getGold() >= merchantInv[choice].getBuyValue())
                 {
                     character.payGold(merchantInv[choice].getBuyValue());
                     character.addItem(merchantInv[choice]);
@@ -164,8 +169,53 @@ void Event::shopEncounter(Character &character)
                 break;
 
             case 2: // SELL
-
+                // if it is in shop (true) -> print sell value
                 std::cout << character.getInvAsString(true) << std::endl;
+
+                std::cout << "--------------------------" << std::endl;
+                std::cout << "***      SELL MENU     ***" << std::endl;
+                std::cout << "--------------------------" << std::endl << std::endl;
+
+                std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+                std::cout << "Choice of item (-1 to cancel): ";
+
+                if (character.getInventorySize() > 0) // inventory is not empty
+                {
+                    std::cin >> choice;
+
+                    while (std::cin.fail() || choice > character.getInventorySize() || choice < -1)
+                    {
+                        std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
+                        // clear the stream
+                        std::cin.clear();
+                        // ignore 100 chars
+                        std::cin.ignore(100, '\n');
+                        // enter choice again
+
+                        std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+                        std::cout << "Choice of item (-1 to cancel): ";
+                        std::cin >> choice;
+                    }
+
+                    std::cin.ignore(100, '\n');
+                    std::cout << std::endl;
+
+                    if (choice == -1)
+                    {
+                        std::cout << "Cancelled..." << std::endl << std::endl;
+                    }
+                    else
+                    {
+                        character.gainGold(character.getItem(choice).getSellValue());
+                        std::cout << "Item sold!" << std::endl;
+                        std::cout << "Gold earned: " << character.getItem(choice).getSellValue() << std::endl << std::endl;;
+                        character.removeItem(choice);
+                    }
+                }
+                else
+                {
+                    std::cout << "The Inventory is EMPTY!" << std::endl << std::endl;
+                }
 
                 break;
 
@@ -491,7 +541,6 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
         }
     }
 }
-
 
 // PUZZLES
 void Event::puzzleEncounter(Character &character)

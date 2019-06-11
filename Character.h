@@ -27,6 +27,8 @@ class Character
         void equipItem(unsigned index);
         inline void resetHp() { this->hp = this->hpMax; };
         void addItem(const Item &item) { this->inventory.addItem(item); }
+        void removeItem(const int index);
+        const Item& getItem(const int index);
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
