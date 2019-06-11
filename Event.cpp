@@ -1,8 +1,11 @@
 #include "Event.h"
 
+// Total Wvents
+int Event::nrOfEvents = 3;
+
 Event::Event()
 {
-    this->nrOfEvents = 2;
+
 }
 
 Event::~Event()
@@ -12,19 +15,23 @@ Event::~Event()
 
 void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
 {
-    // Generate an event from 0 to 1
-    int i = rand() % this->nrOfEvents;
-
+    // Generate an event from 0 to 3
+    int i = rand() % Event::nrOfEvents;
+    i = 2;
     switch (i)
     {
         case 0:
-            // Enemy encounter
-            enemyEncounter(character, enemies);
+            // ENEMY
+            this->enemyEncounter(character, enemies);
             break;
 
         case 1:
-            // Puzzle
-            puzzleEncounter(character);
+            // PUZZLE
+            this->puzzleEncounter(character);
+            break;
+        case 2:
+            // SHOP
+            this->shopEncounter(character);
             break;
         default:
             break;
@@ -32,6 +39,106 @@ void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
 }
 
 // Different events
+
+// SHOP
+void Event::shopEncounter(Character &character)
+{
+    int choice = 0;
+    bool shopping = true;
+    Inventory merchantInv;
+    std::string inv;
+
+    // Init merchant inventory
+    int nrOfItems = rand() % 20 + 10;
+    bool coinToss = false;
+
+    for (size_t i = 0; i < nrOfItems; i++)
+    {
+        coinToss = rand() % 1; // 0 or 1
+
+        // Add to inventory WEAPON or ARMOR
+        if (coinToss > 0)
+        {
+            std::cout << " 1 - " << coinToss << std::endl;
+            merchantInv.addItem(Weapon(character.getLevel() + rand() % 5, rand() % 5));
+        }
+        else
+        {
+            std::cout << " 0 - " << coinToss << std::endl;
+            merchantInv.addItem(Armor(character.getLevel() + rand() % 5, rand() % 5));
+        }
+    }
+
+    while (shopping)
+    {
+        std::cout << "---------------------------" << std::endl;
+        std::cout << "***      SHOP MENU      ***" << std::endl;
+        std::cout << "---------------------------" << std::endl << std::endl;
+        std::cout << "Continue..." << std::endl;
+        std::cin.get();
+
+        std::cout << "0: Leave" << std::endl;
+        std::cout << "1: Buy" << std::endl;
+        std::cout << "2: Sell" << std::endl;
+
+        std::cout << "Choice: ";
+        std::cin >> choice;
+
+        while (std::cin.fail() || choice > 3 || choice < 0)
+        {
+            std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter choice again
+
+            std::cout << "* SHOP MENU *" << std::endl;
+
+            std::cout << "0: Leave" << std::endl;
+            std::cout << "1: Buy" << std::endl;
+            std::cout << "2: Sell" << std::endl;
+
+            std::cout << "Choice: ";
+            std::cin >> choice;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << std::endl;
+
+        // SHOP
+        switch (choice)
+        {
+            case 0: // LEAVE
+                shopping = false;
+                break;
+
+            case 1: // BUY
+                for (size_t i = 0; i < merchantInv.size(); i++)
+                {
+                    inv += std::to_string(i) + ": " + merchantInv[i].toString() + " " + " | PRICE: " +
+                           std::to_string(merchantInv[i].getBuyValue()) + "\n";
+                }
+                std::cout << inv << std::endl;
+                break;
+
+            case 2: // SELL
+
+                std::cout << character.getInvAsString() << std::endl;
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    std::cout << "ENTER to continue..." << "\n";
+    // Wait for a character
+    std::cin.get();
+
+    std::cout << "You left the shop..." << std::endl << std::endl;
+}
 
 // BATTLE
 void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
@@ -212,25 +319,25 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                             {
                                 rarity = 0; // Common item
                                 // roll again
-                                roll = rand() % 100 + 1; // 1 tp 100
+                                roll = rand() % 100 + 1; // 1 to 100
                                 if (roll > 30)
                                 {
                                     rarity = 1; // Uncommon item
 
-                                    roll = rand() % 100 + 1; // 1 tp 100
+                                    roll = rand() % 100 + 1; // 1 to 100
                                     if (roll > 50)
                                     {
                                         rarity = 2; // Rare
 
-                                        roll = rand() % 100 + 1; // 1 tp 100
+                                        roll = rand() % 100 + 1; // 1 to 100
                                         if (roll > 70)
                                         {
-                                            rarity = 3; // Legendary
+                                            rarity = 3; // Legendary item
 
-                                            roll = rand() % 100 + 1; // 1 tp 100
+                                            roll = rand() % 100 + 1; // 1 to 100
                                             if (roll > 80)
                                             {
-                                                rarity = 4; // EPIC
+                                                rarity = 4; // EPIC item
                                             }
                                         }
                                     }
@@ -345,6 +452,8 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     }
 }
 
+
+// PUZZLES
 void Event::puzzleEncounter(Character &character)
 {
     bool completed = false;

@@ -67,14 +67,13 @@ void Game::mainMenu()
 
         std::cout << "0: Quit" << std::endl;
         std::cout << "1: Travel" << std::endl;
-        std::cout << "2: Shop" << std::endl;
-        std::cout << "3: Level Up" << std::endl;
-        std::cout << "4: Rest" << std::endl;
-        std::cout << "5: Character sheet" << std::endl;
-        std::cout << "6: Create new character" << std::endl;
-        std::cout << "7: Select Characterw" << std::endl;
-        std::cout << "8: Save Character" << std::endl;
-        std::cout << "9: Load Character" << std::endl << std::endl;
+        std::cout << "2: Level Up" << std::endl;
+        std::cout << "3: Rest" << std::endl;
+        std::cout << "4: Character sheet" << std::endl;
+        std::cout << "5: Create new character" << std::endl;
+        std::cout << "6: Select Character" << std::endl;
+        std::cout << "7: Save Character" << std::endl;
+        std::cout << "8: Load Character" << std::endl << std::endl;
 
         std::cout << std::endl << "Choice: ";
         std::cin >> this->choice;
@@ -82,7 +81,7 @@ void Game::mainMenu()
         // Error checking for input
         // loop until the input is valid/correct
         // numerical value, NOT string or char
-        while (std::cin.fail())
+        while (std::cin.fail() || choice < 0 || choice > 9)
         {
             std::cout << "Faulty input!" << "\n";
             // clear the stream
@@ -90,7 +89,7 @@ void Game::mainMenu()
             // ignore 100 chars
             std::cin.ignore(100, '\n');
             // enter chice again
-            std::cout << std::endl << "Choice: ";
+            std::cout << std::endl << "Choice (0 - 8): ";
             std::cin >> this->choice;
         }
 
@@ -108,35 +107,34 @@ void Game::mainMenu()
                 travel();
                 break;
 
-            case 3: // LEVEL UP
+            case 2: // LEVEL UP
                 this->levelUpCharacter();
                 break;
 
-            case 4: // REST
+            case 3: // REST
                 rest();
                 break;
 
-            case 5: // DISPLYA CHARACTER SHEET
+            case 4: // DISPLYA CHARACTER SHEET
                 this->characterMenu();
                 break;
 
-            case 6: // CREATE NEW CHARACTER
+            case 5: // CREATE NEW CHARACTER
                 createCharacter();
                 saveCharacters();
                 break;
 
-            case 7:
+            case 6:
                 selectCharacters();
                 break;
 
-            case 8: // SAVE
+            case 7: // SAVE
                 saveCharacters();
                 break;
 
-            case 9: // LOAD
+            case 8: // LOAD
                 loadCharacters();
                 break;
-
 
             default:
                 break;

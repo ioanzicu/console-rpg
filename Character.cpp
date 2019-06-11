@@ -72,7 +72,7 @@ void Character::initialize(const std::string name)
 {
     this->distanceTraveled = 0;
 
-    this->gold = 33;
+    this->gold = 30;
 
     this->name = name;
     this->level = 1;
@@ -368,7 +368,7 @@ void Character::equipItem(unsigned index)
         }
         else
         {
-            std::cout << "ERROR EQUIP ITEM S NOT ARMOR OR WEAPON!" << std::endl;
+            std::cout << "ERROR EQUIP ITEM IS NOT ARMOR OR WEAPON!" << std::endl;
         }
     }
 }

@@ -84,7 +84,7 @@ std::string Armor::toString() const
         this->typeStr
         + " Rarity: " +
         std::to_string(this->getRarity())
-        + " $: " +
+        + " Sell Value: " +
         std::to_string(this->getSellValue());
 
     return str;
@@ -101,7 +101,7 @@ std::string Armor::toStringSave() const
         + " " +
         std::to_string(this->getRarity())
         + " " +
-        std::to_string(this->getByValue())
+        std::to_string(this->getBuyValue())
         + " " +
         std::to_string(this->getSellValue())
         + " " +

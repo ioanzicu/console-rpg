@@ -84,7 +84,7 @@ std::string Weapon::toStringSave() const
         + " " +
         std::to_string(this->getRarity())
         + " " +
-        std::to_string(this->getByValue())
+        std::to_string(this->getBuyValue())
         + " " +
         std::to_string(this->getSellValue())
         + " " +

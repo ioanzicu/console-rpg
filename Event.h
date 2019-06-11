@@ -15,13 +15,19 @@ class Event
         void generateEvent(Character &character, dArr<Enemy>& enemies);
 
         // Events
+        void shopEncounter(Character &character);
         void enemyEncounter(Character &character, dArr<Enemy>& enemies);
         void puzzleEncounter(Character &character);
+
+        // statics
+        static int nrOfEvents;
 
     protected:
 
     private:
-        int nrOfEvents;
+
 };
+
+
 
 #endif // EVENT_H

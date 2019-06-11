@@ -34,7 +34,7 @@ class Item
         // Accessors
         inline const std::string& getName() const { return this->name; }
         inline const int& getLevel() const { return this->level; }
-        inline const int& getByValue() const { return this->buyValue; }
+        inline const int& getBuyValue() const { return this->buyValue; }
         inline const int& getSellValue() const { return this->sellValue; }
         inline const int& getRarity() const { return this->rarity; }
         inline const int& getItemType() const { return this->itemType; }
