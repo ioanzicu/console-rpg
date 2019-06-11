@@ -8,14 +8,25 @@
 
 int main()
 {
-    srand(time(NULL));
-
-    Game game;
-    game.initGame();
-
-    while(game.getPlaying())
+    try
     {
-        game.mainMenu();
+        srand(time(NULL));
+
+        Game game;
+        game.initGame();
+
+        while(game.getPlaying())
+        {
+            game.mainMenu();
+        }
+    }
+    catch (std::exception const &exc)
+    {
+        std::cerr << "Exception caught " << exc.what() << std::endl;
+    }
+    catch(...)
+    {
+        std::cerr << "Unknown exception caught" << std::endl;
     }
 
     return 0;

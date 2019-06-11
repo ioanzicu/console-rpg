@@ -24,8 +24,12 @@ void Game::initGame()
     Weapon::initNames();
     Armor::initNames();
 
-    if (in.is_open())
+    // If File isn't Empty Load Characters
+    if (in.peek() != std::ifstream::traits_type::eof())
+    {
+        std::cout << "Try to load character..." << std::endl;
         this->loadCharacters();
+    }
     else
     {
         createCharacter();
@@ -416,11 +420,56 @@ void Game::loadCharacters()
             str >> statPoints;
             str >> skillPoints;
 
-            // Create a character with data loaded from the file
+             // Create a character with data loaded from the file
             Character temp(name, distanceTraveled, gold,
                       level, exp, strength, vitality,
                       dexterity, intelligence, hp,
                       stamina, statPoints);
+
+            // Create object, and set object
+            // Weapon
+            str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> damageMin >> damageMax;
+
+            Weapon weapon(damageMin, damageMax, name, level, buyValue, sellValue, rarity);
+
+            // Armors
+            // Head
+            str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> defence >> type;
+
+            Armor armor_head(type, defence, name, level, buyValue, sellValue, rarity);
+
+            // Chest
+            str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> defence >> type;
+
+            Armor armor_chest(type, defence, name, level, buyValue, sellValue, rarity);
+
+            // Arms
+            str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> defence >> type;
+
+            Armor armor_arms(type, defence, name, level, buyValue, sellValue, rarity);
+
+            // Legs
+            str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> defence >> type;
+
+            Armor armor_legs(type, defence, name, level, buyValue, sellValue, rarity);
+
+            temp.setWeapon(weapon);
+            temp.setArmorHead(armor_head);
+            temp.setArmorChest(armor_chest);
+            temp.setArmorArms(armor_arms);
+            temp.setArmorLegs(armor_legs);
+
+            // Add inventory Items
             str.clear();
             line.clear();
             getline(inFile, line);

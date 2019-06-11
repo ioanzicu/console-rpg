@@ -56,14 +56,6 @@ Character::Character(std::string name, int distanceTraveled,
     this->accuracy = 0;
     this->luck = 0;
 
-
-    this->inventory.addItem(Weapon(1, rand() % 5));
-    this->inventory.addItem(Weapon(1, rand() % 5));
-    this->inventory.addItem(Armor(1, rand() % 5));
-    this->inventory.addItem(Weapon(1, rand() % 5));
-    this->inventory.addItem(Armor(1, rand() % 5));
-    this->inventory.addItem(Armor(1, rand() % 5));
-
     this->statPoints = statPoints;
 
     this->updateStats();
@@ -86,10 +78,10 @@ void Character::initialize(const std::string name)
     this->level = 1;
     this->exp = 0;
 
-    this->strength = 1;
-    this->vitality = 1;
-    this->dexterity = 1;
-    this->intelligence = 1;
+    this->strength = 5;
+    this->vitality = 5;
+    this->dexterity = 5;
+    this->intelligence = 5;
 
     this->statPoints = 0;
 
@@ -171,7 +163,12 @@ std::string Character::getAsString() const
             + std::to_string(intelligence) + " "
             + std::to_string(hp) + " "
             + std::to_string(stamina) + " "
-            + std::to_string(statPoints);
+            + std::to_string(statPoints) + " "
+            + this->weapon.toStringSave()
+            + this->armor_head.toStringSave()
+            + this->armor_chest.toStringSave()
+            + this->armor_arms.toStringSave()
+            + this->armor_legs.toStringSave();
 }
 
 std::string Character::getInvAsString()
@@ -240,7 +237,7 @@ void Character::updateStats() // after save or loading
                         6 * pow(level, 2) +
                         (17 * level) - 12) + 100);
 
-    this->hpMax = (this->vitality * 2) + (this->strength/2) + this->level * 5;
+    this->hpMax = (this->vitality * 5) + (this->strength) + this->level * 5;
     this->hp = hpMax;
     this->staminaMax = this->vitality + (this->strength/2) + (this->dexterity/3);
     this->stamina = this->staminaMax;
