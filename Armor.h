@@ -30,6 +30,7 @@ class Armor : public Item
 
         //Functions
         virtual std::string toString() const;
+        virtual std::string toStringSave() const;
 
         // Accessors
         inline int getDefence() const { return this->defence; };

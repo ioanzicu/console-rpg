@@ -5,12 +5,12 @@ dArr<std::string> Weapon::names;
 // STAIC FUNCTIONS CAN HANDLE JUST STATIC MEMEBER
 void Weapon::initNames()
 {
-    Weapon::names.push("Typical Banana");
-    Weapon::names.push("Plazma Gun");
-    Weapon::names.push("Death Cobra Pacifist");
-    Weapon::names.push("Bad Smell Alien Socks");
-    Weapon::names.push("Carrot Gadget");
-    Weapon::names.push("Spoiled Gegsatrons Milk");
+    Weapon::names.push("Typical-Banana");
+    Weapon::names.push("Plazma-Gun");
+    Weapon::names.push("Death-Cobra-Pacifist");
+    Weapon::names.push("Bad-Smell-Alien-Socks");
+    Weapon::names.push("Carrot-Gadget");
+    Weapon::names.push("Spoiled-Gegsatrons-Milk");
 }
 
 Weapon::Weapon()
@@ -69,6 +69,29 @@ std::string Weapon::toString() const
         std::to_string(this->getRarity())
         + " $: " +
         std::to_string(this->getSellValue());
+
+    return str;
+}
+
+std::string Weapon::toStringSave() const
+{
+    std::string str =
+        std::to_string(this->getItemType())
+        + " " +
+        this->getName()
+        + " " +
+        std::to_string(this->getLevel())
+        + " " +
+        std::to_string(this->getRarity())
+        + " " +
+        std::to_string(this->getByValue())
+        + " " +
+        std::to_string(this->getSellValue())
+        + " " +
+        std::to_string(this->damageMin)
+        + " " +
+        std::to_string(this->damageMax)
+        + " ";
 
     return str;
 }

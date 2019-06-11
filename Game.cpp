@@ -259,9 +259,12 @@ void Game::saveCharacters()
     if (outFile.is_open())
     {
         // loop throught characet vector and append to file
-       for (size_t i = 0; i < characters.size(); i++)
+       for (size_t i = 0; i < this->characters.size(); i++)
        {
-           outFile << characters[i].getAsString() << std::endl; // new line
+            // save character
+            outFile << this->characters[i].getAsString() << std::endl; // new line
+            // save inventory
+            outFile << this->characters[i].getInvAsStringSave() << std::endl;
        }
     }
 
@@ -360,6 +363,7 @@ void Game::loadCharacters()
     // clean/delete old character
     this->characters.clear();
 
+    // CHARACTER DATA
     std::string name = "";
     int distanceTraveled = 0;
     int gold = 0;
@@ -373,6 +377,20 @@ void Game::loadCharacters()
     int stamina = 0;
     int statPoints = 0;
     int skillPoints = 0;
+
+    // ITEM DATA
+    int itemType = 0;
+    int defence = 0;
+    int type = 0;
+    int damageMin = 0;
+    int damageMax = 0;
+    // name
+    // level
+    int buyValue = 0;
+    int sellValue = 0;
+    int rarity = 0;
+
+    Inventory tempItems;
 
     std::string line = "";
     std::stringstream str;
@@ -403,10 +421,59 @@ void Game::loadCharacters()
                       level, exp, strength, vitality,
                       dexterity, intelligence, hp,
                       stamina, statPoints);
+            str.clear();
+            line.clear();
+            getline(inFile, line);
+
+            str.str(line);
+
+            // READ WEAPONS
+            while (str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> damageMin >> damageMax)
+            {
+                temp.addItem(
+                    Weapon
+                    (
+                        damageMin,
+                        damageMax,
+                        name,
+                        level,
+                        buyValue,
+                        sellValue,
+                        rarity
+                    )
+                );
+            }
+
+            str.clear();
+            line.clear();
+            getline(inFile, line);
+
+            str.str(line);
+
+            // READ ARMORS
+            while (str >> itemType >> name >>
+                   level >> rarity >> buyValue >>
+                   sellValue >> defence >> type)
+            {
+                temp.addItem(
+                    Armor
+                    (
+                        type,
+                        defence,
+                        name,
+                        level,
+                        buyValue,
+                        sellValue,
+                        rarity
+                    )
+                );
+            }
 
             this->characters.push_back(Character(temp));
 
-            std::cout << "Character " << name << " Loaded!" << std::endl;
+            std::cout << "Character " << temp.getName() << " Loaded!" << std::endl;
             // Creal string input for the next stream
             str.clear();
         }

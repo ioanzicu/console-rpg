@@ -49,6 +49,31 @@ Item& Inventory::operator[](const int index)
     return *this->itemArr[index];
 }
 
+void Inventory::operator=(const Inventory &obj)
+{
+    // DELETE EVERITHING from the LEFT SIDE OBJECT
+    for (size_t i = 0; i < this->nrOfItems; i++)
+    {
+        // delete individual pointer in array
+        delete this->itemArr[i];
+    }
+    // delete the pointer (to) array
+    delete[] this->itemArr;
+
+    // COPY EVERITHING FORM RIGHT SIDE TO LEFT SIDE OBJECT
+    this->capacity = obj.capacity;
+    this->nrOfItems = obj.nrOfItems;
+    this->itemArr = new Item*[this->capacity]; // create new Item Pointer Array
+
+    // Copy each element itemArr in new Item Array
+    for (size_t i = 0; i < this->nrOfItems; i++)
+    {
+        this->itemArr[i] = obj.itemArr[i]->clone();
+    }
+    // initialize to nullptr the pointer inside the array
+    initialize(this->nrOfItems);
+}
+
 // Double size of the inventory
 void Inventory::expend()
 {

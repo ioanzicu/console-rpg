@@ -19,6 +19,8 @@ class Character
         void displayCharacter() const;
         std::string getAsString() const;
         std::string getInvAsString();
+        std::string getInvAsStringSaveWeapon();
+        std::string getInvAsStringSave();
         void levelUp();
         void updateStats();
         void addToStat(int stat, int value);

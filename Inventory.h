@@ -14,6 +14,8 @@ class Inventory
         inline int size() const { return this->nrOfItems; };
         // Return a reference to item
         Item& operator[](const int index); // Index Operator Overloading
+        // Overrite assignment operator
+        void operator=(const Inventory& obj);
         // Functions
         void addItem(const Item& item);
         void removeItem(int index);

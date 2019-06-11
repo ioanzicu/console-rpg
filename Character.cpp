@@ -56,7 +56,6 @@ Character::Character(std::string name, int distanceTraveled,
     this->accuracy = 0;
     this->luck = 0;
 
-    this->statPoints = statPoints;
 
     this->inventory.addItem(Weapon(1, rand() % 5));
     this->inventory.addItem(Weapon(1, rand() % 5));
@@ -64,6 +63,8 @@ Character::Character(std::string name, int distanceTraveled,
     this->inventory.addItem(Weapon(1, rand() % 5));
     this->inventory.addItem(Armor(1, rand() % 5));
     this->inventory.addItem(Armor(1, rand() % 5));
+
+    this->statPoints = statPoints;
 
     this->updateStats();
 }
@@ -184,6 +185,30 @@ std::string Character::getInvAsString()
 
     return inv;
 }
+
+std::string Character::getInvAsStringSave()
+{
+    std::string inv;
+
+    // Save WEAPONS
+    for (size_t i = 0; i < this->inventory.size(); i++)
+    {
+        if (this->inventory[i].getItemType() == itemType::WEAPON)
+            inv += this->inventory[i].toStringSave();
+    }
+
+    inv += "\n";
+
+    // Save ARMOR
+    for (size_t i = 0; i < this->inventory.size(); i++)
+    {
+        if (this->inventory[i].getItemType() == itemType::ARMOR)
+            inv += this->inventory[i].toStringSave();
+    }
+
+    return inv;
+}
+
 
 void Character::levelUp()
 {

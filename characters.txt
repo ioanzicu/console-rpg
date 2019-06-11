@@ -1,1 +1,3 @@
 BROMBDO 1 57 1 18 1 1 1 1 7 1 0
+0 Plazma-Gun 2 4 325670 162835 17 35 0 Plazma-Gun 1 0 40 20 2 5 0 Carrot-Gadget 3 0 40 20 2 5 0 Typical-Banana 1 0 0 0 2 5 0 Spoiled-Gegsatrons-Milk 3 4 0 0 17 35 0 Plazma-Gun 2 0 15 30 2 5 0 Plazma-Gun 3 4 0 0 17 35 0 Carrot-Gadget 1 0 40 20 2 5 0 Spoiled-Gegsatrons-Milk 2 3 0 0 12 25 
+1 Alien-Blanket 2 4 0 0 37 3 1 Wet-Wipes 2 3 0 0 28 1 1 Wet-Wipes 1 3 30 15 28 2 1 Friend-ZONE 2 3 20 40 26 0 1 Laser-Shield 1 3 0 0 27 1 1 Laser-Shield 3 2 15 30 15 3 1 Wet-Wipes 3 0 0 0 5 0 1 Marsian-Defender 3 4 30 15 36 1 1 Friend-ZONE 1 3 40 20 27 3 

@@ -23,11 +23,13 @@ class Weapon : public Item
         );
         virtual ~Weapon();
 
-        // PURE VIRTUAL
+        // IMPLEMENT VIRTUAL FUNCTIONS FORM PARENT ABSTRACT CLASS
         virtual Weapon* clone() const;
 
         //Functions
         virtual std::string toString() const;
+        virtual std::string toStringSave() const;
+
 
         // Accessors
         inline int getDamageMin() const { return this->damageMin; };
