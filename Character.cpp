@@ -30,9 +30,9 @@ Character::Character()
 }
 
 Character::Character(std::string name, int distanceTraveled,
-                     int gold, int level, int exp, int strength,int vitality, int dexterity,
-                     int intelligence, int stamina, int hp,
-                     int statPoints)
+                     int gold, int level, int exp, int strength,
+                     int vitality, int dexterity, int intelligence,
+                     int stamina, int hp, int statPoints)
 {
     this->name = name;
     this->distanceTraveled = distanceTraveled;
@@ -79,16 +79,16 @@ void Character::initialize(const std::string name)
 {
     this->distanceTraveled = 0;
 
-    this->gold = 100;
+    this->gold = 33;
 
     this->name = name;
     this->level = 1;
     this->exp = 0;
 
-    this->strength = 5;
-    this->vitality = 5;
-    this->dexterity = 5;
-    this->intelligence = 5;
+    this->strength = 1;
+    this->vitality = 1;
+    this->dexterity = 1;
+    this->intelligence = 1;
 
     this->statPoints = 0;
 
@@ -121,7 +121,8 @@ void Character::displayCharacter() const
     std::cout << "= HP: " << this->hp << "/" << this->hpMax << std::endl;
     std::cout << "= Stamina: " << this->stamina << "/" << this->staminaMax << std::endl;
     std::cout << "= Damage: " << this->damageMin << " - " << this->damageMax << std::endl;
-    std::cout << "= Defence: " << this->defence << std::endl;
+    std::cout << "= Defence: " << this->defence << "  (+"
+              << std::to_string(this->getAddedDefence()) << ")" << std::endl;
     std::cout << "= Accuracy: " << this->accuracy << std::endl;
     std::cout << "= Luck: " << this->luck << std::endl;
     std::cout << "= Distance Travelled: " << this->distanceTraveled << std::endl;
@@ -134,7 +135,11 @@ void Character::displayCharacter() const
 
     std::cout << "= Weapon: " << this->weapon.getName()
               << " Level: " << this->weapon.getLevel()
-              << " Damage: " << this->weapon.getDamageMin() << "/" << this->weapon.getDamageMax() << std::endl;
+              << " Damage: " << this->damageMin
+              << " (+" << this->weapon.getDamageMin() << ") "
+              << "/ " << this->damageMax
+              << " (+" << this->weapon.getDamageMax() << ") "
+              << std::endl;
     std::cout << "= Armor Head: " << this->armor_head.getName()
               << " Level: " << this->armor_head.getLevel()
               << " Defence: " << this->armor_head.getDefence() << std::endl;
@@ -287,7 +292,7 @@ void Character::equipItem(unsigned index)
         // Is weapon
         if (w != nullptr)
         {
-            if (this->inventory[index].getName() != "EMPTY")
+            if (this->weapon.getRarity() >= 0)
             {
                 this->inventory.addItem(this->weapon);
             }
@@ -299,7 +304,7 @@ void Character::equipItem(unsigned index)
             switch (a->getType())
             {
                 case armorType::HEAD:
-                    if (this->inventory[index].getName() != "EMPTY")
+                    if (this->armor_head.getRarity() >= 0)
                     {
                         this->inventory.addItem(this->armor_head);
                     }
@@ -308,7 +313,7 @@ void Character::equipItem(unsigned index)
                     break;
 
                 case armorType::CHEST:
-                    if (this->inventory[index].getName() != "EMPTY")
+                    if (this->armor_chest.getRarity() >= 0)
                     {
                         this->inventory.addItem(this->armor_chest);
                     }
@@ -317,7 +322,7 @@ void Character::equipItem(unsigned index)
                     break;
 
                 case armorType::ARMS:
-                    if (this->inventory[index].getName() != "EMPTY")
+                    if (this->armor_arms.getRarity() >= 0)
                     {
                         this->inventory.addItem(this->armor_arms);
                     }
@@ -326,7 +331,7 @@ void Character::equipItem(unsigned index)
                     break;
 
                 case armorType::LEGS:
-                    if (this->inventory[index].getName() != "EMPTY")
+                    if (this->armor_legs.getRarity() >= 0)
                     {
                         this->inventory.addItem(this->armor_legs);
                     }

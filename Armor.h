@@ -10,14 +10,19 @@ class Armor : public Item
 {
     public:
         Armor();
-        Armor(int level, int rarity);
-        Armor(int type,
-              int defence,
-               std::string name,
-               int level,
-               int buyValue,
-               int sellValue,
-               int rarity);
+        Armor(
+            int level,
+            int rarity
+        );
+        Armor(
+            int type,
+            int defence,
+            std::string name,
+            int level,
+            int buyValue,
+            int sellValue,
+            int rarity
+        );
         virtual ~Armor();
 
         // PURE VIRTUAL

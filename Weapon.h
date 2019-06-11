@@ -8,14 +8,19 @@ class Weapon : public Item
 {
     public:
         Weapon();
-        Weapon(int level, int rarity);
-        Weapon(int damageMin,
-               int damageMax,
-               std::string name,
-               int level,
-               int buyValue,
-               int sellValue,
-               int rarity);
+        Weapon(
+            int level,
+            int rarity
+        );
+        Weapon(
+            int damageMin,
+            int damageMax,
+            std::string name,
+            int level,
+            int buyValue,
+            int sellValue,
+            int rarity
+        );
         virtual ~Weapon();
 
         // PURE VIRTUAL

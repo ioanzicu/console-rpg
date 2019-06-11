@@ -58,7 +58,7 @@ void Game::mainMenu()
 
         std::cout << "* Active Character: " <<
             this->characters[activeCharacter].getName() << " Nr: " <<
-            this->activeCharacter+1 << " / " << this->characters.size() << " *" <<
+            this->activeCharacter + 1 << " / " << this->characters.size() << " *" <<
             std::endl << std::endl;
 
         std::cout << "0: Quit" << std::endl;
@@ -102,7 +102,6 @@ void Game::mainMenu()
 
             case 1: // TRAVEL
                 travel();
-
                 break;
 
             case 3: // LEVEL UP

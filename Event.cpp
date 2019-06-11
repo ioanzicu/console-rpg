@@ -53,7 +53,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     bool enemieDefeated = false;
 
     // CREATE ENEMIES
-    int nrOfEnemies = rand() % 5 + 1; // prevent 0 enemies
+    int nrOfEnemies = rand() % 3 + 1; // prevent 0 enemies
 
     for (size_t i = 0; i < nrOfEnemies; i++)
     {
@@ -164,12 +164,16 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                     std::cout << std::endl;
 
                     // Attack Roll
-                    combatTotal = enemies[choice].getAccuracy() + character.getDefence();
+                    combatTotal = enemies[choice].getAccuracy() + (character.getDefence() + character.getAddedDefence());
                     // calculate procentage
                     enemyTotal = enemies[choice].getAccuracy() / static_cast<double>(combatTotal) * 100;
-                    playerTotal = character.getDefence() / static_cast<double>(combatTotal) * 100;
+                    playerTotal = (character.getDefence() + character.getAddedDefence()) / static_cast<double>(combatTotal) * 100;
                     combatRollPlayer = rand() % playerTotal + 1;
                     combatRollEnemy = rand() % enemyTotal + 1;
+
+                    std::cout << "Combat total: " << combatTotal << std::endl;
+                    std::cout << "Enemy percent: " << enemyTotal << std::endl;
+                    std::cout << "Player percent: " << playerTotal << std::endl << std::endl;
 
                     std::cout << "Player roll: " << combatRollPlayer << std::endl;
                     std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;
@@ -297,6 +301,10 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                 playerTotal = character.getAccuracy() / static_cast<double>(combatTotal) * 100;
                 combatRollPlayer = rand() % playerTotal + 1;
                 combatRollEnemy = rand() % enemyTotal + 1;
+
+                std::cout << "Combat total: " << combatTotal << std::endl;
+                std::cout << "Enemy percent: " << enemyTotal << std::endl;
+                std::cout << "Player percent: " << playerTotal << std::endl << std::endl;
 
                 std::cout << "Player roll: " << combatRollPlayer << std::endl;
                 std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;

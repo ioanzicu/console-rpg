@@ -21,7 +21,7 @@ Weapon::Weapon()
 }
 
 Weapon::Weapon(int level, int rarity)
-     : Item(level, rarity)
+     : Item(itemType::WEAPON, level, rarity)
 {
     this->damageMax = rand() % level * (rarity + 1);
     this->damageMax += (rarity + 1) * 5;
@@ -37,7 +37,7 @@ Weapon::Weapon(int level, int rarity)
 }
 
 Weapon::Weapon(int damageMin, int damageMax, std::string name, int level, int buyValue, int sellValue, int rarity)
-    : Item(name, level, buyValue, sellValue, rarity)
+    : Item(itemType::WEAPON, name, level, buyValue, sellValue, rarity)
 {
     this->damageMin = damageMin;
     this->damageMax = damageMax;

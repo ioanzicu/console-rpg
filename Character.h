@@ -39,11 +39,19 @@ class Character
         inline const int& getStamin() const { return this->stamina; }
         inline const int& getDamageMin() const { return this->damageMin; }
         inline const int& getDamageMax() const { return this->damageMax; }
-        inline const int  getDamage() const { return rand() % this->damageMax + this->damageMin; }
+        inline const int  getDamage() const { return rand() % (this->damageMax
+                                                        + this->weapon.getDamageMax())
+                                                        + (this->damageMin
+                                                        + this->weapon.getDamageMin()); }
         inline const int& getDefence() const { return this->defence; }
+        inline const int  getAddedDefence() const { return this->armor_arms.getDefence()
+                                                         + this->armor_chest.getDefence()
+                                                         + this->armor_head.getDefence()
+                                                         + this->armor_legs.getDefence(); }
         inline const int& getAccuracy() const { return this->accuracy; }
         inline const int& getGold() const { return this->gold; }
         inline const int  getInventorySize() const { return this->inventory.size(); }
+
 
         // Modifier
         inline void setDistanceTraveled(const int& distance) { this->distanceTraveled = distance; }

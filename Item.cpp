@@ -2,24 +2,32 @@
 
 Item::Item()
 {
+    this->itemType = -1;
     this->name = "EMPTY";
     this->level = 0;
     this->buyValue = 0;
     this->sellValue = 0;
-    this->rarity = 0;
+    this->rarity = -1;
 }
 
-Item::Item(int level, int rarity)
+Item::Item(int itemType, int level, int rarity)
 {
     this->name = "RANDOM";
     this->level = rand() % (level + 2) + 1; // item form lvl 1 to current
     this-> buyValue = level * this->rarity * 10;
     this->sellValue = this->buyValue / 2;
     this->rarity = rarity;
+    this->itemType = itemType;
 }
 
-Item::Item(std::string name, int level, int sellValue, int buyValue, int rarity)
+Item::Item(int itemType,
+           std::string name,
+           int level,
+           int sellValue,
+           int buyValue,
+           int rarity)
 {
+    this->itemType = itemType;
     this->name = name;
     this->level = level;
     this->buyValue = buyValue;
