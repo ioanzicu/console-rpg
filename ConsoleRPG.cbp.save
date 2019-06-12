@@ -36,6 +36,8 @@
 		</Compiler>
 		<Unit filename="Armor.cpp" />
 		<Unit filename="Armor.h" />
+		<Unit filename="Boss.cpp" />
+		<Unit filename="Boss.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="Enemy.cpp" />

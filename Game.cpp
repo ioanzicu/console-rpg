@@ -629,3 +629,4 @@ void Game::rest()
         }
     }
 }
+
