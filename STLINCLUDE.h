@@ -12,5 +12,6 @@
 #include <math.h>
 
 #include "dArr.h"
+#include "GuiDisplay.h"
 
 #endif // STLINCLUDE_H_INCLUDED

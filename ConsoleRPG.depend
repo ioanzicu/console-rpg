@@ -13,7 +13,7 @@
 	"STLINCLUDE.h"
 	"Event.h"
 
-1560268080 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1560324166 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
 1560283937 /home/iro/Public/c++/game/ConsoleRPG/Character.h
@@ -59,11 +59,12 @@
 1560262389 source:/home/iro/Public/c++/game/ConsoleRPG/Enemy.cpp
 	"Enemy.h"
 
-1560264022 /home/iro/Public/c++/game/ConsoleRPG/Event.h
+1560321393 /home/iro/Public/c++/game/ConsoleRPG/Event.h
 	"STLINCLUDE.h"
 	"Character.h"
 	"Enemy.h"
 	"Puzzle.h"
+	"Boss.h"
 
 1560029042 /home/iro/Public/c++/game/ConsoleRPG//Puzzle.h
 	<string>
@@ -71,7 +72,7 @@
 	<fstream>
 	<iostream>
 
-1560284614 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
+1560322358 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
 	"Event.h"
 
 1560156188 source:/home/iro/Public/c++/game/ConsoleRPG/Puzzle.cpp
@@ -84,7 +85,7 @@
 
 1560079149 /home/iro/Public/c++/game/ConsoleRPG//dArr.h
 
-1560172733 /home/iro/Public/c++/game/ConsoleRPG/STLINCLUDE.h
+1560322068 /home/iro/Public/c++/game/ConsoleRPG/STLINCLUDE.h
 	<stdlib.h>
 	<string>
 	<ctime>
@@ -95,4 +96,19 @@
 	<iomanip>
 	<math.h>
 	"dArr.h"
+	"GuiDisplay.h"
+
+1560324380 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
+	<string>
+	<sstream>
+
+1560321291 /home/iro/Public/c++/game/ConsoleRPG/Boss.h
+	"Enemy.h"
+	"STLINCLUDE.h"
+
+1560321208 source:/home/iro/Public/c++/game/ConsoleRPG/Boss.cpp
+	"Boss.h"
+
+1560324282 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
+	"GuiDisplay.h"
 

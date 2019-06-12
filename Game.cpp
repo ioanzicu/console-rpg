@@ -280,17 +280,17 @@ void Game::characterMenu()
         // Force to clear the iostream before it will be filled
         std::cout << std::flush;
 
-        std::cout << std::endl
-                  << "+++++++++++++++++++++++++++" << std::endl;
-        std::cout << "+++    CHARACTER MENU   +++" << std::endl;
-        std::cout << "+++++++++++++++++++++++++++" << std::endl << std::endl;
+        std::cout << GuiDisplay::menuTitle("CHARACTER MENU", '+');
 
+        std::cout << GuiDisplay::divider();
         characters[activeCharacter].displayCharacter();
+        std::cout << GuiDisplay::divider();
 
         std::cout << "* MENU *" << std::endl << std::endl;;
-        std::cout << "0: Back to Main Menu" << std::endl;
-        std::cout << "1: Display Inventory" << std::endl;
-        std::cout << "2: Equip Item" << std::endl << std::endl;
+        std::cout << GuiDisplay::menuItem(0, "Back to Main Menu");
+        std::cout << GuiDisplay::menuItem(1, "Display Inventory");
+        std::cout << GuiDisplay::menuItem(2, "Equip Item");
+
         std::cout << "Choice: ";
         std::cin >> this->choice;
 

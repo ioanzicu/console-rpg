@@ -31,9 +31,10 @@ void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
             this->shopEncounter(character);
             break;
         case 3: // BOSS
-
+            std::cout << "Boss encounter under construction..." << std::endl;
             break;
         default:
+            std::cout << "UNKNOWN ENCOUNTER EVENT" << std::endl;
             break;
     }
 }
@@ -546,10 +547,76 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 // PUZZLES
 void Event::puzzleEncounter(Character &character)
 {
+    bool completed = false;
+    int userAns = 0;
+    int chances = 3;
+    // EXPE BETWEEN 1 and 10
+    int gainExp = (chances * character.getLevel() * (rand() % 10 + 1));
+    int gainGold = (chances * character.getLevel() * (rand() % 10 + 1));
 
+    std::cout << "Travel " << std::endl;
+
+
+    Puzzle puzzle("Puzzles/2.txt");
+
+    while (!completed && chances > 0)
+    {
+        std::cout << "Chances: " << chances << std::endl;
+        // Decrement the chance
+        chances--;
+
+        // Display Question
+        std::cout << puzzle.getAsString() << std::endl;
+
+        std::cout << "\nYour ANSWER: ";
+        std::cin >> userAns;
+        std::cout << "\n";
+
+        // Error checking for input
+        // loop until the input is valid/correct
+        // numerical value, NOT string or char
+        while (std::cin.fail())
+        {
+            std::cout << "Faulty input!" << "\n";
+            // clear the stream
+            std::cin.clear();
+            // ignore 100 chars
+            std::cin.ignore(100, '\n');
+            // enter chice again
+            std::cout << "\nYour ANSWER: ";
+            std::cin >> userAns;
+        }
+
+        std::cin.ignore(100, '\n');
+        std::cout << "\n";
+
+        if (puzzle.getCorrectAns() == userAns)
+        {
+            completed = true;
+            // Get addiction la exp for correct answer
+            character.gainExp(gainExp);
+            character.gainGold(gainGold);
+            std::cout << "YOU GAINED " << gainExp << " EXP!" << std::endl << std::endl;
+            std::cout << "YOU GAINED " << gainGold << " GOLD!" << std::endl << std::endl;
+
+        }
+    }
+
+    if (completed)
+    {
+        std::cout << "Congratulations, You are Right!!!\n\b";
+    }
+    else
+    {
+        std::cout << "You LOST :(\n\n";
+    }
+}
+
+/*
 // BOSS
-void bossEncounter(Character &character, Boss &boss)
+void Event::bossEncounter(Character &character, Boss &boss)
 {
+
     bool playerTurn = false;
     int choice = 0;
 
@@ -572,7 +639,7 @@ void bossEncounter(Character &character, Boss &boss)
     for (size_t i = 0; i < nrOfEnemies; i++)
     {
         // Create enemies
-        enemies.push( Enemy(character.getLevel() + rand() % 3));
+        enemies.push(Enemy(character.getLevel() + rand() % 3));
     }
 
     // Batte variables
@@ -860,68 +927,4 @@ void bossEncounter(Character &character, Boss &boss)
     }
 }
 
-
-    bool completed = false;
-    int userAns = 0;
-    int chances = 3;
-    // EXPE BETWEEN 1 and 10
-    int gainExp = (chances * character.getLevel() * (rand() % 10 + 1));
-    int gainGold = (chances * character.getLevel() * (rand() % 10 + 1));
-
-    std::cout << "Travel " << std::endl;
-
-
-    Puzzle puzzle("Puzzles/2.txt");
-
-    while (!completed && chances > 0)
-    {
-        std::cout << "Chances: " << chances << std::endl;
-        // Decrement the chance
-        chances--;
-
-        // Display Question
-        std::cout << puzzle.getAsString() << std::endl;
-
-        std::cout << "\nYour ANSWER: ";
-        std::cin >> userAns;
-        std::cout << "\n";
-
-        // Error checking for input
-        // loop until the input is valid/correct
-        // numerical value, NOT string or char
-        while (std::cin.fail())
-        {
-            std::cout << "Faulty input!" << "\n";
-            // clear the stream
-            std::cin.clear();
-            // ignore 100 chars
-            std::cin.ignore(100, '\n');
-            // enter chice again
-            std::cout << "\nYour ANSWER: ";
-            std::cin >> userAns;
-        }
-
-        std::cin.ignore(100, '\n');
-        std::cout << "\n";
-
-        if (puzzle.getCorrectAns() == userAns)
-        {
-            completed = true;
-            // Get addiction la exp for correct answer
-            character.gainExp(gainExp);
-            character.gainGold(gainGold);
-            std::cout << "YOU GAINED " << gainExp << " EXP!" << std::endl << std::endl;
-            std::cout << "YOU GAINED " << gainGold << " GOLD!" << std::endl << std::endl;
-
-        }
-    }
-
-    if (completed)
-    {
-        std::cout << "Congratulations, You are Right!!!\n\b";
-    }
-    else
-    {
-        std::cout << "You LOST :(\n\n";
-    }
-}
+*/
