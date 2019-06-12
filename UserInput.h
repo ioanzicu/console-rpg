@@ -12,7 +12,7 @@ class UserInput
         UserInput();
         virtual ~UserInput();
 
-        static const int getChoice(int &choice, const int streamSize);
+        static const int getChoice(int &choice, const std::string menu_str, const int streamSize);
 
 
     protected:

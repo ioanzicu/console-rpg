@@ -1,4 +1,5 @@
 #include "UserInput.h"
+#include <bits/stdc++.h>
 
 UserInput::UserInput()
 {
@@ -10,19 +11,30 @@ UserInput::~UserInput()
     //dtor
 }
 
-const int UserInput::getChoice(int &choice, const int streamSize = 1)
+const int UserInput::getChoice(int &choice, const std::string menu_str, const int streamSize = 1)
 {
-    std::cin >> setw(streamSize) >> choice; // set the stream size | one input
+    std::cout << menu_str;
+
+    std::cin >> std::setw(streamSize) >> choice; // set the stream size | one input
 
     while (std::cin.fail())
     {
+        std::system("clear");
         std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-        // clear the stream
+        std::system("pause");
+        std::cout << std::endl;
+        std::system("clear");
+
+        // clear the stream  (error flag for cin)
         std::cin.clear();
         // ignore all characters
         std::cin.ignore(INT_MAX, '\n');
 
-        std::cin >> choice;
+        std::cout << menu_str << std::endl;
+        std::cin >> std::setw(streamSize) >> choice;
     }
 
+    std::cin.clear();
+    // ignore all characters
+    std::cin.ignore(INT_MAX, '\n');
 }

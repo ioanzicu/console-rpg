@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1560261276 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
+1560329588 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
 	<iostream>
 	<cstring>
 	<iomanip>
@@ -13,7 +13,7 @@
 	"STLINCLUDE.h"
 	"Event.h"
 
-1560324376 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
+1560331403 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
 1560283937 /home/iro/Public/c++/game/ConsoleRPG/Character.h
@@ -85,7 +85,7 @@
 
 1560079149 /home/iro/Public/c++/game/ConsoleRPG//dArr.h
 
-1560322068 /home/iro/Public/c++/game/ConsoleRPG/STLINCLUDE.h
+1560328594 /home/iro/Public/c++/game/ConsoleRPG/STLINCLUDE.h
 	<stdlib.h>
 	<string>
 	<ctime>
@@ -97,8 +97,9 @@
 	<math.h>
 	"dArr.h"
 	"GuiDisplay.h"
+	"UserInput.h"
 
-1560328253 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
+1560329854 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
 	<string>
 	<sstream>
 
@@ -109,6 +110,16 @@
 1560321208 source:/home/iro/Public/c++/game/ConsoleRPG/Boss.cpp
 	"Boss.h"
 
-1560324282 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
+1560331487 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
 	"GuiDisplay.h"
+
+1560328913 /home/iro/Public/c++/game/ConsoleRPG/UserInput.h
+	<string>
+	<sstream>
+	<iostream>
+	<iomanip>
+
+1560330942 source:/home/iro/Public/c++/game/ConsoleRPG/UserInput.cpp
+	"UserInput.h"
+	<bits/stdc++.h>
 

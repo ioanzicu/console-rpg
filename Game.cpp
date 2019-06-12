@@ -41,60 +41,43 @@ void Game::initGame()
 
 void Game::mainMenu()
 {
+    std::cin.get();       // pause the system
+    std::system("clear"); // clear the console
+
     std::cout << "ENTER to continue..." << "\n";
-    // Wait for a character
     std::cin.get();
-    // Force to clear the iostream before it will be filled
-    std::cout << std::flush;
 
     if (this->characters[activeCharacter].isAlive())
     {
+        std::stringstream menu_str;
+
+        menu_str << GuiDisplay::menuTitle("MAIN MENU");
+
         if (this->characters[activeCharacter].getExp() >=
             this->characters[activeCharacter].getExpNext())
         {
-            std::cout << std::endl
-                      << "+++++++++++++++++++++++++++" << std::endl;
-            std::cout << "+++ LEVEL UP AVAILABLE! +++" << std::endl;
-            std::cout << "+++++++++++++++++++++++++++" << std::endl << std::endl;
+            menu_str << "+++ [ LEVEL UP AVAILABLE! ] +++" << std::endl << std::endl;
         }
 
-        std::cout << "*** MAIN MENU ***" << std::endl << std::endl;
-
-        std::cout << "* Active Character: " <<
+        menu_str << "* Active Character: " <<
             this->characters[activeCharacter].getName() << " Nr: " <<
             this->activeCharacter + 1 << " / " << this->characters.size() << " *" <<
             std::endl << std::endl;
 
-        std::cout << "0: Quit" << std::endl;
-        std::cout << "1: Travel" << std::endl;
-        std::cout << "2: Level Up" << std::endl;
-        std::cout << "3: Rest" << std::endl;
-        std::cout << "4: Character sheet" << std::endl;
-        std::cout << "5: Create new character" << std::endl;
-        std::cout << "6: Select Character" << std::endl;
-        std::cout << "7: Save Character" << std::endl;
-        std::cout << "8: Load Character" << std::endl << std::endl;
+        menu_str << GuiDisplay::divider();
 
-        std::cout << std::endl << "Choice: ";
-        std::cin >> this->choice;
+        menu_str << GuiDisplay::menuItem(0, "Quit");
+        menu_str << GuiDisplay::menuItem(1, "Travel");
+        menu_str << GuiDisplay::menuItem(2, "Level Up");
+        menu_str << GuiDisplay::menuItem(3, "Rest");
+        menu_str << GuiDisplay::menuItem(4, "Character Sheet");
+        menu_str << GuiDisplay::menuItem(5, "Create New Character");
+        menu_str << GuiDisplay::menuItem(6, "Select Character");
+        menu_str << GuiDisplay::menuItem(7, "Save Character");
+        menu_str << GuiDisplay::menuItem(8, "Load Character") << std::endl;
 
-        // Error checking for input
-        // loop until the input is valid/correct
-        // numerical value, NOT string or char
-        while (std::cin.fail() || choice < 0 || choice > 9)
-        {
-            std::cout << "Faulty input!" << "\n";
-            // clear the stream
-            std::cin.clear();
-            // ignore 100 chars
-            std::cin.ignore(100, '\n');
-            // enter chice again
-            std::cout << std::endl << "Choice (0 - 8): ";
-            std::cin >> this->choice;
-        }
-
-        std::cin.ignore(100, '\n');
-        std::cout << std::endl;
+        menu_str << " - Choice: ";
+        UserInput::getChoice(this->choice, menu_str.str(), 1);
 
         switch (this->choice)
         {
@@ -137,6 +120,7 @@ void Game::mainMenu()
                 break;
 
             default:
+                std::cout << "ERROR, NO SUCH OPTION." << std::endl << std::endl;
                 break;
         }
     }

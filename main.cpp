@@ -10,7 +10,7 @@ int main()
 {
     try
     {
-        srand(time(NULL));
+        srand(time(NULL)); // set random time to Null
 
         Game game;
         game.initGame();
