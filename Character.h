@@ -29,6 +29,7 @@ class Character
         void addItem(const Item &item) { this->inventory.addItem(item); }
         void removeItem(const int index);
         const Item& getItem(const int index);
+        const std::string getMenuBar() const;
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }

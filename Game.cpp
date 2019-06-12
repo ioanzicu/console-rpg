@@ -51,7 +51,7 @@ void Game::mainMenu()
     {
         std::stringstream menu_str;
 
-        menu_str << GuiDisplay::menuTitle("MAIN MENU");
+        menu_str << GuiDisplay::menuTitle("MAIN MENU", '-');
 
         if (this->characters[activeCharacter].getExp() >=
             this->characters[activeCharacter].getExpNext())
@@ -59,12 +59,7 @@ void Game::mainMenu()
             menu_str << "+++ [ LEVEL UP AVAILABLE! ] +++" << std::endl << std::endl;
         }
 
-        menu_str << "* Active Character: " <<
-            this->characters[activeCharacter].getName() << " Nr: " <<
-            this->activeCharacter + 1 << " / " << this->characters.size() << " *" <<
-            std::endl << std::endl;
-
-        menu_str << GuiDisplay::divider();
+        menu_str << this->characters[activeCharacter].getMenuBar() << std::endl;
 
         menu_str << GuiDisplay::menuItem(0, "Quit");
         menu_str << GuiDisplay::menuItem(1, "Travel");

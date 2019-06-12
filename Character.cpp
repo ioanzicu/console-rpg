@@ -94,9 +94,8 @@ void Character::initialize(const std::string name)
 void Character::displayCharacter() const
 {
     std::cout << std::endl;
-    std::cout << "-------------------------------" << std::endl;
-    std::cout << "***     CHARACTER SHEET     ***" << std::endl;
-    std::cout << "-------------------------------" << std::endl << std::endl;
+
+    GuiDisplay::menuTitle("CHARACTER SHEET", '-');
 
     std::cout << "= Name: " << this->name << std::endl;
     std::cout << "= Level: " << this->level << std::endl;
@@ -105,8 +104,7 @@ void Character::displayCharacter() const
     std::cout << "= Statpoints: " << this->expNext << std::endl;
     std::cout << std::endl;
 
-    std::cout << "------------------------------" << std::endl;
-    std::cout << "***     PASSIVE SKILLS     ***" << std::endl;
+    GuiDisplay::menuTitle("PASSIVE SKILLS");
     std::cout << "------------------------------" << std::endl << std::endl;
     std::cout << "= Strenght: " << this->strength << std::endl;
     std::cout << "= Vitality: " << this->vitality << std::endl;
@@ -125,9 +123,7 @@ void Character::displayCharacter() const
     std::cout << "= Gold: " << this->gold << std::endl;
     std::cout << "= Luck: " << this->luck << std::endl << std::endl;
 
-    std::cout << "----------------------------------" << std::endl;
-    std::cout << "***     WEAPONS AND ARMORY     ***" << std::endl;
-    std::cout << "----------------------------------" << std::endl << std::endl;
+    GuiDisplay::menuTitle("WEAPONS AND ARMORY");
 
     std::cout << "= Weapon: " << this->weapon.getName()
               << " Level: " << this->weapon.getLevel()
@@ -405,6 +401,22 @@ const Item& Character::getItem(const int index)
     }
 
     return this->inventory[index];
+}
+
+const std::string Character::getMenuBar() const
+{
+    std::stringstream ss;
+
+    ss << GuiDisplay::divider();
+
+    ss << " = Name: " << this->name << std::endl;
+    ss << " = Level: " << this->level << " [" << this->exp << " / " << this->expNext << "] " << std::endl;
+    ss << " = Statpoints: " << this->expNext << std::endl;
+    ss << " = HP: " << this->hp << "/" << this->hpMax << std::endl;
+
+    ss << GuiDisplay::divider();
+
+    return ss.str();
 }
 
 void Character::takeDamage(const int damage)
