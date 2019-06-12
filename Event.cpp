@@ -248,7 +248,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     // End Conditions
     bool escape = false;
     bool playerDefeated = false;
-    bool enemieDefeated = false;
+    bool enemiesDefeated = false;
 
     // CREATE ENEMIES
     enemies.clear(); // clear old enemies
@@ -273,53 +273,29 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     int combatRollPlayer = 0;
     int combatRollEnemy = 0;
 
-    while (!escape & !playerDefeated && !enemieDefeated)
+    while (!escape & !playerDefeated && !enemiesDefeated)
     {
         if (playerTurn && !playerDefeated)
         {
             // MENU
-            // force to clear stream
-            std::cout << std::flush;
+            // std::system("clear"); // clear the console
+            std::stringstream menu_str;
 
-            std::cout << "-----------------------------" << std::endl;
-            std::cout << "***      PLAYER TURN      ***" << std::endl;
-            std::cout << "-----------------------------" << std::endl << std::endl;
-            std::cout << "Continue..." << std::endl;
+            std::cout << GuiDisplay::menuTitle("PLAYER TURN", '*');
+
+            menu_str << "Continue..." << std::endl;
             std::cin.get();
 
-            std::cout << "* BATTLE MENU *" << std::endl << std::endl;
-            std::cout << "HP: " << character.getHp() << " / " << character.getHpMax() << std::endl;
+            menu_str << "* BATTLE MENU *" << std::endl << std::endl;
+            menu_str << "HP: " << character.getHp() << " / " << character.getHpMax() << std::endl;
 
-            std::cout << "0: Escape" << std::endl;
-            std::cout << "1: Attack" << std::endl;
-            std::cout << "2: Defend" << std::endl;
-            std::cout << "3: Use Item" << std::endl << std::endl;
+            menu_str << "0: Escape" << std::endl;
+            menu_str << "1: Attack" << std::endl;
+            menu_str << "2: Defend" << std::endl;
+            menu_str << "3: Use Item" << std::endl << std::endl;
 
-            std::cout << "Choice: " << std::endl;
-            std::cin >> choice;
-
-            while (std::cin.fail() || choice > 3 || choice < 0)
-            {
-                // force to clear stream
-                std::cout << std::flush;
-
-                std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-                // clear the stream
-                std::cin.clear();
-                // ignore 100 chars
-                std::cin.ignore(100, '\n');
-                // enter choice again
-                std::cout << "0: Escape" << std::endl;
-                std::cout << "1: Attack" << std::endl;
-                std::cout << "2: Defend" << std::endl;
-                std::cout << "3: Use Item" << std::endl << std::endl;
-
-                std::cout << "Choice: " << std::endl;
-                std::cin >> choice;
-            }
-
-            std::cin.ignore(100, '\n');
-            std::cout << std::endl;
+            menu_str << " - Choice: ";
+            UserInput::getChoice(choice, menu_str.str(), 1);
 
             // Move
             switch (choice)
@@ -330,44 +306,26 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
                 case 1: // ATTACK
 
+                    std::system("clear");
                     // Select enemy MENU
-                    std::cout << "* SELECT ENEMY: *" << std::endl << std::endl;
+                    menu_str.clear();
+
+                    menu_str << std::endl << " * SELECT ENEMY: * " << std::endl << std::endl;
 
                     for (size_t i = 0; i < enemies.size(); i++)
                     {
-                        std::cout << i << ": "
-                            << "Level: " << enemies[i].getLevel() << " - "
-                            << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << " - "
-                            << "Defence: " << enemies[i].getDefence() << " - "
-                            << "Accuracy: " << enemies[i].getAccuracy() << " - "
-                            << "Damage: " << enemies[i].getDamageMin() << " - " << enemies[i].getDamageMax() << std::endl;
+                        menu_str << GuiDisplay::menuItem(i, enemies[i].getAsStringEvent());
                     }
 
-                    std::cout << std::endl << "Choice: " << std::endl;
-                    std::cin >> choice;
-
-                    while (std::cin.fail() || choice >= enemies.size() || choice < 0)
-                    {
-                        std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-                        // clear the stream
-                        std::cin.clear();
-                        // ignore 100 chars
-                        std::cin.ignore(100, '\n');
-
-                        // enter choice again
-                        std::cout << "* SELECT ENEMY: *" << std::endl << std::endl;
-                        std::cout << "Choice: " << std::endl;
-                        std::cin >> choice;
-                    }
-
-                    std::cin.ignore(100, '\n');
-                    std::cout << std::endl;
+                    UserInput::getChoice(choice, menu_str.str(), 1);
 
                     // Attack Roll
-                    combatTotal = enemies[choice].getAccuracy() + (character.getDefence() + character.getAddedDefence());
+                    //combatTotal = enemies[choice].getAccuracy() + (character.getDefence() + character.getAddedDefence());
+                    combatTotal = enemies[choice].getDefence() + character.getAccuracy();
                     // calculate procentage
                     enemyTotal = enemies[choice].getAccuracy() / static_cast<double>(combatTotal) * 100;
-                    playerTotal = (character.getDefence() + character.getAddedDefence()) / static_cast<double>(combatTotal) * 100;
+//                    playerTotal = (character.getDefence() + character.getAddedDefence()) / static_cast<double>(combatTotal) * 100;
+                    playerTotal = character.getAccuracy() / static_cast<double>(combatTotal) * 100;
                     combatRollPlayer = rand() % playerTotal + 1;
                     combatRollEnemy = rand() % enemyTotal + 1;
 
@@ -482,17 +440,17 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
             // Leave turn
             playerTurn = false;
         }
-        else if (!playerTurn && !playerDefeated && !escape && !enemieDefeated) // ENEMIES TURN
+        else if (!playerTurn && !playerDefeated && !escape && !enemiesDefeated) // ENEMIES TURN
         {
-            std::cout << "-----------XXXXX-------------" << std::endl;
-            std::cout << "xxx     ENEMY TURN      xxx" << std::endl;
-            std::cout << "-----------XXXXX-------------" << std::endl << std::endl;
+            std::cout << GuiDisplay::menuTitle("ENEMY TURN", 'x');
+            std::cin.get();
+            std::system("clear");
 
             // Enemy attack
             for (size_t i = 0; i < enemies.size(); i++)
             {
-                std::cout << "Continue..." << std::endl << std::endl;
                 std::cin.get();
+                std::system("clear");
 
                 std::cout << "Enemy: " << i << std::endl << std::endl;
 
@@ -542,7 +500,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
         }
         else if (enemies.size() <= 0)
         {
-            enemieDefeated = true;
+            enemiesDefeated = true;
         }
     }
 }

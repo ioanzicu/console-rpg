@@ -20,12 +20,29 @@ Enemy::~Enemy()
 
 std::string Enemy::getAsString() const
 {
-    return "Level: " + std::to_string(this->level) + "\n" +
-        "HP: " + std::to_string(this->hp) + " / " + std::to_string(this->hpMax) + "\n" +
-        "Damage: " + std::to_string(this->damageMin) + " / " + std::to_string(this->damageMax) + "\n" +
-        "Defence: " + std::to_string(this->defence) + "\n" +
-        "Accuracy: " + std::to_string(this->accuracy) + "\n" +
-        "Drop Chance: " + std::to_string(this->dropChance) + "\n";
+    std::stringstream ss;
+
+    ss << "Level: " << this->level << "\n" <<
+        "HP: " << this->hp << " / " << this->hpMax << "\n" <<
+        "Damage: "  << this->damageMin << " / " << this->damageMax << "\n" <<
+        "Defence: " << this->defence << "\n" <<
+        "Accuracy: " << this->accuracy << "\n" <<
+        "Drop Chance: " << this->dropChance << "\n";
+
+    return ss.str();
+}
+
+std::string Enemy::getAsStringEvent() const
+{
+    std::stringstream ss;
+
+    ss << "Level: " << this->level << "\n" <<
+        "HP: " << this->hp << " / " << this->hpMax << "\n" <<
+        "Damage: " << this->damageMin << " / " << this->damageMax << "\n" <<
+        "Defence: " << this->defence << "\n" <<
+        "Accuracy: " << this->accuracy + "\n";
+
+    return ss.str();
 }
 
 void Enemy::takeDamage(int damage)

@@ -11,6 +11,7 @@ class Enemy
 
         inline bool isAlive() { return this->hp > 0; }
         std::string getAsString() const;
+        std::string getAsStringEvent() const;
         void takeDamage(int damage);
 
         inline int getLevel() const { return this->level; }

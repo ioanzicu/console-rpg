@@ -1,4 +1,4 @@
-Brombdo 18 66 3 124 5 7 5 5 55 10 0 0 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 
+Brombdo 21 66 3 124 5 7 5 5 47 10 0 0 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 1 Brombdo 3 0 0 0 0 0 
 0 Brombdo 1 0 0 0 0 0 0 Typical-Banana 3 0 1 3 2 5 
 1 Friend-ZONE 2 0 2 1 6 0 1 Alien-Blanket 2 0 1 2 7 1 
 0 30 1 0 5 5 5 5 35 30 8 -1 0 1 1 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 0 1 1 
