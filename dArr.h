@@ -29,6 +29,7 @@ public:
     void push(const T element);
     // if ordered true - longer type of deleting, else fast deleting
     void remove(const unsigned index, bool ordered = false);
+    void clear();
 };
 
 template<typename T>
@@ -219,6 +220,20 @@ void dArr<T>::remove(const unsigned index, bool ordered)
         // set before last element to null
         this->arr[--this->nrOfElements] = nullptr;
     }
+}
+
+// reset the dArr
+template<typename T>
+void dArr<T>::clear()
+{
+    for (size_t i = 0; i < this->nrOfElements; i++)
+    {
+        delete this->arr[i];
+    }
+
+    this->nrOfElements = 0;
+
+    this->initialize(0);
 }
 
 

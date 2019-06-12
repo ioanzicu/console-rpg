@@ -13,5 +13,6 @@
 
 #include "dArr.h"
 #include "GuiDisplay.h"
+#include "UserInput.h"
 
 #endif // STLINCLUDE_H_INCLUDED

@@ -11,7 +11,6 @@ Enemy::Enemy(int level)
     this->dropChance = rand() % 100 + 1;
     this->defence = rand() % level*3 + 1;
     this->accuracy = random() % level*3 + 1;
-
 }
 
 Enemy::~Enemy()

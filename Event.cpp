@@ -251,6 +251,8 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     bool enemieDefeated = false;
 
     // CREATE ENEMIES
+    enemies.clear(); // clear old enemies
+
     int nrOfEnemies = rand() % 3 + 1; // prevent 0 enemies
 
     for (size_t i = 0; i < nrOfEnemies; i++)
@@ -436,10 +438,11 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
                             }
 
-                            if (roll >= 0)
+                            if (rarity >= 0)
                             {
                                 // GET RANDOM ARMOR OR WEAPON
                                 roll = rand() % 100 + 1;
+
                                 if (roll > 50)
                                 {
                                     Weapon tempW(character.getLevel(), rarity);
@@ -555,7 +558,6 @@ void Event::puzzleEncounter(Character &character)
     int gainGold = (chances * character.getLevel() * (rand() % 10 + 1));
 
     std::cout << "Travel " << std::endl;
-
 
     Puzzle puzzle("Puzzles/2.txt");
 
@@ -819,7 +821,7 @@ void Event::bossEncounter(Character &character, Boss &boss)
 
                             }
 
-                            if (roll >= 0)
+                            if (rarity >= 0)
                             {
                                 // GET RANDOM ARMOR OR WEAPON
                                 roll = rand() % 100 + 1;

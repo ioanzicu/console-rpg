@@ -56,6 +56,8 @@
 		<Unit filename="Puzzle.cpp" />
 		<Unit filename="Puzzle.h" />
 		<Unit filename="STLINCLUDE.h" />
+		<Unit filename="UserInput.cpp" />
+		<Unit filename="UserInput.h" />
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.h" />
 		<Unit filename="dArr.h" />
