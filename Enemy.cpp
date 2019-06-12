@@ -36,10 +36,10 @@ std::string Enemy::getAsStringEvent() const
 {
     std::stringstream ss;
 
-    ss << "Level: " << this->level <<
-        "HP: " << this->hp << " / " << this->hpMax <<
-        "Damage: " << this->damageMin << " / " << this->damageMax <<
-        "Defence: " << this->defence <<
+    ss << "Level: " << this->level << " " <<
+        "HP: " << this->hp << " / " << this->hpMax << " " <<
+        "Damage: " << this->damageMin << " / " << this->damageMax << " " <<
+        "Defence: " << this->defence << " " <<
         "Accuracy: " << this->accuracy << "\n";
 
     return ss.str();
