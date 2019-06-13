@@ -71,7 +71,6 @@ Character::Character(std::string name, int distanceTraveled,
     this->updateStats();
 }
 
-
 Character::~Character()
 {
     //dtor

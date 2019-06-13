@@ -56,7 +56,7 @@ void Game::mainMenu()
         if (this->characters[activeCharacter].getExp() >=
             this->characters[activeCharacter].getExpNext())
         {
-            menu_str << "+++ [ LEVEL UP AVAILABLE! ] +++" << std::endl << std::endl;
+            menu_str << GuiDisplay::alert("LEVEL UP AVAILABLE") << std::endl;
         }
 
         menu_str << this->characters[activeCharacter].getMenuBar() << std::endl;
@@ -121,30 +121,18 @@ void Game::mainMenu()
     }
     else
     {
-        std::cout << "*** YOU ARE DEAD, LOAD? ***" << std::endl << std::endl;
-        std::cout << "(0) YES, (1) NO" << std::endl << std::endl;
-        std::cin >> this->choice;
+        std::stringstream menu_str;
 
-        // Error checking for input
-        while (std::cin.fail() || this->choice < 0 || this->choice > 1)
-        {
-            std::cout << "Faulty input!" << "\n";
-            // clear the stream
-            std::cin.clear();
-            // ignore 100 chars
-            std::cin.ignore(100, '\n');
-            // enter chice again
-            std::cout << "(0) YES, (1) NO" << std::endl << std::endl;
-            std::cin >> this->choice;
-        }
+        menu_str << GuiDisplay::menuTitle("You are DEAD... LOAD???", 'X');
+        menu_str << GuiDisplay::menuItem(0, "YES");
+        menu_str << GuiDisplay::menuItem(1, "NO");
 
-        std::cin.ignore(100, '\n');
-        std::cout << std::endl;
+        UserInput::getChoice(this->choice, menu_str.str(), 1);
 
         if (this->choice == 0)
             this->loadCharacters();
         else
-            this->playing = false;
+            playing = false;
     }
 }
 
@@ -159,8 +147,8 @@ void Game::createCharacter()
     {
         while (name == this->characters[i].getName())
         {
-            std::cout << "CANNOT CREATE CHARACTER!" <<
-            std::endl << "The Name Already Exists!!!" << std::endl;
+            std::cout << GuiDisplay::error("CHARACTER ALREADY EXISTS!");
+            std::cin.get();
 
             std::cout << "Character name: ";
             std::getline(std::cin, name);
@@ -179,57 +167,27 @@ void Game::levelUpCharacter()
 
     if (this->characters[activeCharacter].getStatPoints() > 0)
     {
-        std::cout << "You have statpoints to allocate!" << std::endl << std::endl;
+        std::stringstream menu_str;
 
-        std::cout << "Stat to upgrade: " << std::endl;
-        std::cout << "0: Stength " << std::endl;
-        std::cout << "1: Vitality" << std::endl;
-        std::cout << "2: Dexterity " << std::endl;
-        std::cout << "3: Intelligence " << std::endl;
+        menu_str << GuiDisplay::menuTitle("You have statpoints to allocate!", '-');
 
-        std::cout << std::endl << "Stat to upgrade: ";
-        std::cin >> this->choice;
+        menu_str << GuiDisplay::menuTitle("Stat to upgrade: ");
+        menu_str << GuiDisplay::menuItem(0, "Stength");
+        menu_str << GuiDisplay::menuItem(1, "Vitality");
+        menu_str << GuiDisplay::menuItem(2, "Dexterity");
+        menu_str << GuiDisplay::menuItem(3, "Intelligence") << std::endl;
 
-        // Error checking for input
-        // loop until the input is valid/correct
-        // numerical value, NOT string or char
-        while (std::cin.fail() || this->choice > 3)
+        menu_str << " - Choice: ";
+        UserInput::getChoice(this->choice, menu_str.str(), 1);
+
+        while (this->choice < 0 || this->choice > 3) // validate choice between 0 and 3
         {
-            std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-            // clear the stream
-            std::cin.clear();
-            // ignore 100 chars
-            std::cin.ignore(100, '\n');
-            // enter chice again
-            std::cout << "Stat to upgrade: " << std::endl;
-            std::cin >> this->choice;
+            std::cout << GuiDisplay::error("UNKNOWN STAT");
+
+            UserInput::getChoice(this->choice, menu_str.str(), 1);
         }
 
-        std::cin.ignore(100, '\n');
-        std::cout << std::endl;
-
-        switch (this->choice)
-        {
-            case 0: // STRENGTH
-                this->characters[activeCharacter].addToStat(0, 1);
-                break;
-
-            case 1: // VITALITY
-                this->characters[activeCharacter].addToStat(1, 1);
-                break;
-
-            case 2: // DEXTERITY
-                this->characters[activeCharacter].addToStat(2, 1);
-                break;
-
-            case 3: // INTELLIGENCE
-                this->characters[activeCharacter].addToStat(3, 1);
-                break;
-
-            default:
-                std::cout << "UNDEFINED STAT" << std::endl;
-                break;
-        }
+        this->characters[activeCharacter].addToStat(this->choice, 1);
     }
 }
 
