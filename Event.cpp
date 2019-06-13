@@ -1,7 +1,6 @@
 #include "Event.h"
 
-
-// Total Wvents
+// Total Events
 int Event::nrOfEvents = 3;
 
 Event::Event()
@@ -14,10 +13,10 @@ Event::~Event()
     //dtor
 }
 
-void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
+// Generate EVENTS
+void Event::generateEvent(Character &character, dArr<Enemy> &enemies)
 {
-    // Generate an event from 0 to 3
-    int i = rand() % Event::nrOfEvents;
+    int i = rand() % Event::nrOfEvents; // Generate an event from 0 to 2
 
     switch (i)
     {
@@ -30,82 +29,63 @@ void Event::generateEvent(Character &character, dArr<Enemy>& enemies)
         case 2: // SHOP
             this->shopEncounter(character);
             break;
-        case 3: // BOSS
-            std::cout << "Boss encounter under construction..." << std::endl;
-            break;
         default:
             std::cout << "UNKNOWN ENCOUNTER EVENT" << std::endl;
             break;
     }
 }
 
-// Different events
+// EVENTS
 
 // SHOP
 void Event::shopEncounter(Character &character)
 {
+    system("clear");
+
     int choice = 0;
     bool shopping = true;
     Inventory merchantInv;
     std::string inv;
 
     // Init merchant inventory
-    int nrOfItems = rand() % 20 + 10;
+    int nrOfItems = rand() % 20 + 10; // from 10 to 20
     bool coinToss = false;
 
     for (size_t i = 0; i < nrOfItems; i++)
     {
-        coinToss = rand() % 2; // False or True
+        coinToss = rand() % 2; // False (0) or True (1)
 
-        // Add to inventory WEAPON or ARMOR
+        // Add ITEMS TO INVENTORY
         if (coinToss > 0)
-        {
+        { // WEAPON
             merchantInv.addItem(Weapon(character.getLevel() + rand() % 5, rand() % 5));
         }
         else
-        {
+        { // ARMOR
             merchantInv.addItem(Armor(character.getLevel() + rand() % 5, rand() % 5));
         }
     }
 
     while (shopping)
     {
-        //system("clear");
-        std::cin.get();
-        std::cout << "---------------------------" << std::endl;
-        std::cout << "***      SHOP MENU      ***" << std::endl;
-        std::cout << "---------------------------" << std::endl << std::endl;
-        std::cout << "Continue..." << std::endl;
-        std::cin.get();
+        std::stringstream menu_str;
 
-        std::cout << "0: Leave" << std::endl;
-        std::cout << "1: Buy" << std::endl;
-        std::cout << "2: Sell" << std::endl;
+        menu_str << GuiDisplay::menuTitle("SHOP MENU", '-');
 
-        std::cout << "Choice: ";
-        std::cin >> choice;
+        menu_str << GuiDisplay::menuItem(0, "Back");
+        menu_str << GuiDisplay::menuItem(1, "Buy");
+        menu_str << GuiDisplay::menuItem(2, "Sell") << std::endl;
 
-        while (std::cin.fail() || choice > 3 || choice < 0)
+        UserInput::getChoice(choice, menu_str.str(), 1); // Get Choice
+
+        while (choice < 0 || choice > 3) // validate choice between 0 and 3
         {
-            std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-            // clear the stream
-            std::cin.clear();
-            // ignore 100 chars
-            std::cin.ignore(100, '\n');
-            // enter choice again
+            std::cout << GuiDisplay::error("UNKNOWN STAT");
 
-            std::cout << "* SHOP MENU *" << std::endl;
-
-            std::cout << "0: Leave" << std::endl;
-            std::cout << "1: Buy" << std::endl;
-            std::cout << "2: Sell" << std::endl;
-
-            std::cout << "Choice: ";
-            std::cin >> choice;
+            UserInput::getChoice(choice, " - Try again ... \n", 1);
         }
 
-        std::cin.ignore(100, '\n');
-        std::cout << std::endl;
+        menu_str.clear();
 
         // SHOP
         switch (choice)
@@ -115,104 +95,84 @@ void Event::shopEncounter(Character &character)
                 break;
 
             case 1: // BUY
-                std::cout << "--------------------------" << std::endl;
-                std::cout << "***      BUY MENU      ***" << std::endl;
-                std::cout << "--------------------------" << std::endl << std::endl;
-
-                std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-
-                inv.clear();
-
-                for (size_t i = 0; i < merchantInv.size(); i++)
                 {
-                    inv += std::to_string(i) + ": " + merchantInv[i].toString() + "\n - PRICE: " +
-                           std::to_string(merchantInv[i].getBuyValue()) + "\n";
-                }
-                std::cout << inv << std::endl;
+                    std::cout << GuiDisplay::menuTitle("BUY MENU");
+                    std::cout << " - You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
 
-                std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-                std::cout << "Choice of item (-1 to cancel): ";
-                std::cin >> choice;
+                    inv.clear(); // Clear Inventory String
 
-                while (std::cin.fail() || choice > merchantInv.size() || choice < -1)
-                {
-                    std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-                    // clear the stream
-                    std::cin.clear();
-                    // ignore 100 chars
-                    std::cin.ignore(100, '\n');
-                    // enter choice again
+                    for (size_t i = 1; i < merchantInv.size(); i++)
+                    {   // Add Items in inv string
+                        inv += "  " + std::to_string(i) + ": " + merchantInv[i].toString() +
+                               "\n   - PRICE: " + std::to_string(merchantInv[i].getBuyValue()) + "\n";
+                    }
 
-                    std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-                    std::cout << "Choice of item (-1 to cancel): ";
-                    std::cin >> choice;
-                }
+                    std::cout << inv << std::endl; // display inventory
 
-                std::cin.ignore(100, '\n');
-                std::cout << std::endl;
+                    std::cout << " - You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+                    std::cout << GuiDisplay::menuItem(0, "Back to Main Menu");
 
-                if (choice == -1)
-                {
-                    std::cout << "Cancelled..." << std::endl << std::endl;
-                }
-                else if (character.getGold() >= merchantInv[choice].getBuyValue())
-                {
-                    character.payGold(merchantInv[choice].getBuyValue());
-                    character.addItem(merchantInv[choice]);
+                    UserInput::getChoice(choice, "", 1); // Get Choice
 
-                    std::cout << "Bought item: " << merchantInv[choice].getName() << " -" << merchantInv[choice].getBuyValue() << std::endl;
+                    while (choice > merchantInv.size() || choice < 0) // validate choice
+                    {
+                        std::cout << GuiDisplay::error("UNKNOWN STAT");
 
-                    merchantInv.removeItem(choice);
-                }
-                else
-                {
-                    std::cout << "Not enough GOLD!!!" << std::endl;
+                        UserInput::getChoice(choice, "", 1);
+                    }
+
+                    if (choice == 0) // Back To Main Menu
+                    {
+                        std::cout << " - Cancelled..." << std::endl << std::endl;
+                    } // Buy ITEM
+                    else if (character.getGold() >= merchantInv[choice].getBuyValue())
+                    {
+                        character.payGold(merchantInv[choice].getBuyValue()); // Gold -= Item Price
+                        character.addItem(merchantInv[choice]);               // Add Item to Character Inventory
+
+                        std::cout << " - Bought item: " << merchantInv[choice].getName() << " -"
+                                  << merchantInv[choice].getBuyValue() << std::endl;
+
+                        merchantInv.removeItem(choice); // Remove Bought Item from the Shop
+                    }
+                    else // NOT GOLD
+                    {
+                        std::cout << " - Not enough GOLD!!!" << std::endl;
+                    }
                 }
 
                 break;
 
             case 2: // SELL
-                // if it is in shop (true) -> print sell value
-                std::cout << character.getInvAsString(true) << std::endl;
 
-                std::cout << "--------------------------" << std::endl;
-                std::cout << "***      SELL MENU     ***" << std::endl;
-                std::cout << "--------------------------" << std::endl << std::endl;
+                menu_str << character.getInvAsString(true) << std::endl;  // (true) - Print Sell Value
 
-                std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-                std::cout << "Choice of item (-1 to cancel): ";
+                menu_str << GuiDisplay::menuTitle("SELL MENU", '-');
 
-                if (character.getInventorySize() > 0) // inventory is not empty
+                menu_str << " - You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
+                menu_str << GuiDisplay::menuItem(0, "Back to Main Menu");
+
+                if (character.getInventorySize() > 0) // Inventory is NOT Empty
                 {
-                    std::cin >> choice;
+                    UserInput::getChoice(choice, menu_str.str(), 1); // Get Choice
 
-                    while (std::cin.fail() || choice > character.getInventorySize() || choice < -1)
+                    while (choice > character.getInventorySize() || choice < 0) // validate choice
                     {
-                        std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-                        // clear the stream
-                        std::cin.clear();
-                        // ignore 100 chars
-                        std::cin.ignore(100, '\n');
-                        // enter choice again
+                        std::cout << GuiDisplay::error("UNKNOWN STAT");
 
-                        std::cout << "You Have " << character.getGold() << " GOLD" << std::endl << std::endl;
-                        std::cout << "Choice of item (-1 to cancel): ";
-                        std::cin >> choice;
+                        UserInput::getChoice(choice, menu_str.str(), 1);
                     }
 
-                    std::cin.ignore(100, '\n');
-                    std::cout << std::endl;
-
-                    if (choice == -1)
+                    if (choice == 0) // Back to Main Menu
                     {
-                        std::cout << "Cancelled..." << std::endl << std::endl;
+                        std::cout << " - Cancelled..." << std::endl << std::endl;
                     }
                     else
                     {
                         character.gainGold(character.getItem(choice).getSellValue());
                         std::cout << " - Item sold!" << std::endl;
                         std::cout << " - Gold earned: " << character.getItem(choice).getSellValue() << std::endl << std::endl;;
-                        character.removeItem(choice);
+                        character.removeItem(choice); // Remove Sold Item form Character's Inventory
                     }
                 }
                 else
@@ -223,24 +183,25 @@ void Event::shopEncounter(Character &character)
                 break;
 
             default:
+                std::cout << GuiDisplay::error("UNKNOWN STAT");
                 break;
         }
     }
 
     std::cout << " - You left the shop..." << std::endl << std::endl;
     std::cout << " ENTER to continue..." << "\n";
-    // Wait for a character
+    // Wait for a character / keyboard enter
     std::cin.get();
 }
 
 // BATTLE
-void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
+void Event::enemyEncounter(Character &character, dArr<Enemy> &enemies)
 {
     bool playerTurn = false;
     int choice = 0;
 
     // Coin toss for turn
-    int coinToss = rand() % 2 + 1; // from 1 to 2
+    int coinToss = rand() % 2 + 1; // From 1 to 2
     // Check who's turn is
     if (coinToss == 1)
         playerTurn = true;
@@ -252,17 +213,17 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     bool playerDefeated = false;
     bool enemiesDefeated = false;
 
-    enemies.clear(); // Clear old enemies
+    enemies.clear(); // Clear Old Enemies
 
     int nrOfEnemies = rand() % 3 + 1; // 1 - 3 enemies
 
-    // CREATE ENEMIES
+    // CREATE ENEMIES with LEVEL (MAX) +2 Greather then Character's Level
     for (size_t i = 0; i < nrOfEnemies; i++)
     {
         enemies.push(Enemy(character.getLevel() + rand() % 3));
     }
 
-    // Batte variables
+    // Battle Variables
     int damage = 0;
     int gainExp = 0;
     int gainGold = 0;
@@ -274,10 +235,10 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
     while (!escape && !playerDefeated && !enemiesDefeated)
     {
-        if (playerTurn && !playerDefeated)
+        if (playerTurn && !playerDefeated) // Player Turn and Player is Alive
         {
             // MENU
-            system("clear"); // clear the console
+            system("clear"); // Clear the Console
 
             std::stringstream menu_str;
 
@@ -290,8 +251,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
             menu_str << GuiDisplay::menuItem(0, "Escape");
             menu_str << GuiDisplay::menuItem(1, "Attack");
-            menu_str << GuiDisplay::menuItem(2, "Defend");
-            menu_str << GuiDisplay::menuItem(3, "Use Item") << std::endl;
+            menu_str << GuiDisplay::menuItem(2, "Use Item") << std::endl;
 
             UserInput::getChoice(choice, menu_str.str(), 1); // Get Choice
 
@@ -358,27 +318,26 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
                             if (roll > 20)
                             {
-                                rarity = 0; // Common item
-                                // roll again
+                                rarity = 0; // Common Item
                                 roll = rand() % 100 + 1; // 1 to 100
                                 if (roll > 30)
                                 {
-                                    rarity = 1; // Uncommon item
+                                    rarity = 1; // Uncommon Item
 
-                                    roll = rand() % 100 + 1; // 1 to 100
+                                    roll = rand() % 100 + 1;
                                     if (roll > 50)
                                     {
-                                        rarity = 2; // Rare
+                                        rarity = 2; // Rare Item
 
-                                        roll = rand() % 100 + 1; // 1 to 100
+                                        roll = rand() % 100 + 1;
                                         if (roll > 70)
                                         {
-                                            rarity = 3; // Legendary item
+                                            rarity = 3; // Legendary Item
 
-                                            roll = rand() % 100 + 1; // 1 to 100
+                                            roll = rand() % 100 + 1;
                                             if (roll > 90)
                                             {
-                                                rarity = 4; // EPIC item
+                                                rarity = 4; // EPIC Item
                                             }
                                         }
                                     }
@@ -414,11 +373,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
                     break;
 
-                case 2: // DEFEND
-
-                    break;
-
-                case 3: // USE ITEM
+                case 2: // USE ITEM
                     system("clear");
 
                     menu_str.clear();
@@ -456,6 +411,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                     break;
 
                 default:
+                    std::cout << GuiDisplay::error("UNKNOWN STAT");
                     break;
             }
 
@@ -471,9 +427,8 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
             std::cout << GuiDisplay::menuTitle("BATTLE MENU", 'x');
 
             std::cout << " - Enemy Turn" << std::endl << std::endl;
-            //std::cin.get();
 
-            // Choose a random enemy to attack
+            // Choose a Random Enemy to Attack
             int enemyIndex = rand() % enemies.size();
             Enemy* enemy = &enemies[enemyIndex];
 
@@ -522,11 +477,11 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
         }
 
         // Conditions
-        if (!character.isAlive())
+        if (!character.isAlive()) // Check if Character is ALIVE
         {
             playerDefeated = true;
         }
-        else if (enemies.size() <= 0)
+        else if (enemies.size() <= 0) // Check if ALL enemies are DEFEATED
         {
             enemiesDefeated = true;
         }
@@ -537,15 +492,21 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 void Event::puzzleEncounter(Character &character)
 {
     bool completed = false;
-    int userAns = 0;
+    int userAnswer = 0;
     int chances = 3;
-    // EXPE BETWEEN 1 and 10
+    // EXP  = LEVEL * RANGE (1 and 10)
     int gainExp = (chances * character.getLevel() * (rand() % 10 + 1));
+    // GOLD = LEVEL * RANGE (1 and 10)
     int gainGold = (chances * character.getLevel() * (rand() % 10 + 1));
 
     std::cout << "Travel " << std::endl;
 
-    Puzzle puzzle("Puzzles/2.txt");
+    // Get a Random Puzzle
+    int puzzleNumber = 2;
+    int randomPuzzle = rand() % puzzleNumber + 1;
+    std::string puzzleFile = "Puzzles/" + std::to_string(randomPuzzle) + ".txt";
+
+    Puzzle puzzle(puzzleFile);
 
     while (!completed && chances > 0)
     {
@@ -554,365 +515,28 @@ void Event::puzzleEncounter(Character &character)
         chances--;
 
         // Display Question
-        std::cout << puzzle.getAsString() << std::endl;
+        std::string puzzleQuestion = puzzle.getAsString() + "\n Your ANSWER:";
 
-        std::cout << "\n - Your ANSWER: ";
-        std::cin >> userAns;
-        std::cout << std::endl;
+        UserInput::getChoice(userAnswer, puzzleQuestion, 1); // Get User Input
 
-        // Error checking for input
-        // loop until the input is valid/correct
-        // numerical value, NOT string or char
-        while (std::cin.fail())
-        {
-            std::cout << " - Faulty input!" << "\n";
-            // clear the stream
-            std::cin.clear();
-            // ignore 100 chars
-            std::cin.ignore(100, '\n');
-            // enter chice again
-            std::cout << "\n - Your ANSWER: ";
-            std::cin >> userAns;
-        }
-
-        std::cin.ignore(100, '\n');
-        std::cout << "\n";
-
-        if (puzzle.getCorrectAns() == userAns)
+        // Get additional EXP and GOLD for Correct Answer
+        if (puzzle.getCorrectAns() == userAnswer)
         {
             completed = true;
-            // Get addiction la exp for correct answer
             character.gainExp(gainExp);
             character.gainGold(gainGold);
             std::cout << "YOU GAINED " << gainExp << " EXP!" << std::endl << std::endl;
             std::cout << "YOU GAINED " << gainGold << " GOLD!" << std::endl << std::endl;
-
         }
     }
 
     if (completed)
     {
-        std::cout << "Congratulations, You are Right!!!\n\b";
+        std::cout << "Congratulations, You are Right!!!" << std::endl << std::endl;
     }
     else
     {
-        std::cout << "You LOST :(\n\n";
+        std::cout << "You LOST :(" << std::endl << std::endl;
     }
 }
 
-/*
-// BOSS
-void Event::bossEncounter(Character &character, Boss &boss)
-{
-
-    bool playerTurn = false;
-    int choice = 0;
-
-    // Coin toss for turn
-    int coinToss = rand() % 100 + 1;
-    // Check who's turn is
-    if (coinToss == 1)
-        playerTurn = true;
-    else
-        playerTurn = false;
-
-    // End Conditions
-    bool escape = false;
-    bool playerDefeated = false;
-    bool enemieDefeated = false;
-
-    // CREATE ENEMIES
-    int nrOfEnemies = rand() % 3 + 1; // prevent 0 enemies
-
-    for (size_t i = 0; i < nrOfEnemies; i++)
-    {
-        // Create enemies
-        enemies.push(Enemy(character.getLevel() + rand() % 3));
-    }
-
-    // Batte variables
-    int damage = 0;
-    int gainExp = 0;
-    int gainGold = 0;
-
-    int playerTotal = 0;
-
-    int enemyTotal = 0;
-    int combatTotal = 0;
-    int combatRollPlayer = 0;
-    int combatRollEnemy = 0;
-
-    while (!escape & !playerDefeated && !enemieDefeated)
-    {
-        if (playerTurn && !playerDefeated)
-        {
-            // MENU
-            // force to clear stream
-            std::cout << std::flush;
-
-            std::cout << "-----------------------------" << std::endl;
-            std::cout << "***      PLAYER TURN      ***" << std::endl;
-            std::cout << "-----------------------------" << std::endl << std::endl;
-            std::cout << "Continue..." << std::endl;
-            std::cin.get();
-
-            std::cout << "* BATTLE MENU *" << std::endl << std::endl;
-            std::cout << "HP: " << character.getHp() << " / " << character.getHpMax() << std::endl;
-
-            std::cout << "0: Escape" << std::endl;
-            std::cout << "1: Attack" << std::endl;
-            std::cout << "2: Defend" << std::endl;
-            std::cout << "3: Use Item" << std::endl << std::endl;
-
-            std::cout << "Choice: " << std::endl;
-            std::cin >> choice;
-
-            while (std::cin.fail() || choice > 3 || choice < 0)
-            {
-                // force to clear stream
-                std::cout << std::flush;
-
-                std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-                // clear the stream
-                std::cin.clear();
-                // ignore 100 chars
-                std::cin.ignore(100, '\n');
-                // enter choice again
-                std::cout << "0: Escape" << std::endl;
-                std::cout << "1: Attack" << std::endl;
-                std::cout << "2: Defend" << std::endl;
-                std::cout << "3: Use Item" << std::endl << std::endl;
-
-                std::cout << "Choice: " << std::endl;
-                std::cin >> choice;
-            }
-
-            std::cin.ignore(100, '\n');
-            std::cout << std::endl;
-
-            // Move
-            switch (choice)
-            {
-                case 0: // ESCAPE
-                    escape = true;
-                    break;
-
-                case 1: // ATTACK
-
-                    // Select enemy MENU
-                    std::cout << "* SELECT ENEMY: *" << std::endl << std::endl;
-
-                    for (size_t i = 0; i < enemies.size(); i++)
-                    {
-                        std::cout << i << ": "
-                            << "Level: " << enemies[i].getLevel() << " - "
-                            << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << " - "
-                            << "Defence: " << enemies[i].getDefence() << " - "
-                            << "Accuracy: " << enemies[i].getAccuracy() << " - "
-                            << "Damage: " << enemies[i].getDamageMin() << " - " << enemies[i].getDamageMax() << std::endl;
-                    }
-
-                    std::cout << std::endl << "Choice: " << std::endl;
-                    std::cin >> choice;
-
-                    while (std::cin.fail() || choice >= enemies.size() || choice < 0)
-                    {
-                        std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-                        // clear the stream
-                        std::cin.clear();
-                        // ignore 100 chars
-                        std::cin.ignore(100, '\n');
-
-                        // enter choice again
-                        std::cout << "* SELECT ENEMY: *" << std::endl << std::endl;
-                        std::cout << "Choice: " << std::endl;
-                        std::cin >> choice;
-                    }
-
-                    std::cin.ignore(100, '\n');
-                    std::cout << std::endl;
-
-                    // Attack Roll
-                    combatTotal = enemies[choice].getAccuracy() + (character.getDefence() + character.getAddedDefence());
-                    // calculate procentage
-                    enemyTotal = enemies[choice].getAccuracy() / static_cast<double>(combatTotal) * 100;
-                    playerTotal = (character.getDefence() + character.getAddedDefence()) / static_cast<double>(combatTotal) * 100;
-                    combatRollPlayer = rand() % playerTotal + 1;
-                    combatRollEnemy = rand() % enemyTotal + 1;
-
-                    std::cout << "Combat total: " << combatTotal << std::endl;
-                    std::cout << "Enemy percent: " << enemyTotal << std::endl;
-                    std::cout << "Player percent: " << playerTotal << std::endl << std::endl;
-
-                    std::cout << "Player roll: " << combatRollPlayer << std::endl;
-                    std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;
-
-                    std::cout << "-----------------------------" << std::endl;
-                    std::cout << "***     PLAYER ATTACK     ***" << std::endl;
-                    std::cout << "-----------------------------" << std::endl << std::endl;
-
-                    if (combatRollPlayer > combatRollEnemy) // HIT
-                    {
-                        std::cout << "HIT! " << std::endl << std::endl;
-
-                        damage = character.getDamage();
-                        enemies[choice].takeDamage(damage);
-
-                        std::cout << "Damage: " << damage << "!" << std::endl << std::endl;
-                        std::cout << "HP: " << character.getHp() << " / " << character.getHpMax() << std::endl;
-
-                        if (!enemies[choice].isAlive())
-                        {
-                            std::cout << "ENEMY DEFEATED!" << std::endl << std::endl;
-                            gainExp = enemies[choice].getExp();
-                            character.gainExp(gainExp);
-
-                            gainGold = rand() % enemies[choice].getLevel() * 10 + 1;
-                            character.gainGold(gainGold);
-
-                            std::cout << "EXP GAINED: " << gainExp << std::endl << std::endl;
-                            std::cout << "GOLD GAINED: " << gainGold << std::endl << std::endl;
-
-                            // Item roll
-                            int roll = rand() % 100 + 1; // 1 tp 100
-                            int rarity = -1;
-
-                            if (roll > 20)
-                            {
-                                rarity = 0; // Common item
-                                // roll again
-                                roll = rand() % 100 + 1; // 1 to 100
-                                if (roll > 30)
-                                {
-                                    rarity = 1; // Uncommon item
-
-                                    roll = rand() % 100 + 1; // 1 to 100
-                                    if (roll > 50)
-                                    {
-                                        rarity = 2; // Rare
-
-                                        roll = rand() % 100 + 1; // 1 to 100
-                                        if (roll > 70)
-                                        {
-                                            rarity = 3; // Legendary item
-
-                                            roll = rand() % 100 + 1; // 1 to 100
-                                            if (roll > 80)
-                                            {
-                                                rarity = 4; // EPIC item
-                                            }
-                                        }
-                                    }
-                                }
-
-                            }
-
-                            if (rarity >= 0)
-                            {
-                                // GET RANDOM ARMOR OR WEAPON
-                                roll = rand() % 100 + 1;
-                                if (roll > 50)
-                                {
-                                    Weapon tempW(character.getLevel(), rarity);
-                                    character.addItem(tempW);
-                                    std::cout << "WEAPON DROP!" << std::endl;
-                                }
-                                else
-                                {
-                                    Armor tempA(character.getLevel(), rarity);
-                                    character.addItem(tempA);
-                                    std::cout << "ARMOR DROP!" << std::endl;
-                                }
-                            }
-                            enemies.remove(choice);
-                        }
-                    }
-                    else // MISS
-                    {
-                        std::cout << "MISSED!" << std::endl << std::endl;
-                    }
-
-                    break;
-
-                case 2: // DEFEND
-
-                    break;
-
-                case 3: //
-
-                    break;
-
-                default:
-
-                    break;
-            }
-
-            // Leave turn
-            playerTurn = false;
-        }
-        else if (!playerTurn && !playerDefeated && !escape && !enemieDefeated) // ENEMIES TURN
-        {
-            std::cout << "-----------XXXXX-------------" << std::endl;
-            std::cout << "xxx     ENEMY TURN      xxx" << std::endl;
-            std::cout << "-----------XXXXX-------------" << std::endl << std::endl;
-
-            // Enemy attack
-            for (size_t i = 0; i < enemies.size(); i++)
-            {
-                std::cout << "Continue..." << std::endl << std::endl;
-                std::cin.get();
-
-                std::cout << "Enemy: " << i << std::endl << std::endl;
-
-                // Attack Roll
-                combatTotal = enemies[i].getDefence() + character.getAccuracy();
-                // calculate procentage
-                enemyTotal = enemies[i].getDefence() / static_cast<double>(combatTotal) * 100;
-                playerTotal = character.getAccuracy() / static_cast<double>(combatTotal) * 100;
-                combatRollPlayer = rand() % playerTotal + 1;
-                combatRollEnemy = rand() % enemyTotal + 1;
-
-                std::cout << "Combat total: " << combatTotal << std::endl;
-                std::cout << "Enemy percent: " << enemyTotal << std::endl;
-                std::cout << "Player percent: " << playerTotal << std::endl << std::endl;
-
-                std::cout << "Player roll: " << combatRollPlayer << std::endl;
-                std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;
-
-                if (combatRollPlayer > combatRollEnemy) // HIT
-                {
-                    std::cout << "HIT! " << std::endl << std::endl;
-
-                    damage = enemies[i].getDamage();
-                    character.takeDamage(damage);
-
-                    std::cout << "Damage: " << damage << "!" << std::endl << std::endl;
-
-                    if (!character.isAlive())
-                    {
-                        std::cout << "You are DEFEATED!" << std::endl << std::endl;
-                        playerDefeated = true;
-                    }
-                }
-                else // MISS
-                {
-                    std::cout << "MISSED!" << std::endl << std::endl;
-                }
-            }
-            // End turn
-            playerTurn = true;
-        }
-
-        // Conditions
-        if (!character.isAlive())
-        {
-            playerDefeated = true;
-        }
-        else if (enemies.size() <= 0)
-        {
-            enemieDefeated = true;
-        }
-    }
-}
-
-*/

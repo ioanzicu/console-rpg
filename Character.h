@@ -9,9 +9,9 @@ class Character
     public:
         Character();
         Character(std::string name, int distanceTraveled, int gold,
-            int level, int exp, int flasks, int flasksMax, int flaskShards,
-            int strength, int vitality, int dexterity,
-            int intelligence, int stamina, int hp, int statPoints);
+                int level, int exp, int flasks, int flasksMax, int flaskShards,
+                int strength, int vitality, int dexterity,
+                int intelligence, int stamina, int hp, int statPoints);
         virtual ~Character();
 
         // Functions
@@ -73,8 +73,6 @@ class Character
         inline void setArmorChest(Armor armor_chest) { this->armor_chest = armor_chest; }
         inline void setArmorArms(Armor armor_arms) { this->armor_arms = armor_arms; }
         inline void setArmorLegs(Armor armor_legs) { this->armor_legs = armor_legs; }
-
-    protected:
 
     private:
         int distanceTraveled;

@@ -34,8 +34,8 @@ Character::Character()
     this->flaskShardsMax = 10;
 }
 
-Character::Character(std::string name, int distanceTraveled,
-                     int gold, int level, int exp, int flasks, int flasksMax, int flaskShards,
+Character::Character(std::string name, int distanceTraveled, int gold,
+                     int level, int exp, int flasks, int flasksMax, int flaskShards,
                      int strength, int vitality, int dexterity, int intelligence,
                      int stamina, int hp, int statPoints)
 {
@@ -197,7 +197,7 @@ std::string Character::getInvAsString(bool shop)
     for (size_t i = 0; i < this->inventory.size(); i++)
     {
         if (shop)
-        {
+        {   // SHOPE VERSION
             inv += std::to_string(i) + ": " + this->inventory[i].toString() + "\n" +
                 + " | Sell Value: " + std::to_string(this->inventory[i].getSellValue()) + "\n";
         }
@@ -210,6 +210,7 @@ std::string Character::getInvAsString(bool shop)
     return inv;
 }
 
+// For Saving Inventory in the File
 std::string Character::getInvAsStringSave()
 {
     std::string inv;
@@ -260,9 +261,8 @@ void Character::levelUp()
 void Character::updateStats() // after save or loading
 {
     // Level formula
-    this->expNext = static_cast<int>((50 / 3)*(pow(level, 3) -
-                        6 * pow(level, 2) +
-                        (17 * level) - 12) + 100);
+    this->expNext = static_cast<int>((50 / 3) * (pow(level, 3) -
+                        6 * pow(level, 2) + (17 * level) - 12) + 100);
 
     this->hpMax = (this->vitality * 5) + (this->strength) + this->level * 5;
     this->hp = hpMax;
@@ -284,40 +284,40 @@ void Character::addToStat(int stat, int value)
         std::cout << "ERROR! NOT ENOUGH STATPOINTS!" << std::endl;
     else
     {
-        std::cout << "#######################################" << std::endl;
+        std::cout << " #######################################" << std::endl;
         switch (stat)
         {
             case 0:
-                std::cout << "Strnength was UPGRADED from: " << this->strength;
+                std::cout << " - Strength was UPGRADED from: " << this->strength;
                 this->strength += value;
                 std:: cout << " to -> " << this->strength << std::endl;
                 break;
 
             case 1:
-                std::cout << "Vitality was UPGRADED from: " << this->vitality;
+                std::cout << " - Vitality was UPGRADED from: " << this->vitality;
                 this->vitality +=value;
                 std:: cout << " to -> " << this->vitality << std::endl;
                 break;
 
             case 2:
-                std::cout << "Dexterity was UPGRADED from: " << this->dexterity;
+                std::cout << " - Dexterity was UPGRADED from: " << this->dexterity;
                 this->dexterity += value;
                 std:: cout << " to -> " << this->dexterity << std::endl;
                 break;
 
             case 3:
-                std::cout << "Intelligence was UPGRADED from: " << this->intelligence;
+                std::cout << " - Intelligence was UPGRADED from: " << this->intelligence;
                 this->intelligence += value;
                 std:: cout << " to -> " << this->intelligence << std::endl;
                 break;
 
             default:
-                std::cout << "UNDEFINED STAT" << std::endl;
+                std::cout << GuiDisplay::error("UNDEFINED STAT");
                 break;
         }
-        std::cout << "#######################################" << std::endl << std::endl;
+        std::cout << " #######################################" << std::endl << std::endl;
 
-        // update stat points
+        // Update Stat Points
         this->statPoints -= value;
 
         this->updateStats();
@@ -416,7 +416,7 @@ const Item& Character::getItem(const int index)
 {
     if (index < 0 || index >= this->inventory.size())
     {
-        std::cout << "ERROR, NOT POSSIBLE TO REMOVE ITEM, getItem Character" << std::endl << std::endl;
+        std::cout << GuiDisplay::error("ERROR, NOT POSSIBLE TO REMOVE ITEM, getItem Character") << std::endl;
         throw("ERROR, OUT OF BOUNDS, GET ITEM CHARACTERS");
     }
 
@@ -443,6 +443,7 @@ const std::string Character::getMenuBar() const
     return ss.str();
 }
 
+// Use Flask for Fill HP
 const bool Character::consumeFlask()
 {
     bool consumed = false;
@@ -457,6 +458,7 @@ const bool Character::consumeFlask()
     return consumed;
 }
 
+// Increase the Number of total Flasks and reset Flasks Shard
 const bool Character::upgradeFlask()
 {
     bool upgraded = false;
@@ -472,11 +474,13 @@ const bool Character::upgradeFlask()
     return upgraded;
 }
 
+// Reset Fasks
 void Character::resetFlasks()
 {
     this->flasks = this->flasksMax;
 }
 
+// Take Damage
 void Character::takeDamage(const int damage)
 {
     this->hp -= damage;

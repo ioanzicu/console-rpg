@@ -10,7 +10,7 @@ int main()
 {
     try
     {
-        srand(time(NULL)); // set random time to Null
+        srand(time(NULL)); // Set The SEED
 
         Game game;
         game.initGame();

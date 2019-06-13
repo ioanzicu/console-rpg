@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1560329588 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
+1560454057 source:/home/iro/Public/c++/game/ConsoleRPG/main.cpp
 	<iostream>
 	<cstring>
 	<iomanip>
@@ -16,11 +16,11 @@
 1560447356 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1560413220 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1560453549 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"STLINCLUDE.h"
 	"Inventory.h"
 
-1560447287 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1560459745 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
 1560239439 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
@@ -47,7 +47,7 @@
 
 1559893333 /home/iro/Public/c++/game/ConsoleRPG/Functions.h
 
-1560269784 source:/home/iro/Public/c++/game/ConsoleRPG/Armor.cpp
+1560453337 source:/home/iro/Public/c++/game/ConsoleRPG/Armor.cpp
 	"Armor.h"
 
 1560278993 source:/home/iro/Public/c++/game/ConsoleRPG/Weapon.cpp
@@ -56,15 +56,14 @@
 1560362261 /home/iro/Public/c++/game/ConsoleRPG/Enemy.h
 	"STLINCLUDE.h"
 
-1560404927 source:/home/iro/Public/c++/game/ConsoleRPG/Enemy.cpp
+1560453669 source:/home/iro/Public/c++/game/ConsoleRPG/Enemy.cpp
 	"Enemy.h"
 
-1560321393 /home/iro/Public/c++/game/ConsoleRPG/Event.h
+1560456808 /home/iro/Public/c++/game/ConsoleRPG/Event.h
 	"STLINCLUDE.h"
 	"Character.h"
 	"Enemy.h"
 	"Puzzle.h"
-	"Boss.h"
 
 1560029042 /home/iro/Public/c++/game/ConsoleRPG//Puzzle.h
 	<string>
@@ -72,7 +71,7 @@
 	<fstream>
 	<iostream>
 
-1560447301 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
+1560462634 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
 	"Event.h"
 
 1560156188 source:/home/iro/Public/c++/game/ConsoleRPG/Puzzle.cpp
@@ -81,7 +80,7 @@
 1560172635 /home/iro/Public/c++/game/ConsoleRPG/Puzzle.h
 	"STLINCLUDE.h"
 
-1560327807 /home/iro/Public/c++/game/ConsoleRPG/dArr.h
+1560461591 /home/iro/Public/c++/game/ConsoleRPG/dArr.h
 
 1560079149 /home/iro/Public/c++/game/ConsoleRPG//dArr.h
 
@@ -110,7 +109,7 @@
 1560321208 source:/home/iro/Public/c++/game/ConsoleRPG/Boss.cpp
 	"Boss.h"
 
-1560442868 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
+1560458528 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
 	"GuiDisplay.h"
 	<iostream>
 
@@ -120,7 +119,7 @@
 	<iostream>
 	<iomanip>
 
-1560447495 source:/home/iro/Public/c++/game/ConsoleRPG/UserInput.cpp
+1560462758 source:/home/iro/Public/c++/game/ConsoleRPG/UserInput.cpp
 	"UserInput.h"
 	<bits/stdc++.h>
 

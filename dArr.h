@@ -82,7 +82,6 @@ T& dArr<T>::operator[] (const unsigned index)
     return *this->arr[index];
 }
 
-
 // Assignment operator is called when both objects exists
 // both with own data
 //  s1 = s2
@@ -209,7 +208,7 @@ void dArr<T>::remove(const unsigned index, bool ordered)
         Make 4 pointer to point to 7
         Ptr to Elements     [*1] [*2] [*3] [*7] [*5] [*6] [*7] []
         Remove 7 pointer
-        Ptr to Elements     [*1] [*2] [*3] [*7] [*5] [*6] [] []
+        Ptr to Elements     [*1] [*2] [*3] [*7] [*5] [*6] []   []
         Reduce nrOfElements
         Ptr to Elements     [*1] [*2] [*3] [*7] [*5] [*6] []
 

@@ -22,9 +22,10 @@ const int UserInput::getChoice(int &choice, const std::string menu_str, const in
     {
         std::system("clear");
         std::cout << std::endl << "Faulty input!" << std::endl << std::endl;
-        std::system("pause");
+        // std::system("pause");
         std::cout << std::endl;
-        std::system("clear");
+        //
+        //std::system("clear");
 
         // clear the stream  (error flag for cin)
         std::cin.clear();
@@ -35,6 +36,8 @@ const int UserInput::getChoice(int &choice, const std::string menu_str, const in
         std::cout << " - Choice: ";
         std::cin >> std::setw(streamSize) >> choice;
     }
+
+    std::cout << std::endl;
 
     std::cin.clear();
     // ignore all characters

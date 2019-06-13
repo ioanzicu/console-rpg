@@ -2,7 +2,7 @@
 
 // Created ONCE FOR ALL GAME when the item is included
 dArr<std::string> Armor::names;
-// STAIC FUNCTIONS CAN HANDLE JUST STATIC MEMEBER
+// STATIC FUNCTIONS CAN HANDLE JUST STATIC MEMEBER
 void Armor::initNames()
 {
     Armor::names.push("Marsian-Defender");
@@ -26,8 +26,8 @@ Armor::Armor(int level, int rarity)
 {
     this->defence = rand() % (level * (rarity + 1)); // +1 to prvent zero
     this->defence += (rarity + 1) * 5;
-    this->type = rand() % 4;
-    this->setName(Armor::names[rand() % Armor::names.size()]);
+    this->type = rand() % 4; // random type
+    this->setName(Armor::names[rand() % Armor::names.size()]); // Choose a randome name
 
     switch(this->type)
     {
@@ -48,13 +48,13 @@ Armor::Armor(int level, int rarity)
     }
 
     if (rarity == 3) // LEGENDARY
-        this->defence += level * 5; // extra damage
-    // If level 10, get 100 extra defence
+        this->defence += level * 5; // Extra Damage
     else if (rarity == 4) // EPIC
-        this->defence += level * 10;
+        this->defence += level * 10; // Extra Defence
 }
 
-Armor::Armor(int type, int defence, std::string name, int level, int buyValue, int sellValue, int rarity)
+Armor::Armor(int type, int defence, std::string name,
+             int level, int buyValue, int sellValue, int rarity)
     : Item(itemType::ARMOR, name, level, buyValue, sellValue, rarity)
 {
     this->type = type;
