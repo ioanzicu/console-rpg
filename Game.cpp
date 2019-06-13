@@ -71,7 +71,6 @@ void Game::mainMenu()
         menu_str << GuiDisplay::menuItem(7, "Save Character");
         menu_str << GuiDisplay::menuItem(8, "Load Character") << std::endl;
 
-        menu_str << " - Choice: ";
         UserInput::getChoice(this->choice, menu_str.str(), 1);
 
         switch (this->choice)
@@ -177,7 +176,6 @@ void Game::levelUpCharacter()
         menu_str << GuiDisplay::menuItem(2, "Dexterity");
         menu_str << GuiDisplay::menuItem(3, "Intelligence") << std::endl;
 
-        menu_str << " - Choice: ";
         UserInput::getChoice(this->choice, menu_str.str(), 1);
 
         while (this->choice < 0 || this->choice > 3) // validate choice between 0 and 3

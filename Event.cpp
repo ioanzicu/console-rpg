@@ -210,8 +210,8 @@ void Event::shopEncounter(Character &character)
                     else
                     {
                         character.gainGold(character.getItem(choice).getSellValue());
-                        std::cout << "Item sold!" << std::endl;
-                        std::cout << "Gold earned: " << character.getItem(choice).getSellValue() << std::endl << std::endl;;
+                        std::cout << " - Item sold!" << std::endl;
+                        std::cout << " - Gold earned: " << character.getItem(choice).getSellValue() << std::endl << std::endl;;
                         character.removeItem(choice);
                     }
                 }
@@ -227,8 +227,8 @@ void Event::shopEncounter(Character &character)
         }
     }
 
-    std::cout << "You left the shop..." << std::endl << std::endl;
-    std::cout << "ENTER to continue..." << "\n";
+    std::cout << " - You left the shop..." << std::endl << std::endl;
+    std::cout << " ENTER to continue..." << "\n";
     // Wait for a character
     std::cin.get();
 }
@@ -240,7 +240,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     int choice = 0;
 
     // Coin toss for turn
-    int coinToss = rand() % 100 + 1;
+    int coinToss = rand() % 2 + 1; // from 1 to 2
     // Check who's turn is
     if (coinToss == 1)
         playerTurn = true;
@@ -252,56 +252,48 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
     bool playerDefeated = false;
     bool enemiesDefeated = false;
 
+    enemies.clear(); // Clear old enemies
+
+    int nrOfEnemies = rand() % 3 + 1; // 1 - 3 enemies
+
     // CREATE ENEMIES
-    enemies.clear(); // clear old enemies
-
-    int nrOfEnemies = rand() % 3 + 1; // prevent 0 enemies
-
     for (size_t i = 0; i < nrOfEnemies; i++)
     {
-        // Create enemies
-        enemies.push( Enemy(character.getLevel() + rand() % 3));
+        enemies.push(Enemy(character.getLevel() + rand() % 3));
     }
 
     // Batte variables
     int damage = 0;
     int gainExp = 0;
     int gainGold = 0;
-
     int playerTotal = 0;
-
     int enemyTotal = 0;
     int combatTotal = 0;
     int combatRollPlayer = 0;
     int combatRollEnemy = 0;
 
-    while (!escape & !playerDefeated && !enemiesDefeated)
+    while (!escape && !playerDefeated && !enemiesDefeated)
     {
         if (playerTurn && !playerDefeated)
         {
             // MENU
-            // std::system("clear"); // clear the console
+            system("clear"); // clear the console
+
             std::stringstream menu_str;
 
-            std::cout << GuiDisplay::menuTitle("PLAYER TURN", '*');
+            std::cout << GuiDisplay::menuTitle("BATTLE MENU", '*');
             std::cin.get();
 
-            menu_str << " * BATTLE MENU *" << std::endl << std::endl;
-            menu_str << " HP: " << GuiDisplay::progresBar(
-                                                        character.getHp(),
-                                                        character.getHpMax(),
-                                                        15,
-                                                        '-',
-                                                        '=')
-                     << character.getHp() << "/" << character.getHpMax() << std::endl << std::endl;
+            menu_str << " - Player Turn " << std::endl << std::endl;
+
+            menu_str << character.getMenuBar() << std::endl;
 
             menu_str << GuiDisplay::menuItem(0, "Escape");
             menu_str << GuiDisplay::menuItem(1, "Attack");
             menu_str << GuiDisplay::menuItem(2, "Defend");
             menu_str << GuiDisplay::menuItem(3, "Use Item") << std::endl;
 
-            menu_str << " - Choice: ";
-            UserInput::getChoice(choice, menu_str.str(), 1);
+            UserInput::getChoice(choice, menu_str.str(), 1); // Get Choice
 
             // Move
             switch (choice)
@@ -313,12 +305,13 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                 case 1: // ATTACK
 
                     system("clear");
+
                     // Select enemy MENU
                     menu_str.clear();
 
-                    menu_str << std::endl << " * SELECT ENEMY: * " << std::endl << std::endl;
+                    menu_str << std::endl << " * SELECT ENEMY: " << std::endl << std::endl;
 
-                    for (size_t i = 0; i < enemies.size(); i++)
+                    for (size_t i = 0; i < enemies.size(); i++) // Display Enemies
                     {
                         menu_str << GuiDisplay::menuItem(i, enemies[i].getAsStringEvent());
                     }
@@ -326,48 +319,41 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                     UserInput::getChoice(choice, menu_str.str(), 1);
 
                     // Attack Roll
-                    //combatTotal = enemies[choice].getAccuracy() + (character.getDefence() + character.getAddedDefence());
                     combatTotal = enemies[choice].getDefence() + character.getAccuracy();
-                    // calculate procentage
-                    enemyTotal = enemies[choice].getAccuracy() / static_cast<double>(combatTotal) * 100;
-//                    playerTotal = (character.getDefence() + character.getAddedDefence()) / static_cast<double>(combatTotal) * 100;
+                    enemyTotal = enemies[choice].getAccuracy() / static_cast<double>(combatTotal) * 100; // calculate procentage
                     playerTotal = character.getAccuracy() / static_cast<double>(combatTotal) * 100;
                     combatRollPlayer = rand() % playerTotal + 1;
                     combatRollEnemy = rand() % enemyTotal + 1;
 
-                    std::cout << "Combat total: " << combatTotal << std::endl;
-                    std::cout << "Enemy percent: " << enemyTotal << std::endl;
-                    std::cout << "Player percent: " << playerTotal << std::endl << std::endl;
-
-                    std::cout << "Player roll: " << combatRollPlayer << std::endl;
-                    std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;
-
-                    std::cout << GuiDisplay::menuTitle("PLAYER ATTACK", '-');
+                    std::cout << std::string(30, '-') << std::endl;
+                    std::cout << " | Combat total: " << combatTotal << std::endl;
+                    std::cout << " | Enemy percent: " << enemyTotal << std::endl;
+                    std::cout << " | Player percent: " << playerTotal << std::endl;
+                    std::cout << " | Player roll: " << combatRollPlayer << std::endl;
+                    std::cout << " | Enemy roll: " << combatRollEnemy << std::endl;
+                    std::cout << std::string(30, '-') << std::endl << std::endl;
 
                     if (combatRollPlayer > combatRollEnemy) // HIT
                     {
-                        std::cout << "HIT! " << std::endl << std::endl;
-
                         damage = character.getDamage();
                         enemies[choice].takeDamage(damage);
 
-                        std::cout << "Damage: " << damage << "!" << std::endl << std::endl;
-                        std::cout << "HP: " << character.getHp() << " / " << character.getHpMax() << std::endl;
+                        std::cout << " - HIT! " << std::endl << std::endl;
+                        std::cout << " - Enemy HP: " << enemies[choice].getHp() << "/" << enemies[choice].getHpMax()
+                                  << std::endl << std::endl;
 
                         if (!enemies[choice].isAlive())
                         {
-                            std::cout << "ENEMY DEFEATED!" << std::endl << std::endl;
+                            std::cout << " - [ ENEMY DEFEATED! ] "  << std::endl;
                             gainExp = enemies[choice].getExp();
                             character.gainExp(gainExp);
-
                             gainGold = rand() % enemies[choice].getLevel() * 10 + 1;
                             character.gainGold(gainGold);
-
-                            std::cout << "EXP GAINED: " << gainExp << std::endl << std::endl;
-                            std::cout << "GOLD GAINED: " << gainGold << std::endl << std::endl;
+                            std::cout << " - EXP GAINED: " << gainExp << std::endl;
+                            std::cout << " - GOLD GAINED: " << gainGold << std::endl << std::endl;
 
                             // Item roll
-                            int roll = rand() % 100 + 1; // 1 tp 100
+                            int roll = rand() % 100 + 1; // 1 to 100
                             int rarity = -1;
 
                             if (roll > 20)
@@ -390,7 +376,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                                             rarity = 3; // Legendary item
 
                                             roll = rand() % 100 + 1; // 1 to 100
-                                            if (roll > 80)
+                                            if (roll > 90)
                                             {
                                                 rarity = 4; // EPIC item
                                             }
@@ -404,25 +390,26 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                                 // GET RANDOM ARMOR OR WEAPON
                                 roll = rand() % 100 + 1;
 
-                                if (roll > 50)
+                                if (roll > 50) // WEAPON
                                 {
                                     Weapon tempW(character.getLevel(), rarity);
                                     character.addItem(tempW);
-                                    std::cout << "WEAPON DROP!" << std::endl;
+                                    std::cout << " - WEAPON DROP!" << std::endl;
                                 }
-                                else
+                                else    // ARMOR
                                 {
                                     Armor tempA(character.getLevel(), rarity);
                                     character.addItem(tempA);
-                                    std::cout << "ARMOR DROP!" << std::endl;
+                                    std::cout << " - ARMOR DROP!" << std::endl;
                                 }
                             }
+                            // REMOVE THE DEAD ENEMY
                             enemies.remove(choice);
                         }
                     }
                     else // MISS
                     {
-                        std::cout << "MISSED!" << std::endl << std::endl;
+                        std::cout << " - MISSED!" << std::endl << std::endl;
                     }
 
                     break;
@@ -436,12 +423,10 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
 
                     menu_str.clear();
 
-                    menu_str << GuiDisplay::menuTitle("SELECT ENEMY:");
+                    menu_str << GuiDisplay::menuTitle("Use ITEM:");
 
                     menu_str << GuiDisplay::menuItem(0, "Back");
                     menu_str << GuiDisplay::menuItem(1, "Flask");
-
-                    menu_str << "\n Choice: ";
 
                     UserInput::getChoice(choice, menu_str.str(), 1);
 
@@ -454,91 +439,86 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
                         case 1:
                             if (character.consumeFlask())
                             {
-                                std::cout << GuiDisplay::alert("Flask Used!");
-                                std::cout << "Your HP now is Full: " << GuiDisplay::progresBar(
-                                                                                        character.getHp(),
-                                                                                        character.getHpMax(),
-                                                                                        15,
-                                                                                        '-',
-                                                                                        '=')
-                                            << character.getHp() << "/" << character.getHpMax()
-                                            << std::endl << std::endl;
+                                std::cout << " - Flask Used!" << std::endl;
                             }
                             else
                             {
-                                std::cout << GuiDisplay::alert("No Flask Available!");
+                                std::cout << " - No Flask Available!" << std::endl;
                             }
 
-                            std::cin.get();
                             break;
+
                         default:
                             std::cout << GuiDisplay::error("No Such Menu Option!");
-                            std::cin.get();
                             break;
                     }
 
                     break;
 
                 default:
-
                     break;
             }
 
-            // Leave turn
+            // END TURN
             playerTurn = false;
+            std::cout << std::endl;
+            std::cin.get();
         }
         else if (!playerTurn && !playerDefeated && !escape && !enemiesDefeated) // ENEMIES TURN
         {
-            std::cin.get();
-            std::cout << GuiDisplay::menuTitle("ENEMY TURN", 'x');
-            std::cin.get();
+            system("clear");
+
+            std::cout << GuiDisplay::menuTitle("BATTLE MENU", 'x');
+
+            std::cout << " - Enemy Turn" << std::endl << std::endl;
+            //std::cin.get();
 
             // Choose a random enemy to attack
             int enemyIndex = rand() % enemies.size();
             Enemy* enemy = &enemies[enemyIndex];
 
             // Enemy attack
-            std::cin.get();
-            system("clear");
-
             std::cout << "Enemy: " << enemyIndex << std::endl << std::endl;
 
             // Attack Roll
-            combatTotal = enemy->getDefence() + character.getAccuracy();
+            combatTotal = enemy->getAccuracy() + (character.getDefence() + character.getAddedDefence());
             enemyTotal = enemy->getDefence() / static_cast<double>(combatTotal) * 100; // calculate procentage
             playerTotal = enemy->getAccuracy() / static_cast<double>(combatTotal) * 100;
             combatRollPlayer = rand() % playerTotal + 1;
             combatRollEnemy = rand() % enemyTotal + 1;
 
-            std::cout << "Combat total: " << combatTotal << std::endl;
-            std::cout << "Enemy percent: " << enemyTotal << std::endl;
-            std::cout << "Player percent: " << playerTotal << std::endl << std::endl;
+            std::cout << std::string(30, '-') << std::endl;
+            std::cout << " | Combat total: " << combatTotal << std::endl;
+            std::cout << " | Enemy percent: " << enemyTotal << std::endl;
+            std::cout << " | Player percent: " << playerTotal << std::endl;
+            std::cout << " | Player roll: " << combatRollPlayer << std::endl;
+            std::cout << " | Enemy roll: " << combatRollEnemy << std::endl;
+            std::cout << std::string(30, '-') << std::endl << std::endl;
 
-            std::cout << "Player roll: " << combatRollPlayer << std::endl;
-            std::cout << "Enemy roll: " << combatRollEnemy << std::endl << std::endl;
-
-            if (combatRollPlayer > combatRollEnemy) // HIT
+            if (combatRollPlayer < combatRollEnemy) // HIT
             {
-                std::cout << "HIT! " << std::endl << std::endl;
-
                 damage = enemy->getDamage();
                 character.takeDamage(damage);
 
-                std::cout << "Damage: " << damage << "!" << std::endl << std::endl;
+                std::cout << " - HIT: " << damage << "!" << std::endl << std::endl;
+                std::cout << " - Player HP: " << character.getHp() << "/" << character.getHpMax()
+                          << std::endl << std::endl;
 
                 if (!character.isAlive())
                 {
-                    std::cout << "You are DEFEATED!" << std::endl << std::endl;
+                    std::cout << " - [ You are DEFEATED! ] -" << std::endl;
                     playerDefeated = true;
                 }
             }
             else // MISS
             {
-                std::cout << "MISSED!" << std::endl << std::endl;
+                std::cout << " - MISSED!" << std::endl << std::endl;
             }
 
             // End turn
             playerTurn = true;
+            std::cout << std::endl;
+            std::cin.get(); // pause
         }
 
         // Conditions
@@ -569,29 +549,29 @@ void Event::puzzleEncounter(Character &character)
 
     while (!completed && chances > 0)
     {
-        std::cout << "Chances: " << chances << std::endl;
+        std::cout << " - Chances: " << chances << std::endl;
         // Decrement the chance
         chances--;
 
         // Display Question
         std::cout << puzzle.getAsString() << std::endl;
 
-        std::cout << "\nYour ANSWER: ";
+        std::cout << "\n - Your ANSWER: ";
         std::cin >> userAns;
-        std::cout << "\n";
+        std::cout << std::endl;
 
         // Error checking for input
         // loop until the input is valid/correct
         // numerical value, NOT string or char
         while (std::cin.fail())
         {
-            std::cout << "Faulty input!" << "\n";
+            std::cout << " - Faulty input!" << "\n";
             // clear the stream
             std::cin.clear();
             // ignore 100 chars
             std::cin.ignore(100, '\n');
             // enter chice again
-            std::cout << "\nYour ANSWER: ";
+            std::cout << "\n - Your ANSWER: ";
             std::cin >> userAns;
         }
 

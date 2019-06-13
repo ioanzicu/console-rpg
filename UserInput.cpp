@@ -15,6 +15,7 @@ const int UserInput::getChoice(int &choice, const std::string menu_str, const in
 {
     std::cout << menu_str;
 
+    std::cout << " - Choice: ";
     std::cin >> std::setw(streamSize) >> choice; // set the stream size | one input
 
     while (std::cin.fail())
@@ -31,6 +32,7 @@ const int UserInput::getChoice(int &choice, const std::string menu_str, const in
         std::cin.ignore(INT_MAX, '\n');
 
         std::cout << menu_str << std::endl << std::endl;
+        std::cout << " - Choice: ";
         std::cin >> std::setw(streamSize) >> choice;
     }
 

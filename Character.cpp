@@ -427,7 +427,7 @@ const std::string Character::getMenuBar() const
 {
     std::stringstream ss;
 
-    ss << GuiDisplay::divider(35);
+    ss << std::string(35, '-') << std::endl;
 
     ss << " | Name: " << this->name << std::endl;
     ss << " | Level: " << this->level;
@@ -438,7 +438,7 @@ const std::string Character::getMenuBar() const
     ss << " | HP: " << GuiDisplay::progresBar(this->hp, this->hpMax, 15, '-', '=') << this->hp << "/" << this->hpMax << std::endl;
     ss << " | Flasks: " << this->flasks << "/" << this->flasksMax << " (Shards: " << this->flaskShards << "/" << this->flaskShardsMax << ")" << std::endl;
 
-    ss << GuiDisplay::divider(35);
+    ss << std::string(35, '-') << std::endl;
 
     return ss.str();
 }
