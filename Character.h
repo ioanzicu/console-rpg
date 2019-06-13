@@ -9,7 +9,7 @@ class Character
     public:
         Character();
         Character(std::string name, int distanceTraveled, int gold,
-            int level, int exp, int flasks, int flaskShards,
+            int level, int exp, int flasks, int flasksMax, int flaskShards,
             int strength, int vitality, int dexterity,
             int intelligence, int stamina, int hp, int statPoints);
         virtual ~Character();
@@ -30,6 +30,9 @@ class Character
         void removeItem(const int index);
         const Item& getItem(const int index);
         const std::string getMenuBar() const;
+        const bool consumeFlask();
+        const bool upgradeFlask();
+        void resetFlasks();
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
@@ -108,6 +111,7 @@ class Character
         int statPoints;
         // For Healing Bonuses when you have 10
         int flasks;
+        int flasksMax;
         int flaskShards;
         int flaskShardsMax;
 };

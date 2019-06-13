@@ -28,13 +28,14 @@ Character::Character()
 
     this->statPoints = 0;
 
-    this->flasks = 1;
+    this->flasksMax = 1;
+    this->flasks = this->flasksMax;
     this->flaskShards = 0;
     this->flaskShardsMax = 10;
 }
 
 Character::Character(std::string name, int distanceTraveled,
-                     int gold, int level, int exp, int flasks, int flaskShards,
+                     int gold, int level, int exp, int flasks, int flasksMax, int flaskShards,
                      int strength, int vitality, int dexterity, int intelligence,
                      int stamina, int hp, int statPoints)
 {
@@ -62,6 +63,7 @@ Character::Character(std::string name, int distanceTraveled,
 
     this->statPoints = statPoints;
 
+    this->flasksMax = flasksMax;
     this->flasks = flasks;
     this->flaskShards = flaskShards;
     this->flaskShardsMax = 10;
@@ -97,9 +99,10 @@ void Character::initialize(const std::string name)
     Inventory inv;
     inv.addItem(Weapon(1, 3));
 
-    this->flasks = 1;
+    this->flasksMax = 1;
+    this->flasks = this->flasksMax;
     this->flaskShards = 0;
-    this->flaskShardsMax = 0;
+    this->flaskShardsMax = 10;
 
     this->updateStats();
 }
@@ -115,7 +118,7 @@ void Character::displayCharacter() const
     std::cout << "= Exp: " << this->exp << std::endl;
     std::cout << "= Exp to next level: " << this->expNext << std::endl;
     std::cout << "= Statpoints: " << this->expNext << std::endl;
-    std::cout << "= Flasks: " << this->flasks << std::endl;
+    std::cout << "= Flasks: " << this->flasks << "/" << this->flasksMax << std::endl;
     std::cout << "= Flask Shards: " << this->flaskShards << " / " << this->flaskShardsMax << std::endl;
     std::cout << std::endl;
 
@@ -172,6 +175,7 @@ std::string Character::getAsString() const
             + std::to_string(level) + " "
             + std::to_string(exp) + " "
             + std::to_string(flasks) + " "
+            + std::to_string(flasksMax) + " "
             + std::to_string(flaskShards) + " "
             + std::to_string(strength) + " "
             + std::to_string(vitality) + " "
@@ -433,11 +437,45 @@ const std::string Character::getMenuBar() const
     ss << " [" << this->exp << "/" << this->expNext << "] " << std::endl;
     ss << " | Statpoints: " << this->expNext << std::endl;
     ss << " | HP: " << GuiDisplay::progresBar(this->hp, this->hpMax, 15, '-', '=') << this->hp << "/" << this->hpMax << std::endl;
-    ss << " | Flasks: " << this->flasks << " (" << this->flaskShards << "/" << this->flaskShardsMax << ")" << std::endl;
+    ss << " | Flasks: " << this->flasks << "/" << this->flasksMax << " (Shards: " << this->flaskShards << "/" << this->flaskShardsMax << ")" << std::endl;
 
     ss << GuiDisplay::divider(35);
 
     return ss.str();
+}
+
+const bool Character::consumeFlask()
+{
+    bool consumed = false;
+
+    if (this->flasks > 0)
+    {
+        this->hp = this->hpMax; // Reset HP
+        this->flasks--;         // Decrement flask
+        consumed = true;
+    }
+
+    return consumed;
+}
+
+const bool Character::upgradeFlask()
+{
+    bool upgraded = false;
+    if (this->flaskShards >= this->flaskShardsMax)
+    {
+        this->flaskShards -= this->flaskShardsMax; // Ex: 13 - 10 = 3
+        this->flasksMax++;                         // FlaskMax +1
+        this->flasks++;                            // Flasks   +1
+
+        upgraded = true;
+    }
+
+    return upgraded;
+}
+
+void Character::resetFlasks()
+{
+    this->flasks = this->flasksMax;
 }
 
 void Character::takeDamage(const int damage)
