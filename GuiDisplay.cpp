@@ -85,7 +85,8 @@ const std::string GuiDisplay::alert(const std::string text)
 {
     std::stringstream ss;
 
-    ss  << " - (!) " << text
+    ss  << std::endl
+        << " - (!) " << text
         << std::endl;
 
     return ss.str();
@@ -95,7 +96,8 @@ const std::string GuiDisplay::error(const std::string text)
 {
     std::stringstream ss;
 
-    ss  << " - (ERR) " << text
+    ss  << std::endl
+        << " - (ERR) " << text
         << std::endl;
 
     return ss.str();

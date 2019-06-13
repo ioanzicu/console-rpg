@@ -30,7 +30,7 @@ const int UserInput::getChoice(int &choice, const std::string menu_str, const in
         // ignore all characters
         std::cin.ignore(INT_MAX, '\n');
 
-        std::cout << menu_str << std::endl;
+        std::cout << menu_str << std::endl << std::endl;
         std::cin >> std::setw(streamSize) >> choice;
     }
 

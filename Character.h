@@ -33,6 +33,7 @@ class Character
         const bool consumeFlask();
         const bool upgradeFlask();
         void resetFlasks();
+        void takeDamage(const int damage);
 
         // Accessors
         inline const int& getDistanceTraveled() const { return this->distanceTraveled; }
@@ -67,7 +68,6 @@ class Character
         inline void gainExp(const int exp) { this->exp += exp; }
         inline void gainGold(const int gold) { this->gold += gold; }
         inline void payGold(const int gold) { this->gold -= gold; }
-        void takeDamage(const int damage);
         inline void setWeapon(Weapon weapon) { this->weapon = weapon; }
         inline void setArmorHead(Armor armor_head) { this->armor_head = armor_head; }
         inline void setArmorChest(Armor armor_chest) { this->armor_chest = armor_chest; }

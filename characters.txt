@@ -1,3 +1,3 @@
-Brombdo 0 30 1 0 1 1 0 5 5 5 5 35 8 0 0 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 1 Brombdo 1 0 0 0 0 0 
+Brombdo 1 30 1 0 1 1 0 5 5 5 5 35 8 0 -1 EMPTY 0 -1 0 0 0 0 -1 EMPTY 0 -1 0 0 0 -1 -1 EMPTY 0 -1 0 0 0 -1 -1 EMPTY 0 -1 0 0 0 -1 -1 EMPTY 0 -1 0 0 0 -1 
 
 
