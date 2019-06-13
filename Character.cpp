@@ -232,6 +232,7 @@ std::string Character::getInvAsStringSave()
 
 void Character::levelUp()
 {
+    system("clear");
     if (exp >= this->expNext)
     {
         this->exp -= this->expNext;
@@ -423,15 +424,18 @@ const std::string Character::getMenuBar() const
 {
     std::stringstream ss;
 
-    ss << GuiDisplay::divider(25);
+    ss << GuiDisplay::divider(35);
 
     ss << " | Name: " << this->name << std::endl;
-    ss << " | Level: " << this->level << " [" << this->exp << "/" << this->expNext << "] " << std::endl;
+    ss << " | Level: " << this->level;
+
+    ss << GuiDisplay::progresBar(this->exp, this->expNext, 15, '-', '=');
+    ss << " [" << this->exp << "/" << this->expNext << "] " << std::endl;
     ss << " | Statpoints: " << this->expNext << std::endl;
-    ss << " | HP: " << this->hp << "/" << this->hpMax << std::endl;
+    ss << " | HP: " << GuiDisplay::progresBar(this->hp, this->hpMax, 15, '-', '=') << this->hp << "/" << this->hpMax << std::endl;
     ss << " | Flasks: " << this->flasks << " (" << this->flaskShards << "/" << this->flaskShardsMax << ")" << std::endl;
 
-    ss << GuiDisplay::divider(25);
+    ss << GuiDisplay::divider(35);
 
     return ss.str();
 }

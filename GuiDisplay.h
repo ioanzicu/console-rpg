@@ -15,6 +15,8 @@ class GuiDisplay
         static const std::string menuTitle(const std::string title, const char symbol);
         static const std::string divider(const unsigned amount = 40, const char symbol = '-');
         static const std::string menuItem(const unsigned index, const std::string text);
+        static const std::string progresBar(const int valueMin, const int valueMax, const int maxLength,
+                                            const char symbolEmpty, const char symbolFull);
         static const std::string alert(const std::string text);
         static const std::string error(const std::string text);
 

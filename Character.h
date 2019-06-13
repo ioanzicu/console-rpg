@@ -106,7 +106,7 @@ class Character
         int luck;
 
         int statPoints;
-
+        // For Healing Bonuses when you have 10
         int flasks;
         int flaskShards;
         int flaskShardsMax;

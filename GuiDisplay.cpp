@@ -1,5 +1,5 @@
 #include "GuiDisplay.h"
-
+#include <iostream>
 GuiDisplay::GuiDisplay()
 {
     //ctor
@@ -54,6 +54,29 @@ const std::string GuiDisplay::menuItem(const unsigned index, const std::string t
     // Repeat N times the given symbol
     ss  << " - (" << index << ") " << text
         << std::endl;
+
+    return ss.str();
+}
+
+const std::string GuiDisplay::progresBar(const int valueMin, const int valueMax,const int maxLength,
+                             const char symbolEmpty, const char symbolFull)
+{
+    std::stringstream ss;
+
+    if (valueMin > valueMax) // prevent from crashing when exp is grather than next level exp limit
+    {
+        ss << " Level UP Available";
+    }
+    else
+    {
+        double percent = static_cast<double>(valueMin) / valueMax; // Calculate the porcentage - result in float
+        int symbolsFull = maxLength * percent;      // Number of symbols in the bar
+        int symbolsEmpty = maxLength - symbolsFull;  // Number of empty symbols in the bar
+
+        //  DEBUG PRINT
+        //ss << valueMin << " " << valueMax << " " << maxLength << " " << symbolEmpty << " " << symbolFull << std::endl;
+        ss << " |" << std::string(symbolsFull, symbolFull) << std::string(symbolsEmpty, symbolEmpty) << "| ";
+    }
 
     return ss.str();
 }

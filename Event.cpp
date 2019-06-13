@@ -70,6 +70,8 @@ void Event::shopEncounter(Character &character)
 
     while (shopping)
     {
+        //system("clear");
+        std::cin.get();
         std::cout << "---------------------------" << std::endl;
         std::cout << "***      SHOP MENU      ***" << std::endl;
         std::cout << "---------------------------" << std::endl << std::endl;
@@ -282,12 +284,13 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
             std::stringstream menu_str;
 
             std::cout << GuiDisplay::menuTitle("PLAYER TURN", '*');
-
-            menu_str << "Continue..." << std::endl;
             std::cin.get();
+//            system("clear");
 
-            menu_str << "* BATTLE MENU *" << std::endl << std::endl;
-            menu_str << "HP: " << character.getHp() << " / " << character.getHpMax() << std::endl;
+            menu_str << " * BATTLE MENU *" << std::endl << std::endl;
+            menu_str << " HP: " << GuiDisplay::progresBar(character.getHp(),
+                                                        character.getHpMax(), 15, '-', '=')
+                     << character.getHp() << "/" << character.getHpMax() << std::endl << std::endl;
 
             menu_str << "0: Escape" << std::endl;
             menu_str << "1: Attack" << std::endl;
@@ -442,15 +445,16 @@ void Event::enemyEncounter(Character &character, dArr<Enemy>& enemies)
         }
         else if (!playerTurn && !playerDefeated && !escape && !enemiesDefeated) // ENEMIES TURN
         {
+            std::cin.get();
             std::cout << GuiDisplay::menuTitle("ENEMY TURN", 'x');
             std::cin.get();
-            std::system("clear");
+            //system("clear");
 
             // Enemy attack
             for (size_t i = 0; i < enemies.size(); i++)
             {
                 std::cin.get();
-                std::system("clear");
+                system("clear");
 
                 std::cout << "Enemy: " << i << std::endl << std::endl;
 

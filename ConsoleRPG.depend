@@ -16,11 +16,11 @@
 1560406108 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1560405945 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1560406648 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"STLINCLUDE.h"
 	"Inventory.h"
 
-1560406007 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1560409552 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
 1560239439 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
@@ -99,7 +99,7 @@
 	"GuiDisplay.h"
 	"UserInput.h"
 
-1560369169 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
+1560406793 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
 	<string>
 	<sstream>
 
@@ -110,8 +110,9 @@
 1560321208 source:/home/iro/Public/c++/game/ConsoleRPG/Boss.cpp
 	"Boss.h"
 
-1560404870 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
+1560409580 source:/home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.cpp
 	"GuiDisplay.h"
+	<iostream>
 
 1560328913 /home/iro/Public/c++/game/ConsoleRPG/UserInput.h
 	<string>
