@@ -13,7 +13,8 @@ GuiDisplay::~GuiDisplay()
 const std::string GuiDisplay::menuTitle(const std::string title)
 {
     std::stringstream ss;
-    ss  << " ===  " << title << "  ===" << std::endl << std::endl;
+    ss  << std::endl
+        << " ===  " << title << "  ===" << std::endl << std::endl;
 
     return ss.str();
 }

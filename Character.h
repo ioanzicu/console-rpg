@@ -8,10 +8,10 @@ class Character
 {
     public:
         Character();
-        Character(std::string name, int distanceTraveled,
-                     int gold, int level, int exp, int strength, int vitality, int dexterity,
-                     int intelligence, int stamina, int hp,
-                     int statPoints);
+        Character(std::string name, int distanceTraveled, int gold,
+            int level, int exp, int flasks, int flaskShards,
+            int strength, int vitality, int dexterity,
+            int intelligence, int stamina, int hp, int statPoints);
         virtual ~Character();
 
         // Functions
@@ -106,6 +106,10 @@ class Character
         int luck;
 
         int statPoints;
+
+        int flasks;
+        int flaskShards;
+        int flaskShardsMax;
 };
 
 #endif // CHARACTER_H

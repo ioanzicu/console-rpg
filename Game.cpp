@@ -350,6 +350,8 @@ void Game::loadCharacters()
     int gold = 0;
     int level = 0;
     int exp = 0;
+    int flasks = 0;
+    int flaskShards = 0;
     int strength = 0;
     int vitality = 0;
     int dexterity = 0;
@@ -388,6 +390,8 @@ void Game::loadCharacters()
             str >> gold;
             str >> level;
             str >> exp;
+            str >> flasks;
+            str >> flaskShards;
             str >> strength;
             str >> vitality;
             str >> dexterity;
@@ -399,7 +403,7 @@ void Game::loadCharacters()
 
              // Create a character with data loaded from the file
             Character temp(name, distanceTraveled, gold,
-                      level, exp, strength, vitality,
+                      level, exp, flasks, flaskShards, strength, vitality,
                       dexterity, intelligence, hp,
                       stamina, statPoints);
 

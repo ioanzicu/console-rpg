@@ -23,11 +23,11 @@ std::string Enemy::getAsString() const
     std::stringstream ss;
 
     ss << "Level: " << this->level << "\n" <<
-        "HP: " << this->hp << " / " << this->hpMax << "\n" <<
-        "Damage: "  << this->damageMin << " / " << this->damageMax << "\n" <<
-        "Defence: " << this->defence << "\n" <<
-        "Accuracy: " << this->accuracy << "\n" <<
-        "Drop Chance: " << this->dropChance << "\n";
+        " | HP: " << this->hp << " / " << this->hpMax << "\n" <<
+        " | Damage: "  << this->damageMin << " / " << this->damageMax << "\n" <<
+        " | Defence: " << this->defence << "\n" <<
+        " | Accuracy: " << this->accuracy << "\n" <<
+        " | Drop Chance: " << this->dropChance << "\n";
 
     return ss.str();
 }

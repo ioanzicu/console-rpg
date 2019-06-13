@@ -27,11 +27,15 @@ Character::Character()
     this->luck = 0;
 
     this->statPoints = 0;
+
+    this->flasks = 1;
+    this->flaskShards = 0;
+    this->flaskShardsMax = 10;
 }
 
 Character::Character(std::string name, int distanceTraveled,
-                     int gold, int level, int exp, int strength,
-                     int vitality, int dexterity, int intelligence,
+                     int gold, int level, int exp, int flasks, int flaskShards,
+                     int strength, int vitality, int dexterity, int intelligence,
                      int stamina, int hp, int statPoints)
 {
     this->name = name;
@@ -57,6 +61,10 @@ Character::Character(std::string name, int distanceTraveled,
     this->luck = 0;
 
     this->statPoints = statPoints;
+
+    this->flasks = flasks;
+    this->flaskShards = flaskShards;
+    this->flaskShardsMax = 10;
 
     this->updateStats();
 }
@@ -85,8 +93,13 @@ void Character::initialize(const std::string name)
 
     this->statPoints = 0;
 
+    // Add a weapon to inventory
     Inventory inv;
     inv.addItem(Weapon(1, 3));
+
+    this->flasks = 1;
+    this->flaskShards = 0;
+    this->flaskShardsMax = 0;
 
     this->updateStats();
 }
@@ -102,6 +115,8 @@ void Character::displayCharacter() const
     std::cout << "= Exp: " << this->exp << std::endl;
     std::cout << "= Exp to next level: " << this->expNext << std::endl;
     std::cout << "= Statpoints: " << this->expNext << std::endl;
+    std::cout << "= Flasks: " << this->flasks << std::endl;
+    std::cout << "= Flask Shards: " << this->flaskShards << " / " << this->flaskShardsMax << std::endl;
     std::cout << std::endl;
 
     GuiDisplay::menuTitle("PASSIVE SKILLS");
@@ -156,6 +171,8 @@ std::string Character::getAsString() const
             + std::to_string(gold) + " "
             + std::to_string(level) + " "
             + std::to_string(exp) + " "
+            + std::to_string(flasks) + " "
+            + std::to_string(flaskShards) + " "
             + std::to_string(strength) + " "
             + std::to_string(vitality) + " "
             + std::to_string(dexterity) + " "
@@ -212,7 +229,6 @@ std::string Character::getInvAsStringSave()
 
     return inv;
 }
-
 
 void Character::levelUp()
 {
@@ -407,14 +423,15 @@ const std::string Character::getMenuBar() const
 {
     std::stringstream ss;
 
-    ss << GuiDisplay::divider();
+    ss << GuiDisplay::divider(25);
 
-    ss << " = Name: " << this->name << std::endl;
-    ss << " = Level: " << this->level << " [" << this->exp << " / " << this->expNext << "] " << std::endl;
-    ss << " = Statpoints: " << this->expNext << std::endl;
-    ss << " = HP: " << this->hp << "/" << this->hpMax << std::endl;
+    ss << " | Name: " << this->name << std::endl;
+    ss << " | Level: " << this->level << " [" << this->exp << "/" << this->expNext << "] " << std::endl;
+    ss << " | Statpoints: " << this->expNext << std::endl;
+    ss << " | HP: " << this->hp << "/" << this->hpMax << std::endl;
+    ss << " | Flasks: " << this->flasks << " (" << this->flaskShards << "/" << this->flaskShardsMax << ")" << std::endl;
 
-    ss << GuiDisplay::divider();
+    ss << GuiDisplay::divider(25);
 
     return ss.str();
 }
