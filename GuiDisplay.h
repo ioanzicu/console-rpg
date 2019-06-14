@@ -10,7 +10,7 @@ class GuiDisplay
         GuiDisplay();
         virtual ~GuiDisplay();
 
-        // static
+        // Static Functions
         static const std::string menuTitle(const std::string title);
         static const std::string menuTitle(const std::string title, const char symbol);
         static const std::string divider(const unsigned amount = 40, const char symbol = '-');

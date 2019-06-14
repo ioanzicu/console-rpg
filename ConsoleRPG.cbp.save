@@ -40,6 +40,8 @@
 		<Unit filename="Character.h" />
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
+		<Unit filename="Entity.cpp" />
+		<Unit filename="Entity.h" />
 		<Unit filename="Event.cpp" />
 		<Unit filename="Event.h" />
 		<Unit filename="Functions.h" />

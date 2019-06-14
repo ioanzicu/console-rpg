@@ -16,11 +16,12 @@
 1560447356 source:/home/iro/Public/c++/game/ConsoleRPG/Game.cpp
 	"Game.h"
 
-1560453549 /home/iro/Public/c++/game/ConsoleRPG/Character.h
+1560500452 /home/iro/Public/c++/game/ConsoleRPG/Character.h
 	"STLINCLUDE.h"
+	"Entity.h"
 	"Inventory.h"
 
-1560459745 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
+1560502096 source:/home/iro/Public/c++/game/ConsoleRPG/Character.cpp
 	"Character.h"
 
 1560239439 /home/iro/Public/c++/game/ConsoleRPG/Inventory.h
@@ -37,11 +38,11 @@
 1560239584 source:/home/iro/Public/c++/game/ConsoleRPG/Inventory.cpp
 	"Inventory.h"
 
-1560243435 /home/iro/Public/c++/game/ConsoleRPG/Weapon.h
+1560491471 /home/iro/Public/c++/game/ConsoleRPG/Weapon.h
 	"STLINCLUDE.h"
 	"Item.h"
 
-1560243390 /home/iro/Public/c++/game/ConsoleRPG/Armor.h
+1560491457 /home/iro/Public/c++/game/ConsoleRPG/Armor.h
 	"STLINCLUDE.h"
 	"Item.h"
 
@@ -53,10 +54,11 @@
 1560278993 source:/home/iro/Public/c++/game/ConsoleRPG/Weapon.cpp
 	"Weapon.h"
 
-1560362261 /home/iro/Public/c++/game/ConsoleRPG/Enemy.h
+1560500317 /home/iro/Public/c++/game/ConsoleRPG/Enemy.h
+	"Entity.h"
 	"STLINCLUDE.h"
 
-1560453669 source:/home/iro/Public/c++/game/ConsoleRPG/Enemy.cpp
+1560501761 source:/home/iro/Public/c++/game/ConsoleRPG/Enemy.cpp
 	"Enemy.h"
 
 1560456808 /home/iro/Public/c++/game/ConsoleRPG/Event.h
@@ -71,7 +73,7 @@
 	<fstream>
 	<iostream>
 
-1560462634 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
+1560499215 source:/home/iro/Public/c++/game/ConsoleRPG/Event.cpp
 	"Event.h"
 
 1560156188 source:/home/iro/Public/c++/game/ConsoleRPG/Puzzle.cpp
@@ -84,7 +86,7 @@
 
 1560079149 /home/iro/Public/c++/game/ConsoleRPG//dArr.h
 
-1560328594 /home/iro/Public/c++/game/ConsoleRPG/STLINCLUDE.h
+1560496183 /home/iro/Public/c++/game/ConsoleRPG/STLINCLUDE.h
 	<stdlib.h>
 	<string>
 	<ctime>
@@ -98,7 +100,7 @@
 	"GuiDisplay.h"
 	"UserInput.h"
 
-1560406793 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
+1560498938 /home/iro/Public/c++/game/ConsoleRPG/GuiDisplay.h
 	<string>
 	<sstream>
 
@@ -122,4 +124,10 @@
 1560462758 source:/home/iro/Public/c++/game/ConsoleRPG/UserInput.cpp
 	"UserInput.h"
 	<bits/stdc++.h>
+
+1560501547 source:/home/iro/Public/c++/game/ConsoleRPG/Entity.cpp
+	"Entity.h"
+
+1560501663 /home/iro/Public/c++/game/ConsoleRPG/Entity.h
+	"STLINCLUDE.h"
 

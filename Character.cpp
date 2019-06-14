@@ -1,13 +1,12 @@
 #include "Character.h"
 
-Character::Character()
+Character::Character() : Entity()
 {
     this->distanceTraveled = 0;
 
     this->gold = 0;
 
     this->name = "";
-    this->level = 0;
     this->exp = 0;
     this->expNext = 0;
 
@@ -16,14 +15,8 @@ Character::Character()
     this->dexterity = 0;
     this->intelligence = 0;
 
-    this->hp = 0;
-    this->hpMax = 0;
     this->stamina = 0;
     this->staminaMax = 0;
-    this->damageMin = 0;
-    this->damageMax = 0;
-    this->defence = 0;
-    this->accuracy = 0;
     this->luck = 0;
 
     this->statPoints = 0;
@@ -35,14 +28,14 @@ Character::Character()
 }
 
 Character::Character(std::string name, int distanceTraveled, int gold,
-                     int level, int exp, int flasks, int flasksMax, int flaskShards,
-                     int strength, int vitality, int dexterity, int intelligence,
-                     int stamina, int hp, int statPoints)
+            int level, int exp, int flasks, int flasksMax, int flaskShards,
+            int strength, int vitality, int dexterity, int intelligence,
+            int stamina, int hp, int statPoints)
+            : Entity(hp, level)
 {
     this->name = name;
     this->distanceTraveled = distanceTraveled;
     this->gold = gold;
-    this->level = level;
     this->exp = exp;
     this->expNext = 0;
 
@@ -51,14 +44,8 @@ Character::Character(std::string name, int distanceTraveled, int gold,
     this->dexterity = dexterity;
     this->intelligence = intelligence;
 
-    this->hp = hp;
-    this->hpMax = 0;
     this->stamina = stamina;
     this->staminaMax = 0;
-    this->damageMin = 0;
-    this->damageMax = 0;
-    this->defence = 0;
-    this->accuracy = 0;
     this->luck = 0;
 
     this->statPoints = statPoints;
@@ -84,7 +71,7 @@ void Character::initialize(const std::string name)
     this->gold = 30;
 
     this->name = name;
-    this->level = 1;
+    this->setLevel(1);
     this->exp = 0;
 
     this->strength = 5;
@@ -113,7 +100,7 @@ void Character::displayCharacter() const
     GuiDisplay::menuTitle("CHARACTER SHEET", '-');
 
     std::cout << "= Name: " << this->name << std::endl;
-    std::cout << "= Level: " << this->level << std::endl;
+    std::cout << "= Level: " << this->getLevel() << std::endl;
     std::cout << "= Exp: " << this->exp << std::endl;
     std::cout << "= Exp to next level: " << this->expNext << std::endl;
     std::cout << "= Statpoints: " << this->expNext << std::endl;
@@ -129,12 +116,12 @@ void Character::displayCharacter() const
     std::cout << "= Intelligence: " << this->intelligence << std::endl;
     std::cout << std::endl;
 
-    std::cout << "= HP: " << this->hp << "/" << this->hpMax << std::endl;
+    std::cout << "= HP: " << this->getHp() << "/" << this->getHpMax() << std::endl;
     std::cout << "= Stamina: " << this->stamina << "/" << this->staminaMax << std::endl;
-    std::cout << "= Damage: " << this->damageMin << " - " << this->damageMax << std::endl;
-    std::cout << "= Defence: " << this->defence << "  (+"
+    std::cout << "= Damage: " << this->getDamageMin() << " - " << this->getDamageMax() << std::endl;
+    std::cout << "= Defence: " << this->getDefence() << "  (+"
               << std::to_string(this->getAddedDefence()) << ")" << std::endl;
-    std::cout << "= Accuracy: " << this->accuracy << std::endl;
+    std::cout << "= Accuracy: " << this->getAccuracy() << std::endl;
     std::cout << "= Luck: " << this->luck << std::endl;
     std::cout << "= Distance Travelled: " << this->distanceTraveled << std::endl;
     std::cout << "= Gold: " << this->gold << std::endl;
@@ -144,9 +131,9 @@ void Character::displayCharacter() const
 
     std::cout << "= Weapon: " << this->weapon.getName()
               << " Level: " << this->weapon.getLevel()
-              << " Damage: " << this->damageMin
+              << " Damage: " << this->getDamageMin()
               << " (+" << this->weapon.getDamageMin() << ") "
-              << "/ " << this->damageMax
+              << "/ " << this->getDamageMax()
               << " (+" << this->weapon.getDamageMax() << ") "
               << std::endl;
     std::cout << "= Armor Head: " << this->armor_head.getName()
@@ -171,7 +158,7 @@ std::string Character::getAsString() const
          return name + " "
             + std::to_string(distanceTraveled) + " "
             + std::to_string(gold) + " "
-            + std::to_string(level) + " "
+            + std::to_string(this->getLevel()) + " "
             + std::to_string(exp) + " "
             + std::to_string(flasks) + " "
             + std::to_string(flasksMax) + " "
@@ -180,7 +167,7 @@ std::string Character::getAsString() const
             + std::to_string(vitality) + " "
             + std::to_string(dexterity) + " "
             + std::to_string(intelligence) + " "
-            + std::to_string(hp) + " "
+            + std::to_string(this->getHp()) + " "
             + std::to_string(stamina) + " "
             + std::to_string(statPoints) + " "
             + this->weapon.toStringSave()
@@ -240,16 +227,16 @@ void Character::levelUp()
     if (exp >= this->expNext)
     {
         this->exp -= this->expNext;
-        this->level++;
-        this->expNext = static_cast<int>((50 / 3)*(pow(level, 3) -
-                        6 * pow(level, 2) +
-                        (17 * level) - 12));
+        this->setLevel(this->getLevel() + 1);
+        this->expNext = static_cast<int>((50 / 3)*(pow(this->getLevel(), 3) -
+                        6 * pow(this->getLevel(), 2) +
+                        (17 * this->getLevel()) - 12));
 
         this->statPoints++;
 
         this->updateStats();
 
-        std::cout << "YOU ARE NOW LEVEL " << this->level << " !!!" << std::endl << std::endl;
+        std::cout << "YOU ARE NOW LEVEL " << this->getLevel() << " !!!" << std::endl << std::endl;
 
     }
     else
@@ -261,20 +248,20 @@ void Character::levelUp()
 void Character::updateStats() // after save or loading
 {
     // Level formula
-    this->expNext = static_cast<int>((50 / 3) * (pow(level, 3) -
-                        6 * pow(level, 2) + (17 * level) - 12) + 100);
+    this->expNext = static_cast<int>((50 / 3) * (pow(this->getLevel(), 3) -
+                        6 * pow(this->getLevel(), 2) + (17 * this->getLevel()) - 12) + 100);
 
-    this->hpMax = (this->vitality * 5) + (this->strength) + this->level * 5;
-    this->hp = hpMax;
+    this->setHpMax((this->vitality * 5) + (this->strength) + this->getLevel() * 5);
+    this->setHp(this->getHpMax());
     this->staminaMax = this->vitality + (this->strength/2) + (this->dexterity/3);
     this->stamina = this->staminaMax;
-    this->damageMin = this->strength;
-    this->damageMax = this->strength + 2;
-    this->defence = this->dexterity + (this->intelligence/2);
-    this->accuracy = (this->dexterity / 2) + intelligence + 1;
+    this->setDamageMin(this->strength);
+    this->setDamageMax(this->strength + 2);
+    this->setDefence(this->dexterity + (this->intelligence/2));
+    this->setAccuracy((this->dexterity / 2) + intelligence + 1);
     this->luck = this->intelligence;
 
-    this->hp = this->hpMax;
+    this->setHp(this->getHpMax());
 }
 
 void Character::addToStat(int stat, int value)
@@ -430,12 +417,12 @@ const std::string Character::getMenuBar() const
     ss << std::string(35, '-') << std::endl;
 
     ss << " | Name: " << this->name << std::endl;
-    ss << " | Level: " << this->level;
+    ss << " | Level: " << this->getLevel();
 
     ss << GuiDisplay::progresBar(this->exp, this->expNext, 15, '-', '=');
     ss << " [" << this->exp << "/" << this->expNext << "] " << std::endl;
     ss << " | Statpoints: " << this->expNext << std::endl;
-    ss << " | HP: " << GuiDisplay::progresBar(this->hp, this->hpMax, 15, '-', '=') << this->hp << "/" << this->hpMax << std::endl;
+    ss << " | HP: " << GuiDisplay::progresBar(this->getHp(), this->getHpMax(), 15, '-', '=') << this->getHp() << "/" << this->getHpMax() << std::endl;
     ss << " | Flasks: " << this->flasks << "/" << this->flasksMax << " (Shards: " << this->flaskShards << "/" << this->flaskShardsMax << ")" << std::endl;
 
     ss << std::string(35, '-') << std::endl;
@@ -450,7 +437,7 @@ const bool Character::consumeFlask()
 
     if (this->flasks > 0)
     {
-        this->hp = this->hpMax; // Reset HP
+        this->setHp(this->getHpMax()); // Reset HP
         this->flasks--;         // Decrement flask
         consumed = true;
     }
@@ -483,10 +470,10 @@ void Character::resetFlasks()
 // Take Damage
 void Character::takeDamage(const int damage)
 {
-    this->hp -= damage;
+    this->setHp(this->getHp() - damage);
 
-    if (this->hp <= 0)
+    if (this->getHp() <= 0)
     {
-        this->hp = 0;
+        this->setHp(0);
     }
 }

@@ -1,3 +1,9 @@
-Brombdo 150 1823 7 6256 1 1 0 9 5 7 5 52 11 0 0 Brombdo 7 0 0 0 0 0 1 Brombdo 7 0 0 0 0 0 1 Brombdo 7 0 0 0 0 0 1 Brombdo 7 0 0 0 0 0 1 Brombdo 7 0 0 0 0 0 
-0 Carrot-Gadget 6 3 94 189 37 75 0 Bad-Smell-Alien-Socks 3 4 127 63 70 140 0 Death-Cobra-Pacifist 9 2 191 95 16 33 0 Typical-Banana 11 0 11 5 5 10 0 Bad-Smell-Alien-Socks 5 1 56 28 10 20 0 Typical-Banana 2 2 44 22 21 42 0 Carrot-Gadget 6 2 128 64 18 36 0 Carrot-Gadget 11 3 344 172 35 70 0 Typical-Banana 1 2 23 11 15 30 0 Bad-Smell-Alien-Socks 2 2 44 22 12 24 0 Typical-Banana 3 2 65 32 18 36 0 Plazma-Gun 9 4 186 373 85 170 0 Plazma-Gun 10 1 111 55 11 22 
-1 Ignoring-Other 4 2 86 43 24 2 1 Iron-Sheets 7 4 145 291 132 3 1 Laser-Shield 4 3 127 63 90 3 1 Laser-Shield 5 1 28 56 19 1 1 Iron-Sheets 3 4 127 63 109 0 1 Laser-Shield 3 2 65 32 36 1 1 Alien-Blanket 5 1 56 28 17 3 1 Iron-Sheets 2 1 23 11 11 0 1 Laser-Shield 12 1 133 66 19 0 1 Alien-Blanket 9 4 373 186 150 0 1 Iron-Sheets 10 2 212 106 25 0 1 Friend-ZONE 3 0 3 1 8 3 
+Brombdo 177 2604 9 1239 1 1 0 10 6 7 5 40 13 0 0 Brombdo 9 0 0 0 0 0 1 Brombdo 9 0 0 0 0 0 1 Brombdo 9 0 0 0 0 0 1 Brombdo 9 0 0 0 0 0 1 Brombdo 9 0 0 0 0 0 
+0 Brombdo 9 0 0 0 0 0 0 Bad-Smell-Alien-Socks 3 4 127 63 70 140 0 Death-Cobra-Pacifist 9 2 191 95 16 33 0 Typical-Banana 11 0 11 5 5 10 0 Bad-Smell-Alien-Socks 5 1 56 28 10 20 0 Typical-Banana 2 2 44 22 21 42 0 Carrot-Gadget 6 2 128 64 18 36 0 Carrot-Gadget 11 3 344 172 35 70 0 Typical-Banana 1 2 23 11 15 30 0 Bad-Smell-Alien-Socks 2 2 44 22 12 24 0 Typical-Banana 3 2 65 32 18 36 0 Plazma-Gun 9 4 186 373 85 170 0 Plazma-Gun 10 1 111 55 11 22 0 Typical-Banana 8 0 4 8 3 6 0 Plazma-Gun 1 2 23 11 12 24 
+1 Ignoring-Other 4 2 86 43 24 2 1 Iron-Sheets 7 4 145 291 132 3 1 Alien-Blanket 9 0 9 4 12 2 1 Iron-Sheets 3 4 127 63 109 0 1 Laser-Shield 3 2 65 32 36 1 1 Alien-Blanket 5 1 56 28 17 3 1 Iron-Sheets 2 1 23 11 11 0 1 Laser-Shield 12 1 133 66 19 0 1 Iron-Sheets 10 2 212 106 25 0 1 Ignoring-Other 14 2 148 296 28 2 1 Laser-Shield 9 2 191 95 20 1 
+Altagor 0 2623 9 780 1 1 0 10 6 7 5 85 13 0 0 Altagor 9 2 191 95 3 6 1 Altagor 9 2 191 95 20 1 1 Altagor 9 2 191 95 20 1 1 Altagor 9 2 191 95 20 1 1 Altagor 9 2 191 95 20 1 
+0 Death-Cobra-Pacifist 3 3 96 48 12 25 
+1 Laser-Shield 3 0 3 1 5 3 1 Friend-ZONE 1 0 1 0 5 1 
+Crogan 0 2623 1 780 1 1 0 10 6 7 5 45 13 0 0 Crogan 1 0 1 0 12 25 1 Crogan 1 0 1 0 5 1 1 Crogan 1 0 1 0 5 1 1 Crogan 1 0 1 0 5 1 1 Crogan 1 0 1 0 5 1 
+
+

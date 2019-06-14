@@ -1,41 +1,30 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include "Entity.h"
 #include "STLINCLUDE.h"
 
-class Enemy
+class Enemy : public Entity
 {
     public:
         Enemy(int level = 0);
         virtual ~Enemy();
 
-        inline bool isAlive() { return this->hp > 0; }
-        std::string getAsString() const;
+        /* VIRTUAL */
+        virtual void takeDamage(int damage);
+        virtual std::string getAsString() const;
+
+        // Functions
         std::string getAsStringEvent() const;
-        void takeDamage(int damage);
 
-        inline int getLevel() const { return this->level; }
-        inline int getDamage() const { return rand() % this->damageMax + this->damageMin; };
-        inline int getDamageMin() const { return this->damageMin; };
-        inline int getDamageMax() const { return this->damageMax; };
+        // Accessors
+        /* Move to  Parent */
 
-        inline int getExp() const { return this->level * 100; };
-        inline int getHp() const { return this->hp; }
-        inline int getHpMax() const { return this->hpMax; }
-        inline int getDefence() const { return this->defence; }
-        inline int getAccuracy() const { return this->accuracy; }
-
-    protected:
+        inline int getDamage() const { return rand() % this->getDamageMax() + this->getDamageMin(); };
+        inline int getExp() const { return this->getLevel() * 100; };
 
     private:
-        int hp;
-        int hpMax;
-        int level;
-        int damageMin;
-        int damageMax;
         float dropChance;
-        int defence;
-        int accuracy;
 };
 
 #endif // ENEMY_H

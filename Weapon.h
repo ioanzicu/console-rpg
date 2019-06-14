@@ -26,7 +26,7 @@ class Weapon : public Item
         // IMPLEMENT VIRTUAL FUNCTIONS FORM PARENT ABSTRACT CLASS
         virtual Weapon* clone() const;
 
-        //Functions
+        // Polymorphic Functions
         virtual std::string toString() const;
         virtual std::string toStringSave() const;
 

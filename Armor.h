@@ -28,7 +28,7 @@ class Armor : public Item
         // PURE VIRTUAL
         virtual Armor* clone() const;
 
-        //Functions
+        //Polymorphic Functions
         virtual std::string toString() const;
         virtual std::string toStringSave() const;
 

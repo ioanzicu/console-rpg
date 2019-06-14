@@ -278,7 +278,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy> &enemies)
 
                     UserInput::getChoice(choice, menu_str.str(), 1);
 
-                    // Attack Roll
+                    // Attack Roll Player Turn
                     combatTotal = enemies[choice].getDefence() + character.getAccuracy();
                     enemyTotal = enemies[choice].getAccuracy() / static_cast<double>(combatTotal) * 100; // calculate procentage
                     playerTotal = character.getAccuracy() / static_cast<double>(combatTotal) * 100;
@@ -435,7 +435,7 @@ void Event::enemyEncounter(Character &character, dArr<Enemy> &enemies)
             // Enemy attack
             std::cout << "Enemy: " << enemyIndex << std::endl << std::endl;
 
-            // Attack Roll
+            // Attack Roll For Enemy Turn
             combatTotal = enemy->getAccuracy() + (character.getDefence() + character.getAddedDefence());
             enemyTotal = enemy->getDefence() / static_cast<double>(combatTotal) * 100; // calculate procentage
             playerTotal = enemy->getAccuracy() / static_cast<double>(combatTotal) * 100;
