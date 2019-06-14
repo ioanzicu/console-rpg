@@ -103,3 +103,22 @@ const std::string GuiDisplay::error(const std::string text)
     return ss.str();
 }
 
+// Show Game Intro Story
+const std::string GuiDisplay::gameIntro()
+{
+    std::stringstream ss;
+
+    ss << "Thankfully Ilon's Musk experiment with car in the open space," << std::endl
+        << "the humanity  realized that they can also go in the space: " << std::endl
+        << " - Hey man, that car was so brave, why we humans are not, to do so??? " << std::endl
+        << "And it started, the humans started their colonisation on the other planets." << std::endl
+        << "The most popular colony with the original name is Marsian Colony, because of Mars." << std::endl
+        << "So, the humans started great, but they are humans, and with peoples, comes " << std::endl
+        << "their problems. For this reason the was founded the Marsian Police, a hardcore" << std::endl
+        << "service for fighting with the danger entities." << std::endl << std::endl
+
+        << "Here is starting your job, to fight, to improve yourself and to maintain " << std::endl
+        << "order with the best armory in the galaxy. So, good luck in your advanture..." << std::endl;
+
+    return ss.str();
+}

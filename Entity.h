@@ -7,7 +7,6 @@ class Entity
 {
     public:
         Entity();
-        Entity(int level);
         Entity(int hp, int level);
         virtual ~Entity();
 
@@ -35,16 +34,6 @@ class Entity
         inline void setDefence(int defence) { this->defence = defence; }
         inline void setLevel(const int level) { this->level = level; }
         inline void setAccuracy(int accuracy) { this->accuracy = accuracy; }
-/*
-    protected:
-        int hpMax;
-        int hp;
-        int damageMin;
-        int damageMax;
-        int defence;
-        int accuracy;
-        int level;
-*/
 
     private:
         int hpMax;

@@ -502,7 +502,7 @@ void Event::puzzleEncounter(Character &character)
     std::cout << "Travel " << std::endl;
 
     // Get a Random Puzzle
-    int puzzleNumber = 2;
+    int puzzleNumber = 3;
     int randomPuzzle = rand() % puzzleNumber + 1;
     std::string puzzleFile = "Puzzles/" + std::to_string(randomPuzzle) + ".txt";
 

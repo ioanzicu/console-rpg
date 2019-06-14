@@ -15,6 +15,10 @@ int main()
         Game game;
         game.initGame();
 
+        std::cout << GuiDisplay::gameIntro() <<  std::endl;
+        std::cout << "ENTER to continue..." << "\n";
+        std::cin.get();
+
         while(game.getPlaying())
         {
             game.mainMenu();

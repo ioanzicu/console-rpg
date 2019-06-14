@@ -19,6 +19,7 @@ class GuiDisplay
                                             const char symbolEmpty, const char symbolFull);
         static const std::string alert(const std::string text);
         static const std::string error(const std::string text);
+        static const std::string gameIntro();
 
 
     protected:
